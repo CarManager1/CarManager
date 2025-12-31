@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useMemo } from 'react'
 import { supabase } from '@/lib/supabase'
+import { useRouter } from 'next/navigation' // <--- IMPORTANTE: Importar o Router
 import { 
   TrendingUp, Users, Calendar, Wrench, 
   DollarSign, Loader2, ArrowUpRight
@@ -15,6 +16,7 @@ import Link from 'next/link'
 type ChartView = 'mes' | 'semestre' | 'ano'
 
 export default function VisaoGeralPage() {
+  const router = useRouter() // <--- IMPORTANTE: Inicializar o Router
   const [loading, setLoading] = useState(true)
   
   // Dados brutos
@@ -41,7 +43,7 @@ export default function VisaoGeralPage() {
         const wid = ofi?.id
         if (!wid) return
 
-        // --- CARREGAR FATURAS (Últimos 12 meses para cobrir todas as vistas) ---
+        // --- CARREGAR FATURAS ---
         const oneYearAgo = new Date()
         oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1)
         
@@ -54,7 +56,7 @@ export default function VisaoGeralPage() {
         
         setFaturasRaw(invs || [])
 
-        // --- CÁLCULO KPI: Faturação Este Mês ---
+        // --- CÁLCULO KPI ---
         const now = new Date()
         const currentMonthInvs = invs?.filter(i => {
             const d = new Date(i.issue_date || i.created_at)
@@ -96,7 +98,7 @@ export default function VisaoGeralPage() {
     loadDashboardData()
   }, [])
 
-  // --- PROCESSAMENTO DO GRÁFICO (Dinâmico) ---
+  // --- PROCESSAMENTO DO GRÁFICO ---
   const chartData = useMemo(() => {
     if (!faturasRaw.length) return []
 
@@ -105,13 +107,8 @@ export default function VisaoGeralPage() {
     let resultado: any[] = []
 
     if (chartView === 'mes') {
-        // VISTA MÊS: Mostrar dias do mês atual (1 a 30/31)
         const daysInMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate()
-        
-        // Inicializar dias a 0
-        for (let d = 1; d <= daysInMonth; d++) {
-            dataAgrupada[d] = 0
-        }
+        for (let d = 1; d <= daysInMonth; d++) { dataAgrupada[d] = 0 }
 
         faturasRaw.forEach(inv => {
             const d = new Date(inv.issue_date || inv.created_at)
@@ -120,41 +117,24 @@ export default function VisaoGeralPage() {
                 dataAgrupada[dia] = (dataAgrupada[dia] || 0) + Number(inv.total_gross)
             }
         })
-
-        resultado = Object.keys(dataAgrupada).map(dia => ({
-            name: dia, // Dia 1, 2, 3...
-            total: dataAgrupada[dia]
-        }))
+        resultado = Object.keys(dataAgrupada).map(dia => ({ name: dia, total: dataAgrupada[dia] }))
 
     } else if (chartView === 'semestre') {
-        // VISTA SEMESTRE: Últimos 6 meses
         const mesesNomes = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez']
-        
-        // Criar chaves para os últimos 6 meses
         for (let i = 5; i >= 0; i--) {
             const d = new Date(now.getFullYear(), now.getMonth() - i, 1)
             const key = `${mesesNomes[d.getMonth()]}`
-            // Inicializar array final na ordem correta
             resultado.push({ name: key, total: 0, monthIndex: d.getMonth(), year: d.getFullYear() })
         }
-
         faturasRaw.forEach(inv => {
             const d = new Date(inv.issue_date || inv.created_at)
-            // Encontrar se este mês está no nosso array de resultados
             const item = resultado.find(r => r.monthIndex === d.getMonth() && r.year === d.getFullYear())
-            if (item) {
-                item.total += Number(inv.total_gross)
-            }
+            if (item) item.total += Number(inv.total_gross)
         })
 
     } else {
-        // VISTA ANO: Meses do ano atual (Jan a Dez)
         const mesesNomes = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez']
-        
-        mesesNomes.forEach((mes, idx) => {
-            resultado.push({ name: mes, total: 0, monthIndex: idx })
-        })
-
+        mesesNomes.forEach((mes, idx) => { resultado.push({ name: mes, total: 0, monthIndex: idx }) })
         faturasRaw.forEach(inv => {
             const d = new Date(inv.issue_date || inv.created_at)
             if (d.getFullYear() === now.getFullYear()) {
@@ -163,7 +143,6 @@ export default function VisaoGeralPage() {
             }
         })
     }
-
     return resultado
   }, [faturasRaw, chartView])
 
@@ -185,45 +164,32 @@ export default function VisaoGeralPage() {
         </div>
       </div>
 
-      {/* GRID DE KPIs */}
+      {/* KPI CARDS */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        
-        {/* KPI 1: FATURAÇÃO */}
         <div className="bg-white p-6 rounded-[24px] border border-zinc-100 shadow-sm relative overflow-hidden group hover:border-blue-200 transition-all">
             <div className="absolute top-0 right-0 w-32 h-32 bg-blue-600 blur-[80px] opacity-10 group-hover:opacity-20 transition-all"></div>
             <div className="flex justify-between items-start mb-4">
                 <div className="bg-blue-50 p-3 rounded-2xl text-blue-600"><DollarSign size={24}/></div>
-                <span className="flex items-center text-[10px] font-bold text-green-600 bg-green-50 px-2 py-1 rounded-lg uppercase tracking-wider">
-                    Este Mês
-                </span>
+                <span className="flex items-center text-[10px] font-bold text-green-600 bg-green-50 px-2 py-1 rounded-lg uppercase tracking-wider">Este Mês</span>
             </div>
             <p className="text-zinc-400 text-[10px] font-black uppercase tracking-widest mb-1">Faturação</p>
             <h3 className="text-3xl font-black text-zinc-900">{stats.faturacaoMes.toFixed(2)}€</h3>
         </div>
 
-        {/* KPI 2: SERVIÇOS HOJE */}
         <div className="bg-white p-6 rounded-[24px] border border-zinc-100 shadow-sm relative overflow-hidden group hover:border-zinc-300 transition-all">
-            <div className="flex justify-between items-start mb-4">
-                <div className="bg-zinc-100 p-3 rounded-2xl text-zinc-600"><Calendar size={24}/></div>
-            </div>
+            <div className="flex justify-between items-start mb-4"><div className="bg-zinc-100 p-3 rounded-2xl text-zinc-600"><Calendar size={24}/></div></div>
             <p className="text-zinc-400 text-[10px] font-black uppercase tracking-widest mb-1">Agenda Hoje</p>
             <h3 className="text-3xl font-black text-zinc-900">{stats.agendamentosHoje} <span className="text-sm text-zinc-400 font-bold">viaturas</span></h3>
         </div>
 
-        {/* KPI 3: CLIENTES */}
         <div className="bg-white p-6 rounded-[24px] border border-zinc-100 shadow-sm relative overflow-hidden group hover:border-purple-200 transition-all">
-            <div className="flex justify-between items-start mb-4">
-                <div className="bg-purple-50 p-3 rounded-2xl text-purple-600"><Users size={24}/></div>
-            </div>
+            <div className="flex justify-between items-start mb-4"><div className="bg-purple-50 p-3 rounded-2xl text-purple-600"><Users size={24}/></div></div>
             <p className="text-zinc-400 text-[10px] font-black uppercase tracking-widest mb-1">Clientes</p>
             <h3 className="text-3xl font-black text-zinc-900">{stats.clientesTotal}</h3>
         </div>
 
-        {/* KPI 4: PENDENTES */}
         <div className="bg-white p-6 rounded-[24px] border border-zinc-100 shadow-sm relative overflow-hidden group hover:border-orange-200 transition-all">
-            <div className="flex justify-between items-start mb-4">
-                <div className="bg-orange-50 p-3 rounded-2xl text-orange-600"><Wrench size={24}/></div>
-            </div>
+            <div className="flex justify-between items-start mb-4"><div className="bg-orange-50 p-3 rounded-2xl text-orange-600"><Wrench size={24}/></div></div>
             <p className="text-zinc-400 text-[10px] font-black uppercase tracking-widest mb-1">Pendentes</p>
             <h3 className="text-3xl font-black text-zinc-900">{stats.orcamentosPendentes}</h3>
         </div>
@@ -231,26 +197,16 @@ export default function VisaoGeralPage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           
-          {/* GRÁFICO PRINCIPAL */}
+          {/* GRÁFICO */}
           <div className="lg:col-span-2 bg-white p-8 rounded-[32px] border border-zinc-200 shadow-sm">
              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
                 <div>
                     <h3 className="font-black text-zinc-900 uppercase tracking-tight text-lg">Análise Financeira</h3>
                     <p className="text-xs text-zinc-400 font-bold uppercase tracking-wider">Evolução de Faturação</p>
                 </div>
-                
-                {/* BOTÕES DE FILTRO */}
                 <div className="bg-zinc-100 p-1 rounded-xl flex">
                     {(['mes', 'semestre', 'ano'] as ChartView[]).map((v) => (
-                        <button
-                            key={v}
-                            onClick={() => setChartView(v)}
-                            className={`px-4 py-2 rounded-lg text-[10px] font-black uppercase transition-all ${
-                                chartView === v 
-                                ? 'bg-white text-blue-600 shadow-sm' 
-                                : 'text-zinc-400 hover:text-zinc-600'
-                            }`}
-                        >
+                        <button key={v} onClick={() => setChartView(v)} className={`px-4 py-2 rounded-lg text-[10px] font-black uppercase transition-all ${chartView === v ? 'bg-white text-blue-600 shadow-sm' : 'text-zinc-400 hover:text-zinc-600'}`}>
                             {v === 'ano' ? 'Este Ano' : v === 'mes' ? 'Este Mês' : 'Semestre'}
                         </button>
                     ))}
@@ -260,47 +216,18 @@ export default function VisaoGeralPage() {
              <div className="h-[350px] w-full">
                 <ResponsiveContainer width="100%" height="100%">
                     <AreaChart data={chartData}>
-                        <defs>
-                            <linearGradient id="colorTotal" x1="0" y1="0" x2="0" y2="1">
-                                <stop offset="5%" stopColor="#2563eb" stopOpacity={0.3}/>
-                                <stop offset="95%" stopColor="#2563eb" stopOpacity={0}/>
-                            </linearGradient>
-                        </defs>
+                        <defs><linearGradient id="colorTotal" x1="0" y1="0" x2="0" y2="1"><stop offset="5%" stopColor="#2563eb" stopOpacity={0.3}/><stop offset="95%" stopColor="#2563eb" stopOpacity={0}/></linearGradient></defs>
                         <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f4f4f5"/>
-                        <XAxis 
-                            dataKey="name" 
-                            axisLine={false} 
-                            tickLine={false} 
-                            tick={{fill: '#a1a1aa', fontSize: 10, fontWeight: 700}} 
-                            dy={10}
-                        />
-                        <YAxis 
-                            axisLine={false} 
-                            tickLine={false} 
-                            tick={{fill: '#a1a1aa', fontSize: 10, fontWeight: 700}}
-                            tickFormatter={(value) => `${value/1000}k`}
-                        />
-                        <Tooltip 
-                            contentStyle={{borderRadius: '16px', border: 'none', boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1)'}}
-                            itemStyle={{color: '#2563eb', fontWeight: 900, fontSize: '14px'}}
-                            formatter={(value: number) => [`${value.toFixed(2)} €`, 'Faturado']}
-                            labelStyle={{color: '#71717a', fontSize: '10px', fontWeight: 700, textTransform: 'uppercase', marginBottom: '4px'}}
-                        />
-                        <Area 
-                            type="monotone" 
-                            dataKey="total" 
-                            stroke="#2563eb" 
-                            strokeWidth={4} 
-                            fillOpacity={1} 
-                            fill="url(#colorTotal)" 
-                            activeDot={{r: 6, strokeWidth: 0, fill: '#1e3a8a'}}
-                        />
+                        <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fill: '#a1a1aa', fontSize: 10, fontWeight: 700}} dy={10}/>
+                        <YAxis axisLine={false} tickLine={false} tick={{fill: '#a1a1aa', fontSize: 10, fontWeight: 700}} tickFormatter={(value) => `${value/1000}k`}/>
+                        <Tooltip contentStyle={{borderRadius: '16px', border: 'none', boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1)'}} itemStyle={{color: '#2563eb', fontWeight: 900, fontSize: '14px'}} formatter={(value: number) => [`${value.toFixed(2)} €`, 'Faturado']} labelStyle={{color: '#71717a', fontSize: '10px', fontWeight: 700, textTransform: 'uppercase', marginBottom: '4px'}}/>
+                        <Area type="monotone" dataKey="total" stroke="#2563eb" strokeWidth={4} fillOpacity={1} fill="url(#colorTotal)" activeDot={{r: 6, strokeWidth: 0, fill: '#1e3a8a'}}/>
                     </AreaChart>
                 </ResponsiveContainer>
              </div>
           </div>
 
-          {/* ATIVIDADE RECENTE */}
+          {/* ATIVIDADE RECENTE (CORRIGIDO) */}
           <div className="bg-white p-8 rounded-[32px] border border-zinc-200 shadow-sm flex flex-col h-[500px]">
              <div className="mb-6">
                  <h3 className="font-black text-zinc-900 uppercase tracking-tight text-lg">Atividade</h3>
@@ -314,8 +241,13 @@ export default function VisaoGeralPage() {
                         <p className="text-xs font-bold uppercase">Sem registos</p>
                     </div>
                 ) : (
-                    recentActivity.map((item) => (
-                        <div key={item.id} className="group flex items-center gap-4 p-4 hover:bg-zinc-50 rounded-2xl transition-all cursor-pointer border border-transparent hover:border-zinc-100" onClick={() => window.location.href = `/dashboard/orcamentos/${item.id}`}>
+                    // FIX DA LINHA 277: Forçar o item como ANY para evitar erro de build
+                    recentActivity.map((item: any) => (
+                        <div 
+                            key={item.id} 
+                            className="group flex items-center gap-4 p-4 hover:bg-zinc-50 rounded-2xl transition-all cursor-pointer border border-transparent hover:border-zinc-100" 
+                            onClick={() => router.push(`/dashboard/orcamentos/${item.id}`)} // FIX: Usar router.push
+                        >
                             <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-colors ${
                                 item.status === 'Concluído' ? 'bg-zinc-900 text-white' : 
                                 item.status === 'Agendado' ? 'bg-blue-100 text-blue-600' : 
@@ -325,8 +257,13 @@ export default function VisaoGeralPage() {
                                 {item.status === 'Concluído' ? <Wrench size={16}/> : <ArrowUpRight size={16}/>}
                             </div>
                             <div className="flex-1 min-w-0">
-                                <p className="text-sm font-black text-zinc-900 truncate">{item.vehicle?.marca} <span className="text-zinc-400 font-medium ml-1">{item.vehicle?.matricula}</span></p>
-                                <p className="text-[10px] font-bold text-zinc-400 uppercase tracking-wider truncate">{item.client?.nome}</p>
+                                {/* FIX: Usamos "as any" para evitar erros se os campos forem nulos */}
+                                <p className="text-sm font-black text-zinc-900 truncate">
+                                    {(item.vehicle as any)?.marca} <span className="text-zinc-400 font-medium ml-1">{(item.vehicle as any)?.matricula}</span>
+                                </p>
+                                <p className="text-[10px] font-bold text-zinc-400 uppercase tracking-wider truncate">
+                                    {(item.client as any)?.nome}
+                                </p>
                             </div>
                         </div>
                     ))

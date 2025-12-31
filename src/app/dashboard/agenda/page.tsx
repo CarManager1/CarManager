@@ -1,12 +1,12 @@
 'use client'
 
-import { useState, useEffect, useCallback, useMemo } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
 import { 
-  Calendar, ChevronLeft, ChevronRight, User, Filter, 
-  Loader2, CheckCircle2, Clock, LayoutGrid, List, 
-  CalendarDays, Plus, Search, X, Tag, MapPin, Phone
+  Calendar, ChevronLeft, ChevronRight, Filter, 
+  Loader2, Clock, LayoutGrid, List, 
+  CalendarDays, Plus, Search, X, Tag
 } from 'lucide-react'
 
 // --- TEMA E CONFIGURAÇÕES ---
@@ -127,10 +127,11 @@ export default function AgendaPage() {
         id: q.id,
         data: q.schedule_date,
         hora: q.schedule_time?.slice(0,5),
-        cliente: q.client?.nome || 'Desconhecido',
-        telemovel: q.client?.telemovel,
-        viatura: q.vehicle ? `${q.vehicle.marca} ${q.vehicle.modelo}` : 'Viatura s/ dados',
-        matricula: q.vehicle?.matricula || '---',
+        // FIX: Usar "as any" para evitar erro de propriedade 'nome' no TypeScript durante o Build
+        cliente: (q.client as any)?.nome || 'Desconhecido',
+        telemovel: (q.client as any)?.telemovel || 'N/A',
+        viatura: q.vehicle ? `${(q.vehicle as any).marca} ${(q.vehicle as any).modelo}` : 'Viatura s/ dados',
+        matricula: (q.vehicle as any)?.matricula || '---',
         servico: q.schedule_notes || 'Serviço Geral',
         mecanicoId: q.mechanic_id
       })) || []
