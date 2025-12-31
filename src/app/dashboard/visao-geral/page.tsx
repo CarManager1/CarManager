@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useMemo } from 'react'
 import { supabase } from '@/lib/supabase'
-import { useRouter } from 'next/navigation' // <--- IMPORTANTE: Importar o Router
+import { useRouter } from 'next/navigation'
 import { 
   TrendingUp, Users, Calendar, Wrench, 
   DollarSign, Loader2, ArrowUpRight
@@ -16,7 +16,7 @@ import Link from 'next/link'
 type ChartView = 'mes' | 'semestre' | 'ano'
 
 export default function VisaoGeralPage() {
-  const router = useRouter() // <--- IMPORTANTE: Inicializar o Router
+  const router = useRouter()
   const [loading, setLoading] = useState(true)
   
   // Dados brutos
@@ -219,15 +219,24 @@ export default function VisaoGeralPage() {
                         <defs><linearGradient id="colorTotal" x1="0" y1="0" x2="0" y2="1"><stop offset="5%" stopColor="#2563eb" stopOpacity={0.3}/><stop offset="95%" stopColor="#2563eb" stopOpacity={0}/></linearGradient></defs>
                         <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f4f4f5"/>
                         <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fill: '#a1a1aa', fontSize: 10, fontWeight: 700}} dy={10}/>
-                        <YAxis axisLine={false} tickLine={false} tick={{fill: '#a1a1aa', fontSize: 10, fontWeight: 700}} tickFormatter={(value) => `${value/1000}k`}/>
-                        <Tooltip contentStyle={{borderRadius: '16px', border: 'none', boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1)'}} itemStyle={{color: '#2563eb', fontWeight: 900, fontSize: '14px'}} formatter={(value: number) => [`${value.toFixed(2)} €`, 'Faturado']} labelStyle={{color: '#71717a', fontSize: '10px', fontWeight: 700, textTransform: 'uppercase', marginBottom: '4px'}}/>
+                        <YAxis axisLine={false} tickLine={false} tick={{fill: '#a1a1aa', fontSize: 10, fontWeight: 700}} tickFormatter={(value) => `${(Number(value)/1000).toFixed(0)}k`}/>
+                        
+                        {/* --- CORREÇÃO DO ERRO DA LINHA 223 AQUI --- */}
+                        <Tooltip 
+                            contentStyle={{borderRadius: '16px', border: 'none', boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1)'}} 
+                            itemStyle={{color: '#2563eb', fontWeight: 900, fontSize: '14px'}} 
+                            formatter={(value: any) => [`${Number(value).toFixed(2)} €`, 'Faturado']} 
+                            labelStyle={{color: '#71717a', fontSize: '10px', fontWeight: 700, textTransform: 'uppercase', marginBottom: '4px'}}
+                        />
+                        {/* ----------------------------------------- */}
+
                         <Area type="monotone" dataKey="total" stroke="#2563eb" strokeWidth={4} fillOpacity={1} fill="url(#colorTotal)" activeDot={{r: 6, strokeWidth: 0, fill: '#1e3a8a'}}/>
                     </AreaChart>
                 </ResponsiveContainer>
              </div>
           </div>
 
-          {/* ATIVIDADE RECENTE (CORRIGIDO) */}
+          {/* ATIVIDADE RECENTE */}
           <div className="bg-white p-8 rounded-[32px] border border-zinc-200 shadow-sm flex flex-col h-[500px]">
              <div className="mb-6">
                  <h3 className="font-black text-zinc-900 uppercase tracking-tight text-lg">Atividade</h3>
@@ -241,12 +250,11 @@ export default function VisaoGeralPage() {
                         <p className="text-xs font-bold uppercase">Sem registos</p>
                     </div>
                 ) : (
-                    // FIX DA LINHA 277: Forçar o item como ANY para evitar erro de build
                     recentActivity.map((item: any) => (
                         <div 
                             key={item.id} 
                             className="group flex items-center gap-4 p-4 hover:bg-zinc-50 rounded-2xl transition-all cursor-pointer border border-transparent hover:border-zinc-100" 
-                            onClick={() => router.push(`/dashboard/orcamentos/${item.id}`)} // FIX: Usar router.push
+                            onClick={() => router.push(`/dashboard/orcamentos/${item.id}`)}
                         >
                             <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-colors ${
                                 item.status === 'Concluído' ? 'bg-zinc-900 text-white' : 
@@ -257,7 +265,6 @@ export default function VisaoGeralPage() {
                                 {item.status === 'Concluído' ? <Wrench size={16}/> : <ArrowUpRight size={16}/>}
                             </div>
                             <div className="flex-1 min-w-0">
-                                {/* FIX: Usamos "as any" para evitar erros se os campos forem nulos */}
                                 <p className="text-sm font-black text-zinc-900 truncate">
                                     {(item.vehicle as any)?.marca} <span className="text-zinc-400 font-medium ml-1">{(item.vehicle as any)?.matricula}</span>
                                 </p>
