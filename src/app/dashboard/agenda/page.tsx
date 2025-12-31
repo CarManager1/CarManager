@@ -123,18 +123,24 @@ export default function AgendaPage() {
         .eq('workshop_id', idOficina)
         .eq('status', 'Agendado')
       
-      const tarefasFormatadas = quotesData?.map(q => ({
-        id: q.id,
-        data: q.schedule_date,
-        hora: q.schedule_time?.slice(0,5),
-        // FIX: Usar "as any" para evitar erro de propriedade 'nome' no TypeScript durante o Build
-        cliente: (q.client as any)?.nome || 'Desconhecido',
-        telemovel: (q.client as any)?.telemovel || 'N/A',
-        viatura: q.vehicle ? `${(q.vehicle as any).marca} ${(q.vehicle as any).modelo}` : 'Viatura s/ dados',
-        matricula: (q.vehicle as any)?.matricula || '---',
-        servico: q.schedule_notes || 'Serviço Geral',
-        mecanicoId: q.mechanic_id
-      })) || []
+        const tarefasFormatadas = quotesData?.map((q: any) => {
+            // 1. Normalizar dados (garantir que pegamos o item dentro do array se for necessário)
+            const cli = Array.isArray(q.client) ? q.client[0] : q.client;
+            const car = Array.isArray(q.vehicle) ? q.vehicle[0] : q.vehicle;
+        
+            // 2. Retornar objeto limpo
+            return {
+              id: q.id,
+              data: q.schedule_date,
+              hora: q.schedule_time?.slice(0,5),
+              cliente: cli?.nome || 'Desconhecido',
+              telemovel: cli?.telemovel || 'N/A',
+              viatura: car ? `${car.marca || ''} ${car.modelo || ''}` : 'Viatura s/ dados',
+              matricula: car?.matricula || '---',
+              servico: q.schedule_notes || 'Serviço Geral',
+              mecanicoId: q.mechanic_id
+            }
+          }) || []
       
       setTarefas(tarefasFormatadas)
 
