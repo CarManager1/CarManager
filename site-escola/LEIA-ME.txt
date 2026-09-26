@@ -1,0 +1,28 @@
+SITE DA ESCOLA DE CONDUÇÃO S. CRISTÓVÃO
+=======================================
+
+1. Abra esta pasta (site-escola) no VS Code:  File > Open Folder...
+2. Abra o terminal do VS Code:  Terminal > New Terminal
+3. Na primeira vez, instale as dependências:
+       npm install
+4. Arranque o site:
+       npm run dev
+5. Abra no browser:  http://localhost:3000
+
+Para mudar telefone, email, morada, horário, etc.:
+   edite o ficheiro  src/lib/dados.ts  (onde diz PREENCHER)
+   e grave. O site atualiza sozinho.
+
+Imagens: pasta public/escola
+
+PÁGINAS DO SITE (pasta src/app)
+   /            Início               src/app/page.tsx
+   /cartas      Cartas               src/app/cartas/page.tsx
+   /cartas/...  Uma página por carta src/app/cartas/[id]/page.tsx
+   /planos      Planos               src/app/planos/page.tsx
+   /renovacao   Renovação            src/app/renovacao/page.tsx
+   /a-escola    A Escola             src/app/a-escola/page.tsx
+   /duvidas     Dúvidas              src/app/duvidas/page.tsx
+   /contactos   Contactos            src/app/contactos/page.tsx
+
+Menu, cabeçalho e rodapé: pasta src/components

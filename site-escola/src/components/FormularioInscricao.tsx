@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { Send } from 'lucide-react'
-import { ESCOLA } from './dados'
+import { linkWhatsApp } from './whatsapp'
 
 // O formulário não guarda nada: abre o WhatsApp da escola com a mensagem já escrita.
 export function FormularioInscricao() {
@@ -22,7 +22,7 @@ export function FormularioInscricao() {
     ]
       .filter(Boolean)
       .join('\n')
-    window.open(`https://wa.me/${ESCOLA.whatsapp}?text=${encodeURIComponent(texto)}`, '_blank', 'noopener')
+    window.open(linkWhatsApp(texto), '_blank', 'noopener')
   }
 
   const campo =

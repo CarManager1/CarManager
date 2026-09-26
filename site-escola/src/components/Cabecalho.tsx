@@ -1,0 +1,79 @@
+'use client'
+
+import Image from 'next/image'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import { useState } from 'react'
+import { Menu, X, Phone } from 'lucide-react'
+import { ESCOLA, MENU } from '@/lib/dados'
+
+export function Cabecalho() {
+  const [aberto, setAberto] = useState(false)
+  const caminho = usePathname()
+
+  const ativo = (href: string) => (href === '/' ? caminho === '/' : caminho.startsWith(href))
+
+  return (
+    <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-zinc-100">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between gap-4">
+        <Link href="/" aria-label="Início" onClick={() => setAberto(false)}>
+          <Image src="/escola/logo.png" alt={ESCOLA.nomeCompleto} width={805} height={168} priority className="h-10 w-auto" />
+        </Link>
+
+        <div className="hidden lg:flex items-center gap-1 text-sm font-bold">
+          {MENU.map((l) => (
+            <Link
+              key={l.href}
+              href={l.href}
+              className={`px-3 py-2 rounded-full transition-colors ${
+                ativo(l.href) ? 'bg-sky-50 text-sky-700' : 'text-zinc-600 hover:text-sky-600'
+              }`}
+            >
+              {l.label}
+            </Link>
+          ))}
+        </div>
+
+        <div className="hidden lg:flex items-center gap-3">
+          <a href={`tel:${ESCOLA.telefoneLink}`} className="hidden xl:flex items-center gap-2 text-sm font-bold text-zinc-700 hover:text-sky-600">
+            <Phone size={16} /> {ESCOLA.telefone}
+          </a>
+          <Link href="/contactos" className="bg-[#C8F31D] text-zinc-900 px-5 py-2.5 rounded-full text-sm font-black hover:brightness-95 transition">
+            Inscreve-te
+          </Link>
+        </div>
+
+        <button
+          onClick={() => setAberto(!aberto)}
+          className="lg:hidden p-2 text-zinc-700"
+          aria-label={aberto ? 'Fechar menu' : 'Abrir menu'}
+          aria-expanded={aberto}
+        >
+          {aberto ? <X /> : <Menu />}
+        </button>
+      </div>
+
+      {aberto && (
+        <div className="lg:hidden bg-white border-b border-zinc-100 px-6 pb-6 pt-2 space-y-1 shadow-xl">
+          {MENU.map((l) => (
+            <Link
+              key={l.href}
+              href={l.href}
+              onClick={() => setAberto(false)}
+              className={`block py-2 font-bold ${ativo(l.href) ? 'text-sky-700' : 'text-zinc-700'}`}
+            >
+              {l.label}
+            </Link>
+          ))}
+          <Link
+            href="/contactos"
+            onClick={() => setAberto(false)}
+            className="block mt-3 text-center bg-[#C8F31D] text-zinc-900 py-3 rounded-xl font-black"
+          >
+            Inscreve-te
+          </Link>
+        </div>
+      )}
+    </nav>
+  )
+}
