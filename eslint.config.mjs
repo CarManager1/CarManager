@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Site da escola de condução: projeto separado com a sua própria configuração
+    "site-escola/**",
   ]),
 ]);
 
