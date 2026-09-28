@@ -4,8 +4,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useState } from 'react'
-import { Menu, X, Phone } from 'lucide-react'
-import { ESCOLA, MENU } from '@/lib/dados'
+import { Menu, X, MonitorPlay } from 'lucide-react'
+import { ESCOLA, MENU, ENSINO_DISTANCIA } from '@/lib/dados'
 
 export function Cabecalho() {
   const [aberto, setAberto] = useState(false)
@@ -20,7 +20,7 @@ export function Cabecalho() {
           <Image src="/escola/logo.png" alt={ESCOLA.nomeCompleto} width={805} height={168} priority className="h-10 w-auto" />
         </Link>
 
-        <div className="hidden lg:flex items-center gap-1 text-sm font-bold">
+        <div className="hidden xl:flex items-center gap-1 text-sm font-bold">
           {MENU.map((l) => (
             <Link
               key={l.href}
@@ -34,9 +34,14 @@ export function Cabecalho() {
           ))}
         </div>
 
-        <div className="hidden lg:flex items-center gap-3">
-          <a href={`tel:${ESCOLA.telefoneLink}`} className="hidden xl:flex items-center gap-2 text-sm font-bold text-zinc-700 hover:text-sky-600">
-            <Phone size={16} /> {ESCOLA.telefone}
+        <div className="hidden xl:flex items-center gap-2">
+          <a
+            href={ENSINO_DISTANCIA}
+            target="_blank"
+            rel="noopener"
+            className="flex items-center gap-2 border-2 border-sky-600 text-sky-700 px-4 py-2 rounded-full text-sm font-black hover:bg-sky-50 transition"
+          >
+            <MonitorPlay size={16} /> Ensino à distância
           </a>
           <Link href="/contactos" className="bg-[#C8F31D] text-zinc-900 px-5 py-2.5 rounded-full text-sm font-black hover:brightness-95 transition">
             Inscreve-te
@@ -45,7 +50,7 @@ export function Cabecalho() {
 
         <button
           onClick={() => setAberto(!aberto)}
-          className="lg:hidden p-2 text-zinc-700"
+          className="xl:hidden p-2 text-zinc-700"
           aria-label={aberto ? 'Fechar menu' : 'Abrir menu'}
           aria-expanded={aberto}
         >
@@ -54,7 +59,7 @@ export function Cabecalho() {
       </div>
 
       {aberto && (
-        <div className="lg:hidden bg-white border-b border-zinc-100 px-6 pb-6 pt-2 space-y-1 shadow-xl">
+        <div className="xl:hidden bg-white border-b border-zinc-100 px-6 pb-6 pt-2 space-y-1 shadow-xl">
           {MENU.map((l) => (
             <Link
               key={l.href}
@@ -65,10 +70,18 @@ export function Cabecalho() {
               {l.label}
             </Link>
           ))}
+          <a
+            href={ENSINO_DISTANCIA}
+            target="_blank"
+            rel="noopener"
+            className="flex items-center justify-center gap-2 mt-3 border-2 border-sky-600 text-sky-700 py-3 rounded-xl font-black"
+          >
+            <MonitorPlay size={18} /> Ensino à distância
+          </a>
           <Link
             href="/contactos"
             onClick={() => setAberto(false)}
-            className="block mt-3 text-center bg-[#C8F31D] text-zinc-900 py-3 rounded-xl font-black"
+            className="block mt-2 text-center bg-[#C8F31D] text-zinc-900 py-3 rounded-xl font-black"
           >
             Inscreve-te
           </Link>

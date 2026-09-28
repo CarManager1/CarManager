@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { MapPin, Phone, Mail, Clock } from 'lucide-react'
-import { ESCOLA } from '@/lib/dados'
+import { ESCOLA, HORARIOS } from '@/lib/dados'
 import { TituloPagina } from '@/components/Blocos'
 import { FormularioInscricao } from '@/components/FormularioInscricao'
 
@@ -35,8 +35,8 @@ export default function Contactos() {
               </li>
               <li className="bg-zinc-50 rounded-3xl p-6">
                 <span className="grid place-items-center size-11 rounded-2xl bg-sky-600 text-white"><Clock size={20} /></span>
-                <p className="mt-4 font-black">Horário</p>
-                {ESCOLA.horario.map((h) => (
+                <p className="mt-4 font-black">Horário da secretaria</p>
+                {HORARIOS.secretaria.map((h) => (
                   <p key={h.dias} className="text-zinc-600">{h.dias}: {h.horas}</p>
                 ))}
               </li>

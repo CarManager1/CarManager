@@ -3,6 +3,7 @@
 // ============================================================
 // Os campos marcados com "PREENCHER" ainda não foram confirmados.
 // Substitua pelo valor verdadeiro (mantenha as aspas).
+// Os preços estão em src/lib/precos.ts e as regras do simulador em src/lib/renovacao.ts
 
 export const ESCOLA = {
   nome: 'S. Cristóvão',
@@ -25,23 +26,41 @@ export const ESCOLA = {
   // Link "Partilhar > Incorporar mapa" do Google Maps (só o endereço dentro de src="...")
   mapa: '', // PREENCHER (opcional)
 
-  horario: [
-    { dias: 'Segunda a Sexta', horas: '09:00 – 20:00' }, // PREENCHER
-    { dias: 'Sábado', horas: '09:00 – 13:00' }, // PREENCHER
-  ],
-
   instagram: '', // opcional, ex: 'https://instagram.com/ecsaocristovao'
   facebook: '', // opcional
+}
+
+// Plataforma de ensino à distância (aulas de código online)
+export const ENSINO_DISTANCIA = 'https://ensinoadistancia.segurancarodoviaria.pt/ensino_a_distancia/login.html'
+
+// ------------------------------------------------------------
+//  HORÁRIOS — PREENCHER com os horários verdadeiros
+// ------------------------------------------------------------
+export const HORARIOS = {
+  secretaria: [
+    { dias: 'Segunda a Sexta', horas: '09:00 – 13:00 · 14:00 – 20:00' },
+    { dias: 'Sábado', horas: '09:00 – 13:00' },
+    { dias: 'Domingo e feriados', horas: 'Encerrado' },
+  ],
+  codigo: [
+    { dias: 'Segunda a Sexta', horas: '10:00 – 11:00' },
+    { dias: 'Segunda a Sexta', horas: '18:00 – 19:00' },
+    { dias: 'Sábado', horas: '10:00 – 11:00' },
+  ],
+  conducao: [
+    { dias: 'Segunda a Sexta', horas: '07:00 – 21:00' },
+    { dias: 'Sábado', horas: '08:00 – 13:00' },
+  ],
 }
 
 // Menu principal (ordem em que aparece no topo)
 export const MENU = [
   { href: '/', label: 'Início' },
   { href: '/cartas', label: 'Cartas' },
-  { href: '/planos', label: 'Planos' },
+  { href: '/precos', label: 'Preços' },
+  { href: '/horarios', label: 'Horários' },
   { href: '/renovacao', label: 'Renovação' },
-  { href: '/a-escola', label: 'A Escola' },
-  { href: '/duvidas', label: 'Dúvidas' },
+  { href: '/sobre-nos', label: 'Sobre nós' },
   { href: '/contactos', label: 'Contactos' },
 ]
 
@@ -65,12 +84,12 @@ export const CATEGORIAS: Categoria[] = [
     resumo: 'A carta de carro. Código online ou presencial e aulas práticas com horário flexível.',
     descricao: [
       'A carta de categoria B permite conduzir automóveis ligeiros. Na S. Cristóvão preparamos-te para o exame de código e para o exame de condução, com instrutores que te acompanham do primeiro dia até teres a carta na mão.',
-      'Podes escolher a Carta normal, ao teu ritmo, ou a Carta em 3 meses, um curso intensivo com exames no privado e sem esperas.',
+      'As aulas de código podem ser presenciais ou à distância, na plataforma de ensino online.',
     ],
     imagem: { src: '/escola/aluno-1.jpg', w: 1080, h: 720 },
     pagamento: 'Pronto pagamento (cada aula) ou em 2x, 4x ou 10x',
     documentos: ['Cartão de Cidadão', 'Atestado Médico'],
-    destaques: ['Aulas de código online ou presencial', 'Exames em centros privados ou públicos', 'Carros da escola recentes', 'Se reprovares, não pagas*'],
+    destaques: ['Aulas de código online ou presencial', 'Exames em centros privados ou públicos', 'Carros da escola recentes', 'Pagamento até 10x sem juros'],
   },
   {
     id: 'motociclos',
@@ -116,74 +135,33 @@ export const CATEGORIAS: Categoria[] = [
   },
 ]
 
-// Nos itens, o texto entre **asteriscos** aparece a negrito.
-export const PLANOS = [
-  {
-    titulo: 'Carta normal',
-    destaque: false,
-    itens: [
-      '**Até 3 aulas** por semana',
-      'Aulas de código **online ou presencial**',
-      'Exames em centros **privados ou públicos**',
-      'Pagamento até **10x sem juros**',
-      '**Horários flexíveis** — à tua medida',
-      'Se reprovares, **não pagas***',
-    ],
-    nota: true,
-  },
-  {
-    titulo: 'Carta em 3 meses',
-    destaque: true,
-    itens: [
-      'Curso intensivo com **6 aulas por semana**',
-      'Aulas de código **online ou presencial**',
-      'Exames no **privado, sem esperas**',
-      'Pagamento até **10x sem juros**',
-      '**Horários flexíveis** — à tua medida',
-      'Se reprovares, **não pagas***',
-    ],
-    nota: true,
-  },
-  {
-    titulo: 'Aulas para encartados',
-    destaque: false,
-    itens: [
-      '**Aulas de treino** para melhorar a prática',
-      '**Revalidação** da carta de condução',
-      'Pacotes de **1, 5, 8 ou 10 aulas**',
-      'Pagamentos **avulsos**',
-    ],
-    nota: false,
-  },
-]
-
 export const DUVIDAS = [
   {
     grupo: 'Inscrição',
     perguntas: [
       ['Que documentos preciso para me inscrever?', 'Para a carta de ligeiros: Cartão de Cidadão e atestado médico. Para motociclos, se fores menor, também a autorização paternal e o assento de nascimento.'],
-      ['Posso fazer as aulas de código online?', 'Sim. As aulas de código podem ser online ou presenciais, como te der mais jeito.'],
+      ['Posso fazer as aulas de código à distância?', 'Sim. Podes ter aulas de código presenciais na escola ou à distância, na plataforma de ensino online. O acesso está no botão "Ensino à distância", no topo do site.'],
     ],
   },
   {
     grupo: 'Pagamentos',
     perguntas: [
       ['Posso pagar às prestações?', 'Sim. Na carta de ligeiros podes pagar em 2x, 4x ou até 10x sem juros. Nos motociclos, em 2x, 4x ou 6x. Também podes pagar a pronto, aula a aula.'],
-      ['E se eu reprovar?', 'Nos planos Carta normal e Carta em 3 meses, se reprovares não pagas o novo exame. Válido para 1 reprovação no exame de código ou de condução.'],
+      ['Onde vejo os preços?', 'Na página Preços. Os valores podem mudar, por isso confirma sempre na secretaria antes de te inscreveres.'],
     ],
   },
   {
     grupo: 'Aulas e exames',
     perguntas: [
-      ['É mesmo possível tirar a carta em 3 meses?', 'Sim, com o curso intensivo: 6 aulas por semana e exames no privado, sem tempos de espera.'],
-      ['Os exames são feitos onde?', 'Em centros de exame privados ou públicos. No plano Carta em 3 meses, os exames são no privado, sem esperas.'],
+      ['Os exames são feitos onde?', 'Em centros de exame privados ou públicos.'],
       ['Já tenho carta mas não conduzo há muito tempo. Podem ajudar?', 'Claro! Temos aulas para encartados, em pacotes de 1, 5, 8 ou 10 aulas, para ganhares confiança ao volante.'],
     ],
   },
   {
     grupo: 'Renovação',
     perguntas: [
-      ['Tratam da renovação da carta?', 'Sim, fazemos a renovação de carta na hora. Fala connosco para saberes que documentos precisas no teu caso.'],
+      ['Como sei se preciso de atestado médico para renovar?', 'Usa o simulador na página Renovação: respondes a algumas perguntas e ficas a saber o que precisas e quanto custa.'],
+      ['Tratam da renovação da carta?', 'Sim, fazemos a renovação de carta na hora e ajudamos-te a marcar o atestado médico.'],
     ],
   },
 ]

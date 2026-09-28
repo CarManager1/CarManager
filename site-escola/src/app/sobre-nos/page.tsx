@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
-import { BookOpen, Users, Car } from 'lucide-react'
+import { BookOpen, Users, Car, MonitorPlay } from 'lucide-react'
+import { ENSINO_DISTANCIA } from '@/lib/dados'
 import { TituloPagina, Etiqueta, ChamadaInscricao } from '@/components/Blocos'
 
 export const metadata: Metadata = {
-  title: 'A Escola',
-  description: 'Conhece a Escola de Condução S. Cristóvão: a nossa frota, o nosso livro de código e os nossos alunos.',
+  title: 'Sobre nós',
+  description: 'Conhece a Escola de Condução S. Cristóvão: a nossa equipa, a nossa frota, o nosso livro de código e os nossos alunos.',
 }
 
 const GALERIA = [
@@ -16,28 +17,37 @@ const GALERIA = [
   { src: '/escola/placa.jpg', w: 778, h: 518, alt: 'Placa da escola de condução' },
 ]
 
-export default function AEscola() {
+const VALORES = [
+  { icone: Users, texto: 'Instrutores experientes' },
+  { icone: Car, texto: 'Frota própria da escola' },
+  { icone: BookOpen, texto: 'Livro de código próprio' },
+  { icone: MonitorPlay, texto: 'Código à distância' },
+]
+
+export default function SobreNos() {
   return (
     <>
-      <TituloPagina etiqueta="A Escola" titulo="Contigo em todas as estradas" texto="Conhece a S. Cristóvão: a nossa equipa, os nossos carros e os nossos alunos." />
+      <TituloPagina etiqueta="Sobre nós" titulo="Contigo em todas as estradas" texto="Conhece a S. Cristóvão: a nossa equipa, os nossos carros e os nossos alunos." />
 
-      {/* --- SOBRE --- */}
+      {/* --- QUEM SOMOS --- */}
       <section className="py-16 sm:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 grid lg:grid-cols-2 gap-12 items-center">
           <div>
             <Etiqueta>Quem somos</Etiqueta>
             <h2 className="mt-2 text-3xl sm:text-4xl font-black tracking-tight">Uma escola que te acompanha até teres a carta na mão</h2>
-            <p className="mt-5 text-lg text-zinc-600">
-              {/* PREENCHER: conte aqui a história da escola (desde quando existe, quem são os instrutores, etc.) */}
-              Na S. Cristóvão ensinamos a conduzir com calma, segurança e horários à tua medida. Preparamos-te para o
-              código e para a condução, e tratamos de tudo contigo até ao dia do exame.
-            </p>
-            <div className="mt-8 grid sm:grid-cols-3 gap-4">
-              {[
-                { icone: Users, texto: 'Instrutores experientes' },
-                { icone: Car, texto: 'Frota própria da escola' },
-                { icone: BookOpen, texto: 'Livro de código próprio' },
-              ].map(({ icone: I, texto }) => (
+            {/* PREENCHER: conte aqui a história da escola (desde quando existe, quem são os instrutores, etc.) */}
+            <div className="mt-5 space-y-4 text-lg text-zinc-600">
+              <p>
+                Na S. Cristóvão ensinamos a conduzir com calma, segurança e horários à tua medida. Preparamos-te para o
+                código e para a condução, e tratamos de tudo contigo até ao dia do exame.
+              </p>
+              <p>
+                Além da carta de ligeiros e de motociclos, damos formação a motoristas profissionais (CAM, TCC e TVDE) e
+                tratamos da renovação da tua carta na hora.
+              </p>
+            </div>
+            <div className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-3">
+              {VALORES.map(({ icone: I, texto }) => (
                 <div key={texto} className="bg-zinc-50 rounded-2xl p-4">
                   <span className="grid place-items-center size-10 rounded-xl bg-[#C8F31D]"><I size={20} /></span>
                   <p className="mt-3 font-bold text-sm">{texto}</p>
@@ -54,15 +64,23 @@ export default function AEscola() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 grid lg:grid-cols-2 gap-12 items-center">
           <div className="grid grid-cols-2 gap-5">
             <Image src="/escola/livro-codigo.jpg" alt="Capa do livro O Código da Estrada" width={370} height={546} className="w-full h-auto rounded-2xl shadow-xl -rotate-2" />
-            <Image src="/escola/livro-verso.jpg" alt="Aluna com o livro de código" width={387} height={556} className="w-full h-auto rounded-2xl shadow-xl rotate-2 mt-8" />
+            <Image src="/escola/livro-verso.jpg" alt="Aluna com o livro de código" width={387} height={555} className="w-full h-auto rounded-2xl shadow-xl rotate-2 mt-8" />
           </div>
           <div>
             <Etiqueta>Material de estudo</Etiqueta>
             <h2 className="mt-2 text-3xl sm:text-4xl font-black tracking-tight">O Código da Estrada, à nossa maneira</h2>
             <p className="mt-5 text-lg text-zinc-600">
               A S. Cristóvão tem o seu próprio livro de código, para estudares a matéria e chegares ao exame com
-              confiança. Aulas de código <strong>online ou presencial</strong>, como te der mais jeito.
+              confiança. As aulas de código podem ser presenciais ou à distância.
             </p>
+            <a
+              href={ENSINO_DISTANCIA}
+              target="_blank"
+              rel="noopener"
+              className="mt-6 inline-flex items-center gap-2 bg-sky-600 hover:bg-sky-700 text-white px-6 py-3 rounded-full font-black transition"
+            >
+              <MonitorPlay size={18} /> Ensino à distância
+            </a>
           </div>
         </div>
       </section>

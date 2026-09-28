@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { MapPin, Phone, Mail, Clock, MessageCircle } from 'lucide-react'
-import { ESCOLA, MENU, CATEGORIAS } from '@/lib/dados'
+import { MapPin, Phone, Mail, Clock, MessageCircle, MonitorPlay } from 'lucide-react'
+import { ESCOLA, MENU, CATEGORIAS, HORARIOS, ENSINO_DISTANCIA } from '@/lib/dados'
 import { linkWhatsApp } from './whatsapp'
 
 export function Rodape() {
@@ -24,6 +24,12 @@ export function Rodape() {
               {MENU.map((l) => (
                 <li key={l.href}><Link href={l.href} className="hover:text-white">{l.label}</Link></li>
               ))}
+              <li><Link href="/duvidas" className="hover:text-white">Dúvidas frequentes</Link></li>
+              <li>
+                <a href={ENSINO_DISTANCIA} target="_blank" rel="noopener" className="inline-flex items-center gap-1.5 text-[#C8F31D] hover:text-white">
+                  <MonitorPlay size={14} /> Ensino à distância
+                </a>
+              </li>
             </ul>
           </div>
 
@@ -45,7 +51,7 @@ export function Rodape() {
               <li className="flex gap-2"><Mail size={16} className="mt-0.5 shrink-0" /> <a href={`mailto:${ESCOLA.email}`} className="hover:text-white break-all">{ESCOLA.email}</a></li>
               <li className="flex gap-2">
                 <Clock size={16} className="mt-0.5 shrink-0" />
-                <span>{ESCOLA.horario.map((h) => <span key={h.dias} className="block">{h.dias}: {h.horas}</span>)}</span>
+                <span>{HORARIOS.secretaria.map((h) => <span key={h.dias} className="block">{h.dias}: {h.horas}</span>)}</span>
               </li>
             </ul>
           </div>

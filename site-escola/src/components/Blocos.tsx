@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import { ArrowRight, Sparkles } from 'lucide-react'
-import { PLANOS } from '@/lib/dados'
 
 // Faixas diagonais azul/lima, inspiradas na decoração dos carros da escola
 export function Riscas({ className = '' }: { className?: string }) {
@@ -53,21 +52,36 @@ export function ChamadaInscricao() {
   )
 }
 
-export function CartoesPlanos() {
+// Os três cartões de serviços usados no Início
+const SERVICOS = [
+  {
+    titulo: 'Carta de ligeiros',
+    href: '/cartas/ligeiros',
+    itens: ['Aulas de código **online ou presencial**', 'Exames em centros **privados ou públicos**', 'Pagamento até **10x sem juros**', '**Horários flexíveis** à tua medida'],
+  },
+  {
+    titulo: 'Carta de motociclos',
+    href: '/cartas/motociclos',
+    destaque: true,
+    itens: ['Categorias **A1, A2 e A**', 'Aulas com as **motas da escola**', 'Pagamento até **6x sem juros**', 'Aulas de código **online ou presencial**'],
+  },
+  {
+    titulo: 'Aulas para encartados',
+    href: '/precos',
+    itens: ['**Aulas de treino** para melhorar a prática', '**Revalidação** da carta de condução', 'Pacotes de **1, 5, 8 ou 10 aulas**', 'Pagamentos **avulsos**'],
+  },
+]
+
+export function CartoesServicos() {
   return (
     <div className="grid md:grid-cols-3 gap-6 items-stretch">
-      {PLANOS.map((p) => (
+      {SERVICOS.map((p) => (
         <article
           key={p.titulo}
           className={`relative rounded-3xl p-8 border-2 border-zinc-900 shadow-[6px_6px_0_0_#18181b] flex flex-col ${
             p.destaque ? 'bg-gradient-to-b from-sky-500 to-sky-600 text-white' : 'bg-white'
           }`}
         >
-          {p.destaque && (
-            <span className="absolute -top-4 right-6 bg-[#C8F31D] text-zinc-900 text-xs font-black uppercase px-3 py-1.5 border-2 border-zinc-900">
-              Mais popular
-            </span>
-          )}
           <h3 className="text-3xl sm:text-4xl font-medium tracking-tight leading-tight">{p.titulo}</h3>
           <ul className="mt-6 space-y-3 flex-1">
             {p.itens.map((i) => (
@@ -77,18 +91,13 @@ export function CartoesPlanos() {
               </li>
             ))}
           </ul>
-          {p.nota && (
-            <p className={`mt-6 text-xs ${p.destaque ? 'text-sky-100' : 'text-zinc-500'}`}>
-              *Válido apenas para 1 reprovação no exame de código ou condução.
-            </p>
-          )}
           <Link
-            href="/contactos"
-            className={`mt-6 text-center py-3 rounded-full font-black transition ${
+            href={p.href}
+            className={`mt-8 text-center py-3 rounded-full font-black transition ${
               p.destaque ? 'bg-[#C8F31D] text-zinc-900 hover:brightness-95' : 'bg-zinc-900 text-white hover:bg-zinc-700'
             }`}
           >
-            Quero este plano
+            Saber mais
           </Link>
         </article>
       ))}
