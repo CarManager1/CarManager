@@ -34,7 +34,7 @@ export function Rodape() {
           </div>
 
           <div>
-            <p className="text-white font-black">Cartas</p>
+            <p className="text-white font-black">Cursos</p>
             <ul className="mt-4 space-y-2 text-sm">
               {CATEGORIAS.map((c) => (
                 <li key={c.id}><Link href={`/cartas/${c.id}`} className="hover:text-white">{c.titulo} ({c.sigla})</Link></li>

@@ -42,8 +42,8 @@ export default function SobreNos() {
                 código e para a condução, e tratamos de tudo contigo até ao dia do exame.
               </p>
               <p>
-                Além da carta de ligeiros e de motociclos, damos formação a motoristas profissionais (CAM, TCC e TVDE) e
-                tratamos da renovação da tua carta na hora.
+                Tiramos-te a carta de carro ou de mota, damos aulas de treino a quem já tem carta e tratamos da
+                renovação da tua carta na hora.
               </p>
             </div>
             <div className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-3">

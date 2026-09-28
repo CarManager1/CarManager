@@ -29,17 +29,17 @@ export default async function Carta({ params }: Props) {
   const c = CATEGORIAS.find((x) => x.id === id)
   if (!c) notFound()
 
-  const formacao = c.id === 'profissionais' || c.id === 'tvde'
+  const treino = c.id === 'treino'
 
   return (
     <>
-      <TituloPagina etiqueta={c.sigla} titulo={formacao ? `Formação ${c.titulo}` : `Carta de ${c.titulo}`} texto={c.resumo} />
+      <TituloPagina etiqueta={c.sigla} titulo={treino ? c.titulo : `Carta de ${c.titulo}`} texto={c.resumo} />
 
       <section className="py-16 sm:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 grid lg:grid-cols-3 gap-10">
           <div className="lg:col-span-2">
             <Link href="/cartas" className="inline-flex items-center gap-2 text-sm font-bold text-zinc-500 hover:text-sky-600">
-              <ArrowLeft size={16} /> Todas as cartas
+              <ArrowLeft size={16} /> Todos os cursos
             </Link>
             <Image src={c.imagem.src} alt={c.titulo} width={c.imagem.w} height={c.imagem.h} className="mt-6 w-full h-72 sm:h-96 object-cover rounded-3xl" />
             <div className="mt-8 space-y-4 text-lg text-zinc-700">
@@ -58,7 +58,7 @@ export default async function Carta({ params }: Props) {
               <p className="mt-3 text-xs text-zinc-500">*Válido apenas para 1 reprovação no exame de código ou condução.</p>
             )}
 
-            {!formacao && (
+            {!treino && (
               <>
                 <h2 className="mt-12 text-2xl sm:text-3xl font-black">Como funciona</h2>
                 <ol className="mt-6 grid sm:grid-cols-5 gap-3">
@@ -88,7 +88,7 @@ export default async function Carta({ params }: Props) {
               <p className="mt-3 text-sm text-sky-100">Pede o precário atualizado na secretaria ou pelo WhatsApp.</p>
             </div>
             <a
-              href={linkWhatsApp(`Olá! Gostava de saber mais sobre: ${formacao ? 'Formação' : 'Carta de'} ${c.titulo}.`)}
+              href={linkWhatsApp(`Olá! Gostava de saber mais sobre: ${treino ? c.titulo : `Carta de ${c.titulo}`}.`)}
               target="_blank"
               rel="noopener"
               className="flex items-center justify-center gap-2 bg-lima text-zinc-900 py-4 rounded-full font-black hover:brightness-95 transition"

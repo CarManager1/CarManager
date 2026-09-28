@@ -55,7 +55,7 @@ export const HORARIOS = {
 
 // Menu principal (ordem em que aparece no topo)
 export const MENU = [
-  { href: '/cartas', label: 'Cartas' },
+  { href: '/cartas', label: 'Cursos' },
   { href: '/precos', label: 'Preços' },
   { href: '/horarios', label: 'Horários' },
   { href: '/renovacao', label: 'Renovação' },
@@ -105,32 +105,18 @@ export const CATEGORIAS: Categoria[] = [
     destaques: ['Categorias A1, A2 e A', 'Motas da escola', 'Aulas de código online ou presencial', 'Aulas de treino avulsas'],
   },
   {
-    id: 'profissionais',
-    titulo: 'Profissionais',
-    sigla: 'CAM · TCC',
-    resumo: 'Formação CAM (motoristas profissionais) e TCC (transporte coletivo de crianças).',
+    id: 'treino',
+    titulo: 'Aulas de treino',
+    sigla: 'Encartados',
+    resumo: 'Já tens carta mas perdeste a confiança? Volta à estrada com um instrutor ao teu lado.',
     descricao: [
-      'Para quem conduz profissionalmente: formação para o CAM (Certificado de Aptidão para Motorista) e para o TCC (Transporte Coletivo de Crianças).',
-      'Fala connosco para saberes as datas das próximas turmas e as condições.',
+      'As aulas de treino são para quem já tem carta e quer ganhar prática: porque esteve muito tempo sem conduzir, porque vai começar a conduzir na cidade ou na autoestrada, ou simplesmente para se sentir mais seguro.',
+      'Escolhes quantas aulas queres e marcamos contigo os horários. Pagas à aula, sem compromisso.',
     ],
     imagem: { src: '/escola/carro-traseira.jpg', w: 1080, h: 718 },
-    pagamento: 'Fala connosco para saberes as condições',
+    pagamento: 'Pacotes de 1, 5, 8 ou 10 aulas, pagamentos avulsos',
     documentos: ['Cartão de Cidadão', 'Carta de Condução'],
-    destaques: ['Formação CAM', 'Formação TCC', 'Horários pensados para quem trabalha'],
-  },
-  {
-    id: 'tvde',
-    titulo: 'TVDE',
-    sigla: 'Formação',
-    resumo: 'Curso de formação para motoristas de TVDE (Uber, Bolt e outras plataformas).',
-    descricao: [
-      'Queres ser motorista TVDE? Damos-te a formação necessária para começares a trabalhar nas plataformas de transporte, como a Uber ou a Bolt.',
-      'Fala connosco para saberes as datas das próximas turmas e as condições.',
-    ],
-    imagem: { src: '/escola/carro-arte.jpg', w: 699, h: 466 },
-    pagamento: 'Fala connosco para saberes as condições',
-    documentos: ['Cartão de Cidadão', 'Carta de Condução'],
-    destaques: ['Formação para motoristas TVDE', 'Turmas regulares', 'Apoio na inscrição'],
+    destaques: ['Pacotes de 1, 5, 8 ou 10 aulas', 'Carro ou mota', 'Horários à tua medida', 'Revalidação da carta de condução'],
   },
 ]
 

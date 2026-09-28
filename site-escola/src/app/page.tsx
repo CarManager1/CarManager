@@ -6,6 +6,12 @@ import { linkWhatsApp } from '@/components/whatsapp'
 
 const DESTAQUES = ['Código online ou presencial', 'Até 10x sem juros', 'Renovação na hora']
 
+// Os quatro serviços da escola
+const SERVICOS = [
+  ...CATEGORIAS.map((c) => ({ href: `/cartas/${c.id}`, titulo: c.titulo, sigla: c.sigla, imagem: c.imagem.src })),
+  { href: '/renovacao', titulo: 'Renovação', sigla: 'Na hora', imagem: '/escola/renovacao.jpg' },
+]
+
 const GALERIA = [
   { src: '/escola/aluno-1.jpg', alt: 'Aluna aprovada ao lado do carro da escola' },
   { src: '/escola/carro-traseira.jpg', alt: 'Carro da escola' },
@@ -35,7 +41,7 @@ export default function Inicio() {
               </span>
             </h1>
             <p className="mt-7 text-lg sm:text-xl text-white/70 max-w-lg">
-              Carta de carro e de mota, formação profissional e renovação de carta — com quem te acompanha até ao fim.
+              Carta de carro e de mota, aulas de treino e renovação de carta — com quem te acompanha até ao fim.
             </p>
             <div className="mt-9 flex flex-col sm:flex-row gap-3">
               <Link href="/contactos" className="inline-flex items-center justify-center gap-2 bg-lima text-noite px-7 py-4 rounded-full font-bold hover:brightness-95 transition">
@@ -72,17 +78,17 @@ export default function Inicio() {
       <section className="py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6">
-            <h2 className="text-4xl sm:text-5xl font-extrabold tracking-tight max-w-xl">Escolhe a tua carta</h2>
+            <h2 className="text-4xl sm:text-5xl font-extrabold tracking-tight max-w-xl">Como te podemos ajudar</h2>
             <Link href="/precos" className="inline-flex items-center gap-2 font-bold text-azul-escuro hover:gap-3 transition-all">
               Ver preços <ArrowRight size={18} />
             </Link>
           </div>
 
           <div className="mt-10 sm:mt-12 grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5">
-            {CATEGORIAS.map((c) => (
-              <Link key={c.id} href={`/cartas/${c.id}`} className="group relative aspect-[3/4] sm:aspect-[4/5] overflow-hidden rounded-2xl sm:rounded-3xl bg-noite">
+            {SERVICOS.map((c) => (
+              <Link key={c.href} href={c.href} className="group relative aspect-[3/4] sm:aspect-[4/5] overflow-hidden rounded-2xl sm:rounded-3xl bg-noite">
                 <Image
-                  src={c.imagem.src}
+                  src={c.imagem}
                   alt={c.titulo}
                   fill
                   sizes="(min-width: 1024px) 25vw, 50vw"

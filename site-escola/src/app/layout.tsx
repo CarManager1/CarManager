@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     template: '%s | S. Cristóvão — Escola de Condução',
   },
   description:
-    'Tira a carta com a Escola de Condução S. Cristóvão: ligeiros, motociclos, CAM, TCC e TVDE. Código à distância, pagamento até 10x sem juros e renovação de carta na hora.',
+    'Tira a carta com a Escola de Condução S. Cristóvão: carta de carro e de mota, aulas de treino e renovação. Código à distância, pagamento até 10x sem juros e renovação de carta na hora.',
   icons: { icon: '/escola/logo-icone.png' },
 }
 

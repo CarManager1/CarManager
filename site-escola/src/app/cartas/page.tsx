@@ -7,17 +7,17 @@ import { TituloPagina, ChamadaInscricao } from '@/components/Blocos'
 import { iconeDe } from '@/components/icones'
 
 export const metadata: Metadata = {
-  title: 'Cartas',
-  description: 'Carta de ligeiros, motociclos (A1, A2, A), formação CAM, TCC e TVDE na Escola de Condução S. Cristóvão.',
+  title: 'Cursos',
+  description: 'Carta de carro, carta de mota (A1, A2, A) e aulas de treino na Escola de Condução S. Cristóvão.',
 }
 
 export default function Cartas() {
   return (
     <>
       <TituloPagina
-        etiqueta="Cartas e formações"
-        titulo="Escolhe a tua carta"
-        texto="Do carro à mota, e da formação profissional ao TVDE: tudo na mesma escola."
+        etiqueta="Cursos"
+        titulo="Carro, mota ou aulas de treino"
+        texto="Tira a tua primeira carta ou volta à estrada com confiança."
       />
 
       <section className="py-16 sm:py-20">
@@ -28,7 +28,7 @@ export default function Cartas() {
               <article key={c.id} className="grid lg:grid-cols-2 gap-8 items-center bg-zinc-50 rounded-[2rem] p-6 sm:p-8">
                 <Image
                   src={c.imagem.src}
-                  alt={`Carta de ${c.titulo}`}
+                  alt={c.titulo}
                   width={c.imagem.w}
                   height={c.imagem.h}
                   className={`w-full h-64 sm:h-80 object-cover rounded-3xl ${i % 2 ? 'lg:order-2' : ''}`}

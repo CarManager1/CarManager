@@ -84,20 +84,12 @@ export const PRECOS_CURSOS: TabelaPrecos[] = [
     ],
   },
   {
-    id: 'outros',
-    titulo: 'Formações e serviços',
-    subtitulo: 'Profissionais e encartados',
+    id: 'renovacao',
+    titulo: 'Renovação de carta',
+    subtitulo: 'Na hora',
     grupos: [
       {
-        nome: 'Formações',
-        linhas: [
-          ['Formação CAM', null],
-          ['Formação TCC', null],
-          ['Formação TVDE', null],
-        ],
-      },
-      {
-        nome: 'Renovação de carta',
+        nome: 'Renovação',
         nota: 'Usa o simulador para saberes o valor no teu caso',
         linhas: [
           ['Tratamento da renovação', null],
