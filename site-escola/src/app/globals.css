@@ -1,5 +1,16 @@
 @import "tailwindcss";
 
+/* Cores da marca S. Cristóvão (logótipo e decoração dos carros) */
+@theme {
+  --color-azul: #0b9be0;
+  --color-azul-escuro: #0668b3;
+  --color-lima: #c8f31d;
+  --color-verde: #56e00f;
+  --color-amarelo: #e8f704;
+  --color-noite: #0a0f1c;
+  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+}
+
 html {
   scroll-behavior: smooth;
 }

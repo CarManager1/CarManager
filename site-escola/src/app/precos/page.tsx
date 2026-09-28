@@ -25,7 +25,7 @@ export default function Precos() {
               key={t.id}
               className="rounded-3xl border-2 border-zinc-900 shadow-[6px_6px_0_0_#18181b] overflow-hidden"
             >
-              <header className={`p-6 ${i === 0 ? 'bg-sky-600 text-white' : i === 1 ? 'bg-[#C8F31D]' : 'bg-zinc-900 text-white'}`}>
+              <header className={`p-6 ${i === 0 ? 'bg-sky-600 text-white' : i === 1 ? 'bg-lima' : 'bg-zinc-900 text-white'}`}>
                 <h2 className="text-2xl font-black">{t.titulo}</h2>
                 <p className={`text-sm font-bold ${i === 1 ? 'text-zinc-700' : 'opacity-80'}`}>{t.subtitulo}</p>
               </header>

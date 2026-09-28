@@ -49,7 +49,7 @@ export default function SobreNos() {
             <div className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-3">
               {VALORES.map(({ icone: I, texto }) => (
                 <div key={texto} className="bg-zinc-50 rounded-2xl p-4">
-                  <span className="grid place-items-center size-10 rounded-xl bg-[#C8F31D]"><I size={20} /></span>
+                  <span className="grid place-items-center size-10 rounded-xl bg-lima"><I size={20} /></span>
                   <p className="mt-3 font-bold text-sm">{texto}</p>
                 </div>
               ))}

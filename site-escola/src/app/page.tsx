@@ -1,163 +1,182 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import {
-  ArrowRight, Sparkles, Clock, CreditCard, MonitorPlay, Stethoscope, Euro, CalendarDays, Users,
-} from 'lucide-react'
-import { CATEGORIAS, ENSINO_DISTANCIA } from '@/lib/dados'
-import { Riscas, Etiqueta, CartoesServicos, ChamadaInscricao } from '@/components/Blocos'
-import { iconeDe } from '@/components/icones'
+import { ArrowRight, ArrowUpRight, MonitorPlay, Stethoscope, Phone, MessageCircle } from 'lucide-react'
+import { CATEGORIAS, ENSINO_DISTANCIA, ESCOLA } from '@/lib/dados'
+import { linkWhatsApp } from '@/components/whatsapp'
 
-const VANTAGENS = [
-  { icone: MonitorPlay, titulo: 'Código à distância', texto: 'Estuda o código online, onde e quando quiseres.' },
-  { icone: CreditCard, titulo: 'Até 10x sem juros', texto: 'Paga a tua carta às prestações, sem complicações.' },
-  { icone: Clock, titulo: 'Horários flexíveis', texto: 'Marcamos as aulas práticas à tua medida.' },
-  { icone: Users, titulo: 'Instrutores experientes', texto: 'Acompanhamos-te até teres a carta na mão.' },
-]
+const DESTAQUES = ['Código online ou presencial', 'Até 10x sem juros', 'Renovação na hora']
 
-const ATALHOS = [
-  { href: '/precos', icone: Euro, titulo: 'Preços', texto: 'Cartas, exames e aulas de treino' },
-  { href: '/horarios', icone: CalendarDays, titulo: 'Horários', texto: 'Secretaria, código e condução' },
-  { href: '/renovacao', icone: Stethoscope, titulo: 'Simulador de renovação', texto: 'Precisas de atestado médico?' },
+const GALERIA = [
+  { src: '/escola/aluno-1.jpg', alt: 'Aluna aprovada ao lado do carro da escola' },
+  { src: '/escola/carro-traseira.jpg', alt: 'Carro da escola' },
+  { src: '/escola/aluno-2.jpg', alt: 'Aluna aprovada com a carta de condução' },
+  { src: '/escola/placa.jpg', alt: 'Placa da escola de condução' },
 ]
 
 export default function Inicio() {
   return (
     <>
-      {/* --- HERO --- */}
-      <section className="relative pt-12 pb-20 lg:pt-20 lg:pb-28 overflow-hidden">
-        <Riscas className="opacity-80 hidden lg:block" />
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 grid lg:grid-cols-2 gap-12 items-center">
-          <div>
-            <span className="inline-flex items-center gap-2 bg-zinc-900 text-[#C8F31D] text-xs font-black uppercase tracking-wider px-4 py-2 rounded-full">
-              <Sparkles size={14} /> Inscrições abertas
-            </span>
-            <h1 className="mt-6 text-4xl sm:text-6xl font-black tracking-tight leading-[1.05]">
-              Contigo em <span className="text-sky-600">todas</span> as estradas.
-            </h1>
-            <p className="mt-6 text-lg text-zinc-600 max-w-xl">
-              Na Escola de Condução S. Cristóvão tiras a carta de carro ou de mota com instrutores experientes,
-              aulas de código presenciais ou à distância e horários à tua medida.
+      {/* ---------- HERO ---------- */}
+      <section className="relative overflow-hidden bg-noite text-white">
+        {/* brilhos de cor da marca */}
+        <div aria-hidden className="absolute -top-40 -left-40 size-[36rem] rounded-full bg-azul/30 blur-3xl" />
+        <div aria-hidden className="absolute -bottom-48 right-0 size-[32rem] rounded-full bg-verde/15 blur-3xl" />
+
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 pt-16 pb-20 lg:pt-24 lg:pb-28 grid lg:grid-cols-12 gap-12 items-center">
+          <div className="lg:col-span-6">
+            <p className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-sm text-white/80">
+              <span className="size-2 rounded-full bg-lima" /> Inscrições abertas
             </p>
-            <div className="mt-8 flex flex-col sm:flex-row gap-3">
-              <Link href="/contactos" className="inline-flex items-center justify-center gap-2 bg-sky-600 hover:bg-sky-700 text-white px-7 py-4 rounded-full font-black transition">
-                Inscreve-te já <ArrowRight size={18} />
+            <h1 className="mt-6 text-5xl sm:text-7xl font-extrabold tracking-tight leading-[0.95]">
+              Contigo em todas as{' '}
+              <span className="relative inline-block">
+                <span className="relative z-10">estradas.</span>
+                <span aria-hidden className="absolute left-0 right-0 bottom-1 sm:bottom-2 h-3 sm:h-4 bg-azul rounded-full -rotate-1" />
+              </span>
+            </h1>
+            <p className="mt-7 text-lg sm:text-xl text-white/70 max-w-lg">
+              Carta de carro e de mota, formação profissional e renovação de carta — com quem te acompanha até ao fim.
+            </p>
+            <div className="mt-9 flex flex-col sm:flex-row gap-3">
+              <Link href="/contactos" className="inline-flex items-center justify-center gap-2 bg-lima text-noite px-7 py-4 rounded-full font-bold hover:brightness-95 transition">
+                Inscreve-te <ArrowRight size={18} />
               </Link>
-              <Link href="/precos" className="inline-flex items-center justify-center gap-2 bg-white border-2 border-zinc-900 px-7 py-4 rounded-full font-black hover:bg-zinc-50 transition">
-                Ver preços
+              <Link href="/cartas" className="inline-flex items-center justify-center gap-2 border border-white/25 px-7 py-4 rounded-full font-bold hover:bg-white/10 transition">
+                Ver cartas
               </Link>
             </div>
+            <ul className="mt-10 flex flex-wrap gap-x-6 gap-y-2 text-sm text-white/60">
+              {DESTAQUES.map((d) => (
+                <li key={d} className="flex items-center gap-2"><span className="size-1.5 rounded-full bg-azul" /> {d}</li>
+              ))}
+            </ul>
           </div>
-          <div className="relative">
-            <div className="absolute -inset-4 bg-gradient-to-br from-sky-500 to-[#C8F31D] rounded-[2.5rem] rotate-2" />
-            <Image src="/escola/carro-arte.jpg" alt="Carro da Escola de Condução S. Cristóvão" width={699} height={466} priority className="relative w-full h-auto rounded-[2rem] shadow-2xl" />
-          </div>
-        </div>
-      </section>
 
-      {/* --- VANTAGENS --- */}
-      <section className="bg-zinc-900 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {VANTAGENS.map(({ icone: I, titulo, texto }) => (
-            <div key={titulo} className="flex gap-4">
-              <span className="grid place-items-center size-12 rounded-2xl bg-[#C8F31D] text-zinc-900 shrink-0"><I size={22} /></span>
-              <div>
-                <p className="font-black">{titulo}</p>
-                <p className="text-sm text-zinc-400 mt-1">{texto}</p>
+          <div className="lg:col-span-6 relative">
+            {/* as três faixas do logótipo */}
+            <div aria-hidden className="hidden sm:block absolute -top-6 -left-6 w-48 h-10 bg-verde rounded-full -rotate-[35deg]" />
+            <div aria-hidden className="hidden sm:block absolute top-10 -right-8 w-56 h-10 bg-azul rounded-full -rotate-[35deg]" />
+            <div aria-hidden className="absolute -bottom-5 left-1/4 w-44 h-8 bg-amarelo rounded-full -rotate-3" />
+            <div className="relative rounded-[2rem] overflow-hidden ring-1 ring-white/10 shadow-2xl">
+              <Image src="/escola/aluno-2.jpg" alt="Aluna aprovada ao lado do carro da escola" width={1080} height={718} priority className="w-full h-auto" />
+              <div className="absolute bottom-4 left-4 right-4 sm:right-auto rounded-2xl bg-white/95 text-noite px-5 py-3 shadow-xl backdrop-blur">
+                <p className="text-xs font-semibold text-zinc-500">S. Cristóvão</p>
+                <p className="font-extrabold">Mais uma carta na mão 🎉</p>
               </div>
             </div>
-          ))}
+          </div>
         </div>
       </section>
 
-      {/* --- ATALHOS --- */}
-      <section className="py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 grid md:grid-cols-3 gap-5">
-          {ATALHOS.map(({ href, icone: I, titulo, texto }) => (
-            <Link key={href} href={href} className="group flex items-center gap-4 rounded-3xl border border-zinc-100 bg-white p-5 shadow-sm hover:shadow-lg transition">
-              <span className="grid place-items-center size-14 rounded-2xl bg-sky-600 text-white shrink-0"><I size={26} /></span>
-              <span className="flex-1">
-                <span className="block font-black text-lg">{titulo}</span>
-                <span className="block text-sm text-zinc-500">{texto}</span>
-              </span>
-              <ArrowRight className="text-sky-600 group-hover:translate-x-1 transition" />
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      {/* --- CARTAS --- */}
-      <section className="py-20 bg-zinc-50">
+      {/* ---------- CARTAS ---------- */}
+      <section className="py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
-            <div>
-              <Etiqueta>O que ensinamos</Etiqueta>
-              <h2 className="mt-2 text-3xl sm:text-5xl font-black tracking-tight">Escolhe a tua carta</h2>
-            </div>
-            <Link href="/cartas" className="inline-flex items-center gap-2 font-black text-sky-700 hover:underline">
-              Ver todas as cartas <ArrowRight size={18} />
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6">
+            <h2 className="text-4xl sm:text-5xl font-extrabold tracking-tight max-w-xl">Escolhe a tua carta</h2>
+            <Link href="/precos" className="inline-flex items-center gap-2 font-bold text-azul-escuro hover:gap-3 transition-all">
+              Ver preços <ArrowRight size={18} />
             </Link>
           </div>
-          <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {CATEGORIAS.map((c) => {
-              const Icone = iconeDe(c.id)
-              return (
-                <Link
-                  key={c.id}
-                  href={`/cartas/${c.id}`}
-                  className="group bg-white rounded-3xl p-6 border border-zinc-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition flex flex-col"
-                >
-                  <div className="flex items-center justify-between">
-                    <span className="grid place-items-center size-12 rounded-2xl bg-sky-600 text-white"><Icone size={24} /></span>
-                    <span className="text-xs font-black bg-[#C8F31D] px-3 py-1 rounded-full">{c.sigla}</span>
+
+          <div className="mt-10 sm:mt-12 grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5">
+            {CATEGORIAS.map((c) => (
+              <Link key={c.id} href={`/cartas/${c.id}`} className="group relative aspect-[3/4] sm:aspect-[4/5] overflow-hidden rounded-2xl sm:rounded-3xl bg-noite">
+                <Image
+                  src={c.imagem.src}
+                  alt={c.titulo}
+                  fill
+                  sizes="(min-width: 1024px) 25vw, 50vw"
+                  className="object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-noite via-noite/30 to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 p-4 sm:p-6 text-white">
+                  <span className="inline-block rounded-full bg-lima text-noite text-[10px] sm:text-xs font-bold px-2.5 sm:px-3 py-1">{c.sigla}</span>
+                  <div className="mt-3 flex items-center justify-between gap-3">
+                    <h3 className="text-lg sm:text-2xl font-extrabold">{c.titulo}</h3>
+                    <span className="hidden sm:grid place-items-center size-10 rounded-full bg-white/15 group-hover:bg-azul transition">
+                      <ArrowUpRight size={20} />
+                    </span>
                   </div>
-                  <h3 className="mt-5 text-xl font-black">{c.titulo}</h3>
-                  <p className="mt-2 text-sm text-zinc-600 flex-1">{c.resumo}</p>
-                  <span className="mt-5 inline-flex items-center gap-1 text-sm font-black text-sky-700 group-hover:gap-2 transition-all">
-                    Saber mais <ArrowRight size={16} />
-                  </span>
-                </Link>
-              )
-            })}
+                </div>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* --- SERVIÇOS --- */}
-      <section className="py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="text-center max-w-2xl mx-auto">
-            <Etiqueta>Serviços</Etiqueta>
-            <h2 className="mt-2 text-3xl sm:text-5xl font-black tracking-tight">O teu ritmo, a tua carta</h2>
-          </div>
-          <div className="mt-12"><CartoesServicos /></div>
-        </div>
-      </section>
-
-      {/* --- ENSINO À DISTÂNCIA + RENOVAÇÃO --- */}
-      <section className="pb-4">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 grid lg:grid-cols-2 gap-6">
-          <a href={ENSINO_DISTANCIA} target="_blank" rel="noopener" className="group relative overflow-hidden rounded-3xl bg-sky-700 text-white p-8 flex flex-col justify-end min-h-80">
-            <Image src="/escola/livro-verso.jpg" alt="" fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover object-top opacity-40 group-hover:opacity-50 transition" />
+      {/* ---------- RENOVAÇÃO + ENSINO À DISTÂNCIA ---------- */}
+      <section className="pb-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 grid lg:grid-cols-2 gap-5">
+          <Link href="/renovacao" className="group relative overflow-hidden rounded-3xl bg-lima p-8 sm:p-10 min-h-72 flex flex-col justify-between">
+            <div aria-hidden className="absolute -right-10 -bottom-10 w-72 h-14 bg-verde/60 rounded-full -rotate-[35deg]" />
+            <span className="relative grid place-items-center size-14 rounded-2xl bg-noite text-lima"><Stethoscope size={26} /></span>
             <div className="relative">
-              <Etiqueta clara>Código online</Etiqueta>
-              <h3 className="mt-2 text-3xl font-black flex items-center gap-3"><MonitorPlay /> Ensino à distância</h3>
-              <p className="mt-2 text-sky-100">Já és aluno? Entra na plataforma e estuda o código onde estiveres.</p>
-              <span className="mt-4 inline-flex items-center gap-2 font-black text-[#C8F31D]">Entrar na plataforma <ArrowRight size={18} /></span>
-            </div>
-          </a>
-          <Link href="/renovacao" className="group relative overflow-hidden rounded-3xl bg-zinc-900 text-white p-8 flex flex-col justify-end min-h-80">
-            <Image src="/escola/renovacao.jpg" alt="" fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover opacity-40 group-hover:opacity-50 transition" />
-            <div className="relative">
-              <Etiqueta clara>Renovação de carta na hora</Etiqueta>
-              <h3 className="mt-2 text-3xl font-black">Precisas de atestado médico?</h3>
-              <p className="mt-2 text-zinc-300">Faz a simulação, vê o preço e agenda o atestado.</p>
-              <span className="mt-4 inline-flex items-center gap-2 font-black text-[#C8F31D]">Abrir simulador <ArrowRight size={18} /></span>
+              <h3 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-noite">Vais renovar a carta?</h3>
+              <p className="mt-2 text-noite/70 max-w-sm">Descobre em 1 minuto se precisas de atestado médico, vê o preço e agenda.</p>
+              <span className="mt-6 inline-flex items-center gap-2 font-bold text-noite group-hover:gap-3 transition-all">
+                Simular renovação <ArrowRight size={18} />
+              </span>
             </div>
           </Link>
+
+          <a href={ENSINO_DISTANCIA} target="_blank" rel="noopener" className="group relative overflow-hidden rounded-3xl bg-azul p-8 sm:p-10 min-h-72 flex flex-col justify-between text-white">
+            <div aria-hidden className="absolute -right-10 -bottom-10 w-72 h-14 bg-azul-escuro rounded-full -rotate-[35deg]" />
+            <span className="relative grid place-items-center size-14 rounded-2xl bg-white text-azul"><MonitorPlay size={26} /></span>
+            <div className="relative">
+              <h3 className="text-3xl sm:text-4xl font-extrabold tracking-tight">Ensino à distância</h3>
+              <p className="mt-2 text-white/80 max-w-sm">Já és aluno? Estuda o código online, onde e quando quiseres.</p>
+              <span className="mt-6 inline-flex items-center gap-2 font-bold group-hover:gap-3 transition-all">
+                Entrar na plataforma <ArrowUpRight size={18} />
+              </span>
+            </div>
+          </a>
         </div>
       </section>
 
-      <ChamadaInscricao />
+      {/* ---------- GALERIA ---------- */}
+      <section className="pb-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="flex items-end justify-between gap-6">
+            <h2 className="text-4xl sm:text-5xl font-extrabold tracking-tight">Os nossos alunos</h2>
+            <Link href="/sobre-nos" className="hidden sm:inline-flex items-center gap-2 font-bold text-azul-escuro hover:gap-3 transition-all">
+              Sobre nós <ArrowRight size={18} />
+            </Link>
+          </div>
+          <div className="mt-10 -mx-4 px-4 sm:mx-0 sm:px-0 flex sm:grid sm:grid-cols-4 gap-4 overflow-x-auto snap-x snap-mandatory">
+            {GALERIA.map((g, i) => (
+              <div key={g.src} className={`relative shrink-0 w-[75%] sm:w-auto aspect-[3/4] snap-start overflow-hidden rounded-3xl ${i % 2 ? 'sm:mt-10' : ''}`}>
+                <Image src={g.src} alt={g.alt} fill sizes="(min-width: 640px) 25vw, 75vw" className="object-cover" />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ---------- CHAMADA FINAL ---------- */}
+      <section className="px-4 sm:px-6 pb-24">
+        <div className="relative max-w-7xl mx-auto overflow-hidden rounded-[2.5rem] bg-noite text-white px-6 sm:px-14 py-14 sm:py-20">
+          <div aria-hidden className="absolute -top-8 right-10 w-72 h-12 bg-azul rounded-full -rotate-[35deg]" />
+          <div aria-hidden className="absolute top-16 -right-10 w-72 h-10 bg-verde rounded-full -rotate-[35deg]" />
+          <div aria-hidden className="absolute bottom-8 right-1/4 w-48 h-8 bg-amarelo rounded-full -rotate-3 hidden sm:block" />
+          <div className="relative max-w-xl">
+            <h2 className="text-4xl sm:text-5xl font-extrabold tracking-tight">Pronto para começar?</h2>
+            <p className="mt-4 text-lg text-white/70">Fala connosco. Tratamos de tudo, do código ao exame.</p>
+            <div className="mt-8 flex flex-col sm:flex-row gap-3">
+              <a
+                href={linkWhatsApp('Olá! Gostava de mais informações sobre a carta de condução.')}
+                target="_blank"
+                rel="noopener"
+                className="inline-flex items-center justify-center gap-2 bg-lima text-noite px-7 py-4 rounded-full font-bold hover:brightness-95 transition"
+              >
+                <MessageCircle size={18} /> WhatsApp
+              </a>
+              <a href={`tel:${ESCOLA.telefoneLink}`} className="inline-flex items-center justify-center gap-2 border border-white/25 px-7 py-4 rounded-full font-bold hover:bg-white/10 transition">
+                <Phone size={18} /> {ESCOLA.telefone}
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
     </>
   )
 }

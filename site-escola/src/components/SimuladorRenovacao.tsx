@@ -144,7 +144,7 @@ function Requisito({ sim, icone: Icone, titulo }: { sim: boolean; icone: typeof 
         <Icone size={22} />
       </span>
       <span className="flex-1 min-w-0 font-bold text-sm sm:text-base">{titulo}</span>
-      <span className={`inline-flex items-center gap-1 whitespace-nowrap text-xs sm:text-sm font-black px-2.5 sm:px-3 py-1 rounded-full ${sim ? 'bg-[#C8F31D] text-zinc-900' : 'bg-zinc-200 text-zinc-600'}`}>
+      <span className={`inline-flex items-center gap-1 whitespace-nowrap text-xs sm:text-sm font-black px-2.5 sm:px-3 py-1 rounded-full ${sim ? 'bg-lima text-zinc-900' : 'bg-zinc-200 text-zinc-600'}`}>
         {sim ? <><Check size={14} /> Precisa</> : <><X size={14} /> Não precisa</>}
       </span>
     </li>
@@ -173,11 +173,11 @@ function Resultado({ resultado: r, idade, onRecomecar }: { resultado: ResultadoS
   if (r.exame === 'nova') {
     return (
       <div className="rounded-3xl bg-zinc-900 text-white p-8">
-        <AlertTriangle className="text-[#C8F31D]" size={36} />
+        <AlertTriangle className="text-lima" size={36} />
         <h3 className="mt-4 text-2xl font-black">A tua carta pode ter sido cancelada</h3>
         <p className="mt-3 text-zinc-300">{r.motivos.at(-1)}</p>
         <div className="mt-6 flex flex-col sm:flex-row gap-3">
-          <a href={linkWhatsApp(`Olá! A minha carta caducou há mais de 5 anos. Podem ajudar-me? (${resumo})`)} target="_blank" rel="noopener" className="inline-flex items-center justify-center gap-2 bg-[#C8F31D] text-zinc-900 px-6 py-3 rounded-full font-black">
+          <a href={linkWhatsApp(`Olá! A minha carta caducou há mais de 5 anos. Podem ajudar-me? (${resumo})`)} target="_blank" rel="noopener" className="inline-flex items-center justify-center gap-2 bg-lima text-zinc-900 px-6 py-3 rounded-full font-black">
             <MessageCircle size={18} /> Falar com a escola
           </a>
           <button onClick={onRecomecar} className="inline-flex items-center justify-center gap-2 border-2 border-white/30 px-6 py-3 rounded-full font-black">
@@ -240,7 +240,7 @@ function Resultado({ resultado: r, idade, onRecomecar }: { resultado: ResultadoS
             href={linkWhatsApp(`Olá! Queria tratar da renovação da minha carta. (${resumo})`)}
             target="_blank"
             rel="noopener"
-            className="flex-1 inline-flex items-center justify-center gap-2 bg-[#C8F31D] text-zinc-900 px-6 py-4 rounded-full font-black hover:brightness-95 transition"
+            className="flex-1 inline-flex items-center justify-center gap-2 bg-lima text-zinc-900 px-6 py-4 rounded-full font-black hover:brightness-95 transition"
           >
             <MessageCircle size={18} /> Tratar da renovação
           </a>
@@ -287,7 +287,7 @@ function AgendarAtestado({ psicotecnico, resumo }: { psicotecnico: boolean; resu
   return (
     <form onSubmit={enviar} className="rounded-3xl bg-sky-600 text-white p-6 sm:p-8 space-y-4">
       <div className="flex items-center gap-3">
-        <CalendarDays className="text-[#C8F31D]" />
+        <CalendarDays className="text-lima" />
         <h3 className="text-2xl font-black">Agendar atestado médico</h3>
       </div>
       <p className="text-sky-100 text-sm">Escolhe o dia que te dá mais jeito. Confirmamos a hora contigo pelo WhatsApp.</p>
@@ -314,11 +314,11 @@ function AgendarAtestado({ psicotecnico, resumo }: { psicotecnico: boolean; resu
       </div>
       {psicotecnico && (
         <label className="flex items-center gap-3 font-bold">
-          <input type="checkbox" checked={comPsico} onChange={(e) => setComPsico(e.target.checked)} className="size-5 accent-[#C8F31D]" />
+          <input type="checkbox" checked={comPsico} onChange={(e) => setComPsico(e.target.checked)} className="size-5 accent-lima" />
           Agendar também a avaliação psicológica
         </label>
       )}
-      <button type="submit" className="w-full inline-flex items-center justify-center gap-2 bg-[#C8F31D] text-zinc-900 font-black py-4 rounded-full hover:brightness-95 transition">
+      <button type="submit" className="w-full inline-flex items-center justify-center gap-2 bg-lima text-zinc-900 font-black py-4 rounded-full hover:brightness-95 transition">
         <MessageCircle size={18} /> Pedir agendamento
       </button>
     </form>

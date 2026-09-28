@@ -26,7 +26,7 @@ export function Rodape() {
               ))}
               <li><Link href="/duvidas" className="hover:text-white">Dúvidas frequentes</Link></li>
               <li>
-                <a href={ENSINO_DISTANCIA} target="_blank" rel="noopener" className="inline-flex items-center gap-1.5 text-[#C8F31D] hover:text-white">
+                <a href={ENSINO_DISTANCIA} target="_blank" rel="noopener" className="inline-flex items-center gap-1.5 text-lima hover:text-white">
                   <MonitorPlay size={14} /> Ensino à distância
                 </a>
               </li>

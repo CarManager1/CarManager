@@ -55,7 +55,6 @@ export const HORARIOS = {
 
 // Menu principal (ordem em que aparece no topo)
 export const MENU = [
-  { href: '/', label: 'Início' },
   { href: '/cartas', label: 'Cartas' },
   { href: '/precos', label: 'Preços' },
   { href: '/horarios', label: 'Horários' },

@@ -43,7 +43,7 @@ export function Cabecalho() {
           >
             <MonitorPlay size={16} /> Ensino à distância
           </a>
-          <Link href="/contactos" className="bg-[#C8F31D] text-zinc-900 px-5 py-2.5 rounded-full text-sm font-black hover:brightness-95 transition">
+          <Link href="/contactos" className="bg-lima text-zinc-900 px-5 py-2.5 rounded-full text-sm font-black hover:brightness-95 transition">
             Inscreve-te
           </Link>
         </div>
@@ -81,7 +81,7 @@ export function Cabecalho() {
           <Link
             href="/contactos"
             onClick={() => setAberto(false)}
-            className="block mt-2 text-center bg-[#C8F31D] text-zinc-900 py-3 rounded-xl font-black"
+            className="block mt-2 text-center bg-lima text-zinc-900 py-3 rounded-xl font-black"
           >
             Inscreve-te
           </Link>

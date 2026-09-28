@@ -36,7 +36,7 @@ export default function Cartas() {
                 <div>
                   <div className="flex items-center gap-3">
                     <span className="grid place-items-center size-12 rounded-2xl bg-sky-600 text-white"><Icone size={24} /></span>
-                    <span className="text-xs font-black bg-[#C8F31D] px-3 py-1 rounded-full">{c.sigla}</span>
+                    <span className="text-xs font-black bg-lima px-3 py-1 rounded-full">{c.sigla}</span>
                   </div>
                   <h2 className="mt-4 text-3xl sm:text-4xl font-black tracking-tight">{c.titulo}</h2>
                   <p className="mt-3 text-zinc-600">{c.resumo}</p>

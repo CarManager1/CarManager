@@ -50,7 +50,7 @@ export default async function Carta({ params }: Props) {
             <ul className="mt-5 grid sm:grid-cols-2 gap-3">
               {c.destaques.map((d) => (
                 <li key={d} className="flex items-start gap-3 bg-zinc-50 rounded-2xl p-4 font-bold">
-                  <span className="grid place-items-center size-7 rounded-full bg-[#C8F31D] shrink-0"><Check size={16} /></span> {d}
+                  <span className="grid place-items-center size-7 rounded-full bg-lima shrink-0"><Check size={16} /></span> {d}
                 </li>
               ))}
             </ul>
@@ -91,7 +91,7 @@ export default async function Carta({ params }: Props) {
               href={linkWhatsApp(`Olá! Gostava de saber mais sobre: ${formacao ? 'Formação' : 'Carta de'} ${c.titulo}.`)}
               target="_blank"
               rel="noopener"
-              className="flex items-center justify-center gap-2 bg-[#C8F31D] text-zinc-900 py-4 rounded-full font-black hover:brightness-95 transition"
+              className="flex items-center justify-center gap-2 bg-lima text-zinc-900 py-4 rounded-full font-black hover:brightness-95 transition"
             >
               <MessageCircle size={18} /> Pedir informações
             </a>

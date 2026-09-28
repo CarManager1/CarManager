@@ -45,12 +45,12 @@ export default function Horarios() {
             rel="noopener"
             className="group flex flex-col sm:flex-row sm:items-center gap-4 rounded-3xl bg-zinc-900 text-white p-6 sm:p-8"
           >
-            <span className="grid place-items-center size-14 rounded-2xl bg-[#C8F31D] text-zinc-900 shrink-0"><MonitorPlay size={26} /></span>
+            <span className="grid place-items-center size-14 rounded-2xl bg-lima text-zinc-900 shrink-0"><MonitorPlay size={26} /></span>
             <span className="flex-1">
               <span className="block text-xl font-black">Código à distância, a qualquer hora</span>
               <span className="block text-zinc-400">Na plataforma de ensino à distância estudas o código quando quiseres.</span>
             </span>
-            <span className="inline-flex items-center gap-2 font-black text-[#C8F31D]">Entrar <ArrowRight size={18} className="group-hover:translate-x-1 transition" /></span>
+            <span className="inline-flex items-center gap-2 font-black text-lima">Entrar <ArrowRight size={18} className="group-hover:translate-x-1 transition" /></span>
           </a>
         </div>
       </section>
