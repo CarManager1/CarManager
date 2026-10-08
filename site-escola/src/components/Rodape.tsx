@@ -33,7 +33,7 @@ export function Rodape() {
             )}
             <li className="flex gap-2">
               <Clock size={16} className="mt-0.5 shrink-0" />
-              <span>{HORARIO.map((h) => <span key={h.dias} className="block">{h.dias}: {h.horas}</span>)}</span>
+              <span>{HORARIO.map((h) => <span key={h.titulo} className="block"><span className="text-white/80">{h.titulo}:</span> {h.horas}</span>)}</span>
             </li>
           </ul>
         </div>

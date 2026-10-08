@@ -34,8 +34,9 @@ export const ENSINO_DISTANCIA = 'https://ensinoadistancia.segurancarodoviaria.pt
 
 // Horário de funcionamento
 export const HORARIO = [
-  { dias: 'Segunda a Sexta', horas: '08:00 – 20:00' },
-  { dias: 'Sábado e Domingo', horas: 'Encerrado' },
+  { titulo: 'Secretaria', dias: 'Segunda a Sexta', horas: '09:00 – 13:00 e 14:00 – 20:00' },
+  { titulo: 'Aulas de condução', dias: 'Segunda a Sexta', horas: '08:00 – 20:00' },
+  { titulo: 'Sábado e Domingo', dias: '', horas: 'Encerrado' },
 ]
 
 // Menu principal

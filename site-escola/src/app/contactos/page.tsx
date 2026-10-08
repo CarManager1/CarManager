@@ -38,7 +38,9 @@ export default function Contactos() {
               <div>
                 <p className="font-bold">Horário</p>
                 {HORARIO.map((h) => (
-                  <p key={h.dias} className="text-zinc-700">{h.dias}: {h.horas}</p>
+                  <p key={h.titulo} className="text-zinc-700">
+                    <span className="font-semibold">{h.titulo}{h.dias && ` (${h.dias.toLowerCase()})`}:</span> {h.horas}
+                  </p>
                 ))}
               </div>
             </div>

@@ -117,9 +117,11 @@ export default function Inicio() {
             <span className="relative grid place-items-center size-14 rounded-2xl bg-noite text-lima"><Clock size={26} /></span>
             <div className="relative text-noite">
               <h3 className="text-3xl sm:text-4xl font-extrabold tracking-tight">Horários</h3>
-              <p className="mt-2 text-noite/70">
-                {HORARIO.map((h) => `${h.dias}: ${h.horas}`).join(' · ')}
-              </p>
+              <ul className="mt-3 space-y-1 text-noite/75 text-sm sm:text-base">
+                {HORARIO.map((h) => (
+                  <li key={h.titulo}><span className="font-bold text-noite">{h.titulo}:</span> {h.horas}</li>
+                ))}
+              </ul>
               <span className="mt-6 inline-flex items-center gap-2 font-bold group-hover:gap-3 transition-all">
                 Ver horário do mês <ArrowRight size={18} />
               </span>
