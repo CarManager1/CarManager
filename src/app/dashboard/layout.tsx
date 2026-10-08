@@ -6,7 +6,7 @@ import { supabase } from '@/lib/supabase'
 import Link from 'next/link'
 import { 
   LayoutDashboard, Calendar, Users, FileText, 
-  UserCog, LogOut, Loader2, Wrench, Menu, X, CreditCard
+  UserCog, LogOut, Loader2, Wrench, Menu, X, CreditCard, Stethoscope
 } from 'lucide-react'
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
@@ -41,6 +41,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     { label: 'Agenda', href: '/dashboard/agenda', icon: Calendar, ownerOnly: false }, // Mecânico vê
     { label: 'Clientes', href: '/dashboard/clientes', icon: Users, ownerOnly: false }, // Mecânico vê (consultar dados)
     { label: 'Orçamentos', href: '/dashboard/orcamentos', icon: FileText, ownerOnly: false }, // Mecânico vê (histórico)
+    { label: 'Atestados', href: '/dashboard/atestados', icon: Stethoscope, ownerOnly: false },
     { label: 'Faturação', href: '/dashboard/faturacao', icon: CreditCard, ownerOnly: true }, // NOVO: Só dono
     { label: 'Equipa', href: '/dashboard/equipa', icon: UserCog, ownerOnly: true }, // Só dono
   ]

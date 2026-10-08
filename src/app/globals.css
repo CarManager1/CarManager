@@ -226,3 +226,39 @@
     print-color-adjust: exact !important;
   }
 }
+/* LISTAGENS DE ATESTADOS (várias páginas)
+   A listagem é renderizada diretamente no <body> (portal) e ignora as regras
+   de página única do orçamento/fatura acima. */
+@media print {
+  @page lista {
+    size: A4;
+    margin: 12mm !important;
+  }
+
+  html:has(#lista-impressao),
+  body:has(#lista-impressao) {
+    width: auto !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  body:has(> #lista-impressao) > *:not(#lista-impressao) {
+    display: none !important;
+  }
+
+  #lista-impressao,
+  #lista-impressao * {
+    visibility: visible;
+    height: auto;
+  }
+
+  #lista-impressao {
+    display: block !important;
+    page: lista;
+    width: 100%;
+  }
+
+  #lista-impressao thead {
+    display: table-header-group; /* repete o cabeçalho da tabela em cada página */
+  }
+}
