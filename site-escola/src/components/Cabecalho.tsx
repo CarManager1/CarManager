@@ -20,7 +20,7 @@ export function Cabecalho() {
           <Image src="/escola/logo.png" alt={ESCOLA.nomeCompleto} width={805} height={168} priority className="h-10 w-auto" />
         </Link>
 
-        <div className="hidden xl:flex items-center gap-1 text-sm font-bold">
+        <div className="hidden lg:flex items-center gap-1 text-sm font-bold">
           {MENU.map((l) => (
             <Link
               key={l.href}
@@ -34,7 +34,7 @@ export function Cabecalho() {
           ))}
         </div>
 
-        <div className="hidden xl:flex items-center gap-2">
+        <div className="hidden lg:flex items-center gap-2">
           <a
             href={ENSINO_DISTANCIA}
             target="_blank"
@@ -50,7 +50,7 @@ export function Cabecalho() {
 
         <button
           onClick={() => setAberto(!aberto)}
-          className="xl:hidden p-2 text-zinc-700"
+          className="lg:hidden p-2 text-zinc-700"
           aria-label={aberto ? 'Fechar menu' : 'Abrir menu'}
           aria-expanded={aberto}
         >
@@ -59,7 +59,7 @@ export function Cabecalho() {
       </div>
 
       {aberto && (
-        <div className="xl:hidden bg-white border-b border-zinc-100 px-6 pb-6 pt-2 space-y-1 shadow-xl">
+        <div className="lg:hidden bg-white border-b border-zinc-100 px-6 pb-6 pt-2 space-y-1 shadow-xl">
           {MENU.map((l) => (
             <Link
               key={l.href}

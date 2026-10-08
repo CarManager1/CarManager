@@ -1,64 +1,45 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { MapPin, Phone, Mail, Clock, MessageCircle, MonitorPlay } from 'lucide-react'
-import { ESCOLA, MENU, CATEGORIAS, HORARIOS, ENSINO_DISTANCIA } from '@/lib/dados'
+import { Phone, Mail, Clock, MessageCircle, MonitorPlay, MapPin } from 'lucide-react'
+import { ESCOLA, MENU, HORARIO, ENSINO_DISTANCIA } from '@/lib/dados'
 import { linkWhatsApp } from './whatsapp'
 
 export function Rodape() {
   return (
     <>
-      <footer className="bg-zinc-950 text-zinc-400">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-14 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+      <footer className="bg-noite text-white/60">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-14 grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1.2fr]">
           <div>
             <Image src="/escola/logo-branco.png" alt={ESCOLA.nomeCompleto} width={805} height={168} className="h-10 w-auto" />
             <p className="mt-4 text-sm">{ESCOLA.slogan}.</p>
-            <div className="mt-4 flex gap-4 text-sm font-bold">
-              {ESCOLA.instagram && <a href={ESCOLA.instagram} target="_blank" rel="noopener" className="hover:text-white">Instagram</a>}
-              {ESCOLA.facebook && <a href={ESCOLA.facebook} target="_blank" rel="noopener" className="hover:text-white">Facebook</a>}
-            </div>
+            <a href={ENSINO_DISTANCIA} target="_blank" rel="noopener" className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-lima hover:text-white">
+              <MonitorPlay size={16} /> Ensino à distância
+            </a>
           </div>
 
-          <div>
-            <p className="text-white font-black">Páginas</p>
-            <ul className="mt-4 space-y-2 text-sm">
-              {MENU.map((l) => (
-                <li key={l.href}><Link href={l.href} className="hover:text-white">{l.label}</Link></li>
-              ))}
-              <li><Link href="/duvidas" className="hover:text-white">Dúvidas frequentes</Link></li>
-              <li>
-                <a href={ENSINO_DISTANCIA} target="_blank" rel="noopener" className="inline-flex items-center gap-1.5 text-lima hover:text-white">
-                  <MonitorPlay size={14} /> Ensino à distância
-                </a>
-              </li>
-            </ul>
-          </div>
+          <ul className="space-y-2 text-sm">
+            {MENU.map((l) => (
+              <li key={l.href}><Link href={l.href} className="hover:text-white">{l.label}</Link></li>
+            ))}
+          </ul>
 
-          <div>
-            <p className="text-white font-black">Cursos</p>
-            <ul className="mt-4 space-y-2 text-sm">
-              {CATEGORIAS.map((c) => (
-                <li key={c.id}><Link href={`/cartas/${c.id}`} className="hover:text-white">{c.titulo} ({c.sigla})</Link></li>
-              ))}
-              <li><Link href="/renovacao" className="hover:text-white">Renovação de carta</Link></li>
-            </ul>
-          </div>
-
-          <div>
-            <p className="text-white font-black">Contactos</p>
-            <ul className="mt-4 space-y-3 text-sm">
+          <ul className="space-y-3 text-sm">
+            {ESCOLA.telefones.map((t) => (
+              <li key={t.link} className="flex gap-2"><Phone size={16} className="mt-0.5 shrink-0" /> <a href={`tel:${t.link}`} className="hover:text-white">{t.texto}</a></li>
+            ))}
+            <li className="flex gap-2"><Mail size={16} className="mt-0.5 shrink-0" /> <a href={`mailto:${ESCOLA.email}`} className="hover:text-white break-all">{ESCOLA.email}</a></li>
+            {ESCOLA.morada && (
               <li className="flex gap-2"><MapPin size={16} className="mt-0.5 shrink-0" /> <span>{ESCOLA.morada}<br />{ESCOLA.codigoPostal}</span></li>
-              <li className="flex gap-2"><Phone size={16} className="mt-0.5 shrink-0" /> <a href={`tel:${ESCOLA.telefoneLink}`} className="hover:text-white">{ESCOLA.telefone}</a></li>
-              <li className="flex gap-2"><Mail size={16} className="mt-0.5 shrink-0" /> <a href={`mailto:${ESCOLA.email}`} className="hover:text-white break-all">{ESCOLA.email}</a></li>
-              <li className="flex gap-2">
-                <Clock size={16} className="mt-0.5 shrink-0" />
-                <span>{HORARIOS.secretaria.map((h) => <span key={h.dias} className="block">{h.dias}: {h.horas}</span>)}</span>
-              </li>
-            </ul>
-          </div>
+            )}
+            <li className="flex gap-2">
+              <Clock size={16} className="mt-0.5 shrink-0" />
+              <span>{HORARIO.map((h) => <span key={h.dias} className="block">{h.dias}: {h.horas}</span>)}</span>
+            </li>
+          </ul>
         </div>
         <div className="border-t border-white/10">
           <p className="max-w-7xl mx-auto px-4 sm:px-6 py-6 text-xs">
-            © {new Date().getFullYear()} {ESCOLA.nomeCompleto}. Todos os direitos reservados.
+            © {new Date().getFullYear()} {ESCOLA.nomeCompleto}
           </p>
         </div>
       </footer>

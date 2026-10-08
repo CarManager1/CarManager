@@ -8,7 +8,7 @@ import { linkWhatsApp } from './whatsapp'
 export function FormularioInscricao() {
   const [nome, setNome] = useState('')
   const [telefone, setTelefone] = useState('')
-  const [curso, setCurso] = useState('Carta de ligeiros (B)')
+  const [curso, setCurso] = useState('Carta de carro (B)')
   const [mensagem, setMensagem] = useState('')
 
   function enviar(e: React.FormEvent) {
@@ -49,10 +49,12 @@ export function FormularioInscricao() {
       <div>
         <label htmlFor="curso" className="block text-sm font-bold text-zinc-700 mb-1.5">Estou interessado em</label>
         <select id="curso" value={curso} onChange={(e) => setCurso(e.target.value)} className={campo}>
-          <option>Carta de ligeiros (B)</option>
-          <option>Carta de motociclos (A1 / A2 / A)</option>
+          <option>Carta de carro (B)</option>
+          <option>Carta de mota (A1 / A2 / A / B1)</option>
+          <option>Carro + mota (A + B)</option>
           <option>Aulas de treino</option>
           <option>Renovação de carta</option>
+          <option>Outro assunto</option>
         </select>
       </div>
       <div>
