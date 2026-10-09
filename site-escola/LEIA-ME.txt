@@ -1,0 +1,31 @@
+SITE DA ESCOLA DE CONDUÇÃO S. CRISTÓVÃO
+=======================================
+
+VER O SITE NO COMPUTADOR
+1. Abra esta pasta no VS Code:  File > Open Folder...
+2. Terminal > New Terminal
+3. Na primeira vez:  npm install
+4. Depois:           npm run dev
+5. Abra:             http://localhost:3000
+
+MUDAR TEXTOS, CONTACTOS E SERVIÇOS
+   src/lib/dados.ts   (grave e o site atualiza sozinho)
+
+PUBLICAR O HORÁRIO DO MÊS
+   1. Guarde o PDF na pasta  public/horarios
+   2. Dê-lhe o nome  ANO-MÊS.pdf  (mês sempre com 2 algarismos):
+         outubro 2026   ->  2026-10.pdf
+         novembro 2026  ->  2026-11.pdf
+         janeiro 2027   ->  2027-01.pdf
+   3. Faça commit e push (no VS Code: Source Control > Commit > Sync).
+      A Vercel publica sozinha em cerca de 1 minuto.
+   O site mostra sempre o mês atual e o seguinte. Os PDFs dos meses que
+   já passaram podem ser apagados.
+
+PÁGINAS
+   /            Início          src/app/page.tsx
+   /horarios    Horários        src/app/horarios/page.tsx
+   /sobre-nos   Sobre nós       src/app/sobre-nos/page.tsx
+   /contactos   Contactos       src/app/contactos/page.tsx
+
+Imagens: pasta public/escola
