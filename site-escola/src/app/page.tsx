@@ -71,7 +71,7 @@ export default function Inicio() {
 
           <div className="flex flex-wrap gap-4 sm:gap-5 lg:mt-10">
             <BotaoCartaz href="/contactos" cor="azul">Inscreve-te já!</BotaoCartaz>
-            <BotaoCartaz href="#3-meses" cor="lima">
+            <BotaoCartaz href="#carta-3-meses" cor="lima">
               Saber mais <ChevronsRight size={24} />
             </BotaoCartaz>
           </div>
@@ -93,7 +93,7 @@ export default function Inicio() {
       </div>
 
       {/* ---------- CARTA EM 3 MESES ---------- */}
-      <section id="3-meses" className="py-20 sm:py-28 scroll-mt-20 overflow-hidden">
+      <section id="carta-3-meses" className="py-20 sm:py-28 scroll-mt-20 overflow-hidden">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 grid lg:grid-cols-2 gap-14 items-center">
           <div className="relative mx-auto w-full max-w-sm">
             <div aria-hidden className="absolute -inset-3 bg-azul -rotate-3 rounded-3xl" />
@@ -108,15 +108,15 @@ export default function Inicio() {
           </div>
 
           <div>
-            <h2 className="font-display uppercase text-6xl sm:text-7xl leading-[0.95]">
+            <h2 className="font-display uppercase text-6xl sm:text-7xl leading-[1.1]">
               <span className="block w-fit -rotate-2 bg-azul px-3 text-white">Rápido</span>
               <span className="block w-fit -rotate-2 bg-lima px-3 mt-1">e seguro</span>
             </h2>
 
             <ul className="mt-10 grid grid-cols-2 gap-3">
               {CARTA_3_MESES.pontos.map((p, i) => (
-                <li key={p.titulo} className={`rounded-2xl p-5 ${i === 0 || i === 3 ? 'bg-noite text-white' : 'bg-zinc-100'}`}>
-                  <p className={`font-display uppercase text-3xl leading-none ${i === 0 || i === 3 ? 'text-lima' : 'text-azul-escuro'}`}>{p.titulo}</p>
+                <li key={p.titulo} className={`rounded-2xl p-5 last:col-span-2 ${i === 1 ? 'bg-zinc-100' : 'bg-noite text-white'}`}>
+                  <p className={`font-display uppercase text-3xl leading-none ${i === 1 ? 'text-azul-escuro' : 'text-lima'}`}>{p.titulo}</p>
                   <p className="mt-2 text-sm font-semibold opacity-80">{p.texto}</p>
                 </li>
               ))}
@@ -127,7 +127,6 @@ export default function Inicio() {
                 Quero a carta em 3 meses <ChevronsRight size={24} />
               </BotaoCartaz>
             </div>
-            <p className="mt-5 text-xs text-zinc-500">{CARTA_3_MESES.nota}</p>
           </div>
         </div>
       </section>

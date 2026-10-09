@@ -26,7 +26,7 @@ export function Cabecalho() {
               key={l.href}
               href={l.href}
               className={`px-3 py-2 rounded-full transition-colors ${
-                l.href === '/#3-meses'
+                l.href === '/#carta-3-meses'
                   ? 'bg-noite text-lima hover:bg-azul-escuro'
                   : ativo(l.href) ? 'bg-sky-50 text-sky-700' : 'text-zinc-600 hover:text-sky-600'
               }`}

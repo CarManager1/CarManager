@@ -41,7 +41,7 @@ export const HORARIO = [
 
 // Menu principal
 export const MENU = [
-  { href: '/#3-meses', label: 'Carta em 3 meses' },
+  { href: '/#carta-3-meses', label: 'Carta em 3 meses' },
   { href: '/#servicos', label: 'Serviços' },
   { href: '/horarios', label: 'Horários' },
   { href: '/sobre-nos', label: 'Sobre nós' },
@@ -54,9 +54,7 @@ export const CARTA_3_MESES = {
     { titulo: '6 aulas', texto: 'por semana, num curso intensivo' },
     { titulo: 'Exames no privado', texto: 'sem esperas' },
     { titulo: 'Até 10x', texto: 'sem juros' },
-    { titulo: 'Reprovas?', texto: 'Não pagas*' },
   ],
-  nota: '*Válido apenas para 1 reprovação no exame de código ou condução.',
 }
 
 // Serviços principais (cartões grandes no Início)
