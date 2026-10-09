@@ -9,8 +9,31 @@
   --color-amarelo: #e8f704;
   --color-noite: #0a0f1c;
   --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-bricolage), var(--font-jakarta), ui-sans-serif, sans-serif;
+
+  --animate-faixa: faixa 28s linear infinite;
+  --animate-roda: roda 18s linear infinite;
+  --animate-flutua: flutua 6s ease-in-out infinite;
+  --animate-flutua-lento: flutua 8s ease-in-out infinite;
+
+  @keyframes faixa {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  @keyframes roda {
+    to { transform: rotate(360deg); }
+  }
+  @keyframes flutua {
+    0%, 100% { translate: 0 0; }
+    50% { translate: 0 -12px; }
+  }
 }
 
 html {
   scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; }
 }

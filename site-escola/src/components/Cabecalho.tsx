@@ -20,13 +20,15 @@ export function Cabecalho() {
           <Image src="/escola/logo.png" alt={ESCOLA.nomeCompleto} width={805} height={168} priority className="h-10 w-auto" />
         </Link>
 
-        <div className="hidden lg:flex items-center gap-1 text-sm font-bold">
+        <div className="hidden xl:flex items-center gap-1 text-sm font-bold">
           {MENU.map((l) => (
             <Link
               key={l.href}
               href={l.href}
               className={`px-3 py-2 rounded-full transition-colors ${
-                ativo(l.href) ? 'bg-sky-50 text-sky-700' : 'text-zinc-600 hover:text-sky-600'
+                l.href === '/#3-meses'
+                  ? 'bg-noite text-lima hover:bg-azul-escuro'
+                  : ativo(l.href) ? 'bg-sky-50 text-sky-700' : 'text-zinc-600 hover:text-sky-600'
               }`}
             >
               {l.label}
@@ -34,7 +36,7 @@ export function Cabecalho() {
           ))}
         </div>
 
-        <div className="hidden lg:flex items-center gap-2">
+        <div className="hidden xl:flex items-center gap-2">
           <a
             href={ENSINO_DISTANCIA}
             target="_blank"
@@ -50,7 +52,7 @@ export function Cabecalho() {
 
         <button
           onClick={() => setAberto(!aberto)}
-          className="lg:hidden p-2 text-zinc-700"
+          className="xl:hidden p-2 text-zinc-700"
           aria-label={aberto ? 'Fechar menu' : 'Abrir menu'}
           aria-expanded={aberto}
         >
@@ -59,7 +61,7 @@ export function Cabecalho() {
       </div>
 
       {aberto && (
-        <div className="lg:hidden bg-white border-b border-zinc-100 px-6 pb-6 pt-2 space-y-1 shadow-xl">
+        <div className="xl:hidden bg-white border-b border-zinc-100 px-6 pb-6 pt-2 space-y-1 shadow-xl">
           {MENU.map((l) => (
             <Link
               key={l.href}

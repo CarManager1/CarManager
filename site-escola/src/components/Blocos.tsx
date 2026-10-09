@@ -24,7 +24,7 @@ export function TituloPagina({ etiqueta, titulo, texto }: { etiqueta: string; ti
       <Riscas className="opacity-70 hidden md:block" />
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-20">
         <p className="text-lima font-black uppercase tracking-wider text-sm">{etiqueta}</p>
-        <h1 className="mt-2 text-4xl sm:text-6xl font-black tracking-tight max-w-3xl">{titulo}</h1>
+        <h1 className="mt-2 font-display text-5xl sm:text-7xl font-extrabold tracking-tight max-w-3xl">{titulo}</h1>
         {texto && <p className="mt-5 text-lg text-zinc-300 max-w-2xl">{texto}</p>}
       </div>
     </header>
