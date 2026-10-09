@@ -18,12 +18,12 @@ export const ESCOLA = {
   // WhatsApp em formato internacional, só dígitos
   whatsapp: '351926889955',
 
-  // Morada (deixe vazio para não aparecer no site)
-  morada: '',
-  codigoPostal: '',
+  morada: 'Av. João XXI, n.º 9, 1.º andar',
+  codigoPostal: 'Lisboa · Junto ao Metro Areeiro',
 
-  // Link "Partilhar > Incorporar mapa" do Google Maps (só o endereço dentro de src="...")
-  mapa: '',
+  // Mapa (Google Maps)
+  mapa: 'https://www.google.com/maps?q=Av.+Jo%C3%A3o+XXI+9,+Lisboa&output=embed',
+  comoChegar: 'https://www.google.com/maps/search/?api=1&query=Av.+Jo%C3%A3o+XXI+9,+Lisboa',
 
   instagram: '', // opcional, ex: 'https://instagram.com/ecsaocristovao'
   facebook: '', // opcional
@@ -65,7 +65,7 @@ export const SERVICOS = [
     titulo: 'Carta de carro',
     sigla: 'Categoria B',
     texto: 'Pronto pagamento ou até 10 prestações.',
-    imagem: '/escola/aluno-1.jpg',
+    imagem: '/escola/carro-lisboa.jpg',
   },
   {
     titulo: 'Carta de mota',

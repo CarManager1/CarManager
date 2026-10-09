@@ -1,11 +1,11 @@
 import type { Metadata } from 'next'
-import { Plus_Jakarta_Sans, Bricolage_Grotesque } from 'next/font/google'
+import { Plus_Jakarta_Sans, Anton } from 'next/font/google'
 import './globals.css'
 import { Cabecalho } from '@/components/Cabecalho'
 import { Rodape } from '@/components/Rodape'
 
 const jakarta = Plus_Jakarta_Sans({ subsets: ['latin'], variable: '--font-jakarta' })
-const bricolage = Bricolage_Grotesque({ subsets: ['latin'], variable: '--font-bricolage' })
+const anton = Anton({ weight: '400', subsets: ['latin'], variable: '--font-anton' })
 
 export const metadata: Metadata = {
   title: {
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="pt" className={`${jakarta.variable} ${bricolage.variable}`}>
+    <html lang="pt" className={`${jakarta.variable} ${anton.variable}`}>
       <body className="font-sans bg-white text-zinc-900 antialiased overflow-x-hidden">
         <Cabecalho />
         <main>{children}</main>

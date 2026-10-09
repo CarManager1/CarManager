@@ -9,7 +9,7 @@
   --color-amarelo: #e8f704;
   --color-noite: #0a0f1c;
   --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-bricolage), var(--font-jakarta), ui-sans-serif, sans-serif;
+  --font-display: var(--font-anton), Impact, 'Arial Narrow', sans-serif;
 
   --animate-faixa: faixa 28s linear infinite;
   --animate-roda: roda 18s linear infinite;
