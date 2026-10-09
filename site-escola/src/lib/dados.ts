@@ -43,6 +43,7 @@ export const HORARIO = [
 export const MENU = [
   { href: '/#carta-3-meses', label: 'Carta em 3 meses' },
   { href: '/#servicos', label: 'Serviços' },
+  { href: '/aulas-de-treino', label: 'Aulas de treino' },
   { href: '/horarios', label: 'Horários' },
   { href: '/sobre-nos', label: 'Sobre nós' },
   { href: '/contactos', label: 'Contactos' },
@@ -75,24 +76,21 @@ export const SERVICOS = [
     sigla: 'Categoria B',
     texto: 'Regime normal ou carta em 3 meses.',
     imagem: '/escola/carro-lisboa.jpg',
+    href: '/contactos',
   },
   {
     titulo: 'Carta de mota',
     sigla: 'A1 · A2 · A · B1',
     texto: 'Categorias A1, A2, A e B1.',
     imagem: '/escola/mota.jpg',
-  },
-  {
-    titulo: 'Carro + mota',
-    sigla: 'Categoria A + B',
-    texto: 'As duas cartas de uma vez.',
-    imagem: '/escola/aluno-2.jpg',
+    href: '/contactos',
   },
   {
     titulo: 'Aulas de treino',
     sigla: 'Encartados',
     texto: 'Pacotes de 1, 5 ou 10 lições.',
     imagem: '/escola/carro-traseira.jpg',
+    href: '/aulas-de-treino',
   },
 ]
 

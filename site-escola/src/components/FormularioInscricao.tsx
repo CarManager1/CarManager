@@ -51,7 +51,6 @@ export function FormularioInscricao() {
         <select id="curso" value={curso} onChange={(e) => setCurso(e.target.value)} className={campo}>
           <option>Carta de carro (B)</option>
           <option>Carta de mota (A1 / A2 / A / B1)</option>
-          <option>Carro + mota (A + B)</option>
           <option>Aulas de treino</option>
           <option>Renovação de carta</option>
           <option>Outro assunto</option>

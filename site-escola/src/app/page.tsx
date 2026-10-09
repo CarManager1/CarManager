@@ -158,14 +158,14 @@ export default function Inicio() {
             Escolhe o teu <span className="inline-block -rotate-2 bg-lima px-3">caminho</span>
           </h2>
 
-          <div className="mt-12 grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5">
+          <div className="mt-12 grid sm:grid-cols-3 gap-4 sm:gap-5">
             {SERVICOS.map((s) => (
-              <Link key={s.titulo} href="/contactos" className="group relative aspect-[3/4] overflow-hidden rounded-2xl bg-noite">
+              <Link key={s.titulo} href={s.href} className="group relative aspect-[4/3] sm:aspect-[3/4] overflow-hidden rounded-2xl bg-noite">
                 <Image
                   src={s.imagem}
                   alt={s.titulo}
                   fill
-                  sizes="(min-width: 1024px) 25vw, 50vw"
+                  sizes="(min-width: 640px) 33vw, 100vw"
                   className="object-cover group-hover:scale-105 transition duration-500"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-noite via-noite/20 to-transparent" />
