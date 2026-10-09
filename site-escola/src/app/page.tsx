@@ -1,10 +1,10 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { ArrowUpRight, ChevronsRight, MapPin, MonitorPlay, Clock, Phone, MessageCircle } from 'lucide-react'
-import { SERVICOS, OUTROS_SERVICOS, ENSINO_DISTANCIA, ESCOLA, CARTA_3_MESES } from '@/lib/dados'
+import { ArrowUpRight, ChevronsRight, MapPin, MonitorPlay, Clock, Phone, MessageCircle, Check, Zap } from 'lucide-react'
+import { SERVICOS, OUTROS_SERVICOS, ENSINO_DISTANCIA, ESCOLA, OPCOES } from '@/lib/dados'
 import { linkWhatsApp } from '@/components/whatsapp'
 
-const FAIXA = ['Carta em 3 meses', 'Junto ao Metro Areeiro', 'Código online', 'Exames no privado', 'Até 10x sem juros', 'Carro e mota']
+const FAIXA = ['Carta em 3 meses', 'Junto ao Metro Areeiro', 'Código online', 'Exames no privado', 'Carro e mota', 'Aulas de treino']
 
 // Botão em paralelogramo, como nos cartazes da escola
 function BotaoCartaz({ href, cor, children, externo = false }: { href: string; cor: 'lima' | 'azul'; children: React.ReactNode; externo?: boolean }) {
@@ -95,7 +95,7 @@ export default function Inicio() {
       {/* ---------- CARTA EM 3 MESES ---------- */}
       <section id="carta-3-meses" className="py-20 sm:py-28 scroll-mt-20 overflow-hidden">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 grid lg:grid-cols-2 gap-14 items-center">
-          <div className="relative mx-auto w-full max-w-sm">
+          <div className="relative mx-auto w-full max-w-xs lg:max-w-sm">
             <div aria-hidden className="absolute -inset-3 bg-azul -rotate-3 rounded-3xl" />
             <div aria-hidden className="absolute -inset-3 bg-lima rotate-2 rounded-3xl" />
             <Image
@@ -109,23 +109,43 @@ export default function Inicio() {
 
           <div>
             <h2 className="font-display uppercase text-6xl sm:text-7xl leading-[1.1]">
-              <span className="block w-fit -rotate-2 bg-azul px-3 text-white">Rápido</span>
-              <span className="block w-fit -rotate-2 bg-lima px-3 mt-1">e seguro</span>
+              <span className="block w-fit -rotate-2 bg-azul px-3 text-white">Escolhe</span>
+              <span className="block w-fit -rotate-2 bg-lima px-3 mt-1">o teu ritmo</span>
             </h2>
 
-            <ul className="mt-10 grid grid-cols-2 gap-3">
-              {CARTA_3_MESES.pontos.map((p, i) => (
-                <li key={p.titulo} className={`rounded-2xl p-5 last:col-span-2 ${i === 1 ? 'bg-zinc-100' : 'bg-noite text-white'}`}>
-                  <p className={`font-display uppercase text-3xl leading-none ${i === 1 ? 'text-azul-escuro' : 'text-lima'}`}>{p.titulo}</p>
-                  <p className="mt-2 text-sm font-semibold opacity-80">{p.texto}</p>
-                </li>
+            <div className="mt-10 grid sm:grid-cols-2 gap-4">
+              {OPCOES.map((o) => (
+                <article
+                  key={o.titulo}
+                  className={`relative flex flex-col rounded-3xl p-6 ${o.destaque ? 'bg-noite text-white shadow-[8px_8px_0_0_var(--color-lima)]' : 'bg-zinc-100'}`}
+                >
+                  {o.destaque && (
+                    <span className="absolute -top-3 right-5 -skew-x-12 bg-lima px-3 py-1 text-xs font-extrabold uppercase text-noite">
+                      <span className="flex items-center gap-1 skew-x-12"><Zap size={12} /> Mais rápido</span>
+                    </span>
+                  )}
+                  <h3 className={`font-display uppercase text-2xl ${o.destaque ? 'text-lima' : 'text-azul-escuro'}`}>{o.titulo}</h3>
+                  <p className="mt-4 font-display uppercase text-6xl leading-none">{o.numero}</p>
+                  <p className={`text-sm font-bold ${o.destaque ? 'text-white/70' : 'text-zinc-600'}`}>{o.unidade}</p>
+                  <ul className="mt-5 space-y-2 flex-1">
+                    {o.pontos.map((p) => (
+                      <li key={p} className="flex items-start gap-2 text-sm font-semibold">
+                        <Check size={16} className={`mt-0.5 shrink-0 ${o.destaque ? 'text-lima' : 'text-azul'}`} /> {p}
+                      </li>
+                    ))}
+                  </ul>
+                  <a
+                    href={linkWhatsApp(o.mensagem)}
+                    target="_blank"
+                    rel="noopener"
+                    className={`mt-6 inline-flex items-center justify-center gap-1 py-3 font-display uppercase text-xl -skew-x-12 transition hover:-translate-y-0.5 ${
+                      o.destaque ? 'bg-lima text-noite' : 'bg-azul-escuro text-white'
+                    }`}
+                  >
+                    <span className="skew-x-12 flex items-center gap-1">Quero este <ChevronsRight size={20} /></span>
+                  </a>
+                </article>
               ))}
-            </ul>
-
-            <div className="mt-10">
-              <BotaoCartaz href={linkWhatsApp('Olá! Quero tirar a carta em 3 meses.')} cor="lima" externo>
-                Quero a carta em 3 meses <ChevronsRight size={24} />
-              </BotaoCartaz>
             </div>
           </div>
         </div>

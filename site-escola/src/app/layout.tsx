@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     template: '%s | S. Cristóvão — Escola de Condução',
   },
   description:
-    'Tira a carta com a Escola de Condução S. Cristóvão: carta em 3 meses, carta de carro e de mota, aulas de treino e renovação. Código à distância e pagamento até 10x sem juros.',
+    'Tira a carta com a Escola de Condução S. Cristóvão: carta em 3 meses, carta de carro e de mota, aulas de treino e renovação. Junto ao Metro Areeiro, em Lisboa.',
   icons: { icon: '/escola/logo-icone.png' },
 }
 

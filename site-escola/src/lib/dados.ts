@@ -48,27 +48,38 @@ export const MENU = [
   { href: '/contactos', label: 'Contactos' },
 ]
 
-// Carta em 3 meses (destaque no Início)
-export const CARTA_3_MESES = {
-  pontos: [
-    { titulo: '6 aulas', texto: 'por semana, num curso intensivo' },
-    { titulo: 'Exames no privado', texto: 'sem esperas' },
-    { titulo: 'Até 10x', texto: 'sem juros' },
-  ],
-}
+// As duas opções para tirar a carta (Início)
+export const OPCOES = [
+  {
+    titulo: 'Regime normal',
+    numero: 'Até 3',
+    unidade: 'aulas por semana',
+    pontos: ['Horários à tua medida', 'Exames em centros privados ou públicos'],
+    mensagem: 'Olá! Quero tirar a carta no regime normal.',
+    destaque: false,
+  },
+  {
+    titulo: 'Carta em 3 meses',
+    numero: '6',
+    unidade: 'aulas por semana',
+    pontos: ['Curso intensivo', 'Exames no privado, sem esperas'],
+    mensagem: 'Olá! Quero tirar a carta em 3 meses.',
+    destaque: true,
+  },
+]
 
 // Serviços principais (cartões grandes no Início)
 export const SERVICOS = [
   {
     titulo: 'Carta de carro',
     sigla: 'Categoria B',
-    texto: 'Pronto pagamento ou até 10 prestações.',
+    texto: 'Regime normal ou carta em 3 meses.',
     imagem: '/escola/carro-lisboa.jpg',
   },
   {
     titulo: 'Carta de mota',
     sigla: 'A1 · A2 · A · B1',
-    texto: 'Pronto pagamento ou até 6 prestações.',
+    texto: 'Categorias A1, A2, A e B1.',
     imagem: '/escola/mota.jpg',
   },
   {
