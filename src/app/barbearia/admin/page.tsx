@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
 import { ChevronLeft, ChevronRight, Loader2, LogOut, Phone, Scissors } from 'lucide-react'
-import { BARBEARIA, BARBEIROS, DIAS_SEMANA, dataISO } from '@/lib/barbearia-data'
+import { BRAND, BARBERS, WEEKDAYS, dataISO } from '@/lib/siteData'
 
 type Marcacao = {
   id: number
@@ -22,7 +22,7 @@ type Marcacao = {
 }
 
 const ESTADOS: Record<Marcacao['estado'], { label: string; cor: string }> = {
-  confirmada: { label: 'Confirmada', cor: 'bg-amber-100 text-amber-800' },
+  confirmada: { label: 'Confirmada', cor: 'bg-sky-100 text-sky-800' },
   concluida: { label: 'Concluída', cor: 'bg-green-100 text-green-800' },
   cancelada: { label: 'Cancelada', cor: 'bg-zinc-200 text-zinc-600' },
   falta: { label: 'Faltou', cor: 'bg-red-100 text-red-700' },
@@ -67,7 +67,7 @@ export default function BarbeariaAdminPage() {
   const mudarDia = (n: number) => { const x = new Date(dia); x.setDate(x.getDate() + n); irPara(x) }
 
   if (sessao === 'a-verificar') {
-    return <div className="h-screen flex items-center justify-center"><Loader2 className="animate-spin text-amber-500" /></div>
+    return <div className="h-screen flex items-center justify-center"><Loader2 className="animate-spin text-gold-500" /></div>
   }
   if (sessao === 'nao') return <Login onEntrar={() => setSessao('sim')} />
 
@@ -76,11 +76,11 @@ export default function BarbeariaAdminPage() {
 
   return (
     <div className="min-h-screen bg-zinc-50 text-zinc-900">
-      <header className="bg-zinc-950 text-white">
+      <header className="bg-sky-950 text-white">
         <div className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
           <Link href="/barbearia" className="flex items-center gap-2 font-black">
-            <span className="bg-amber-500 p-1.5 rounded-lg text-zinc-950"><Scissors size={18} /></span>
-            {BARBEARIA.nome} <span className="text-zinc-500 font-bold text-sm">· Marcações</span>
+            <span className="bg-gold-500 p-1.5 rounded-lg text-zinc-950"><Scissors size={18} /></span>
+            {BRAND.name} <span className="text-zinc-500 font-bold text-sm">· Marcações</span>
           </Link>
           <button
             onClick={async () => { await supabase.auth.signOut(); setSessao('nao') }}
@@ -102,8 +102,8 @@ export default function BarbeariaAdminPage() {
             className="px-4 py-2 rounded-xl bg-white border border-zinc-200 font-bold text-sm"
           />
           <button onClick={() => mudarDia(1)} className="p-2.5 rounded-xl bg-white border border-zinc-200 hover:bg-zinc-100"><ChevronRight size={18} /></button>
-          <button onClick={() => irPara(new Date())} className="px-4 py-2 rounded-xl bg-zinc-900 text-white font-bold text-sm">Hoje</button>
-          <span className="font-black text-lg ml-2">{DIAS_SEMANA[dia.getDay()]}</span>
+          <button onClick={() => irPara(new Date())} className="px-4 py-2 rounded-xl bg-sky-900 text-white font-bold text-sm">Hoje</button>
+          <span className="font-black text-lg ml-2">{WEEKDAYS[dia.getDay()]}</span>
         </div>
 
         {/* Resumo */}
@@ -117,15 +117,15 @@ export default function BarbeariaAdminPage() {
 
         {/* Por barbeiro */}
         {loading ? (
-          <div className="flex justify-center py-16"><Loader2 className="animate-spin text-amber-500" /></div>
+          <div className="flex justify-center py-16"><Loader2 className="animate-spin text-gold-500" /></div>
         ) : (
           <div className="grid md:grid-cols-3 gap-4">
-            {BARBEIROS.map(b => {
+            {BARBERS.map(b => {
               const doBarbeiro = marcacoes.filter(m => m.barbeiro_id === b.id)
               return (
                 <section key={b.id} className="bg-white border border-zinc-200 rounded-2xl overflow-hidden">
                   <h2 className="px-5 py-4 border-b border-zinc-100 font-black flex justify-between">
-                    {b.nome}
+                    {b.name}
                     <span className="text-zinc-400 text-sm">{doBarbeiro.filter(m => m.estado !== 'cancelada').length}</span>
                   </h2>
                   <ul className="divide-y divide-zinc-100">
@@ -138,7 +138,7 @@ export default function BarbeariaAdminPage() {
                         </div>
                         <p className="font-bold">{m.cliente_nome}</p>
                         <p className="text-sm text-zinc-500">{m.servico_nome} · {m.duracao_min} min · {Number(m.preco)} €</p>
-                        <a href={`tel:${m.cliente_telefone}`} className="text-sm text-amber-700 font-bold flex items-center gap-1.5"><Phone size={13} /> {m.cliente_telefone}</a>
+                        <a href={`tel:${m.cliente_telefone}`} className="text-sm text-gold-700 font-bold flex items-center gap-1.5"><Phone size={13} /> {m.cliente_telefone}</a>
                         {m.notas && <p className="text-xs text-zinc-500 italic">“{m.notas}”</p>}
                         <select
                           value={m.estado}
@@ -186,17 +186,17 @@ function Login({ onEntrar }: { onEntrar: () => void }) {
   }
 
   return (
-    <div className="min-h-screen bg-zinc-950 flex items-center justify-center px-6">
-      <form onSubmit={entrar} className="w-full max-w-sm bg-zinc-900 border border-zinc-800 rounded-3xl p-8 space-y-5 text-zinc-100">
+    <div className="min-h-screen bg-sky-950 flex items-center justify-center px-6">
+      <form onSubmit={entrar} className="w-full max-w-sm bg-sky-900 border border-white/10 rounded-3xl p-8 space-y-5 text-zinc-100">
         <div className="text-center">
-          <div className="mx-auto w-fit bg-amber-500 p-3 rounded-2xl text-zinc-950"><Scissors size={24} /></div>
-          <h1 className="mt-4 text-xl font-black">Área da equipa</h1>
-          <p className="text-sm text-zinc-500">{BARBEARIA.nome}</p>
+          <div className="mx-auto w-fit bg-gold-500 p-3 rounded-2xl text-zinc-950"><Scissors size={24} /></div>
+          <h1 className="mt-4 font-display text-2xl font-bold">Área da equipa</h1>
+          <p className="text-sm text-zinc-500">{BRAND.name}</p>
         </div>
         {erro && <p className="text-sm text-red-400 font-bold text-center">{erro}</p>}
-        <input type="email" required placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} className="w-full bg-zinc-950 border border-zinc-700 rounded-xl px-4 py-3 text-sm font-bold outline-none focus:border-amber-500" />
-        <input type="password" required placeholder="Palavra-passe" value={password} onChange={e => setPassword(e.target.value)} className="w-full bg-zinc-950 border border-zinc-700 rounded-xl px-4 py-3 text-sm font-bold outline-none focus:border-amber-500" />
-        <button disabled={loading} className="w-full py-3 rounded-xl bg-amber-500 text-zinc-950 font-black hover:bg-amber-400 disabled:opacity-50 flex items-center justify-center gap-2">
+        <input type="email" required placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} className="w-full bg-sky-950 border border-white/15 rounded-xl px-4 py-3 text-sm font-bold outline-none focus:border-gold-500" />
+        <input type="password" required placeholder="Palavra-passe" value={password} onChange={e => setPassword(e.target.value)} className="w-full bg-sky-950 border border-white/15 rounded-xl px-4 py-3 text-sm font-bold outline-none focus:border-gold-500" />
+        <button disabled={loading} className="w-full py-3 rounded-xl bg-gold-500 text-zinc-950 font-black hover:bg-gold-400 disabled:opacity-50 flex items-center justify-center gap-2">
           {loading && <Loader2 size={16} className="animate-spin" />} Entrar
         </button>
       </form>

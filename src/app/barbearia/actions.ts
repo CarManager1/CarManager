@@ -2,9 +2,9 @@
 
 import { createClient } from '@supabase/supabase-js'
 import {
-  SERVICOS, BARBEIROS, HORARIO, DIAS_ANTECEDENCIA,
+  PRICING_DATA, BARBERS, OPENING_HOURS, BOOKING_DAYS_AHEAD,
   paraMinutos, type Ocupado,
-} from '@/lib/barbearia-data'
+} from '@/lib/siteData'
 
 const supabase = () =>
   createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!, {
@@ -31,23 +31,23 @@ type NovaMarcacao = {
 
 export async function criarMarcacao(m: NovaMarcacao): Promise<{ id?: number; error?: string }> {
   // Validação no servidor: preço e duração vêm sempre da tabela de serviços
-  const servico = SERVICOS.find(s => s.id === m.servicoId)
-  const barbeiro = BARBEIROS.find(b => b.id === m.barbeiroId)
+  const servico = PRICING_DATA.find(s => s.id === m.servicoId)
+  const barbeiro = BARBERS.find(b => b.id === m.barbeiroId)
   if (!servico || !barbeiro) return { error: 'Serviço ou barbeiro inválido.' }
 
   const [ano, mes, dia] = m.data.split('-').map(Number)
   const d = new Date(ano, mes - 1, dia)
-  const horario = HORARIO[d.getDay()]
+  const horario = OPENING_HOURS[d.getDay()]
   if (!horario || !/^\d{2}:\d{2}$/.test(m.hora)) return { error: 'A barbearia está fechada nesse dia.' }
 
   const inicio = paraMinutos(m.hora)
-  if (inicio < paraMinutos(horario.abre) || inicio + servico.duracao > paraMinutos(horario.fecha)) {
+  if (inicio < paraMinutos(horario.open) || inicio + servico.duration > paraMinutos(horario.close)) {
     return { error: 'Horário fora do período de funcionamento.' }
   }
 
   const limite = new Date()
-  limite.setDate(limite.getDate() + DIAS_ANTECEDENCIA)
-  if (d > limite) return { error: `Só é possível marcar com até ${DIAS_ANTECEDENCIA} dias de antecedência.` }
+  limite.setDate(limite.getDate() + BOOKING_DAYS_AHEAD)
+  if (d > limite) return { error: `Só é possível marcar com até ${BOOKING_DAYS_AHEAD} dias de antecedência.` }
 
   if (m.nome.trim().length < 2) return { error: 'Indique o seu nome.' }
   if (m.telefone.replace(/\D/g, '').length < 9) return { error: 'Indique um telefone válido.' }
@@ -55,11 +55,11 @@ export async function criarMarcacao(m: NovaMarcacao): Promise<{ id?: number; err
   const { data: id, error } = await supabase().rpc('barbearia_marcar', {
     p_data: m.data,
     p_hora: m.hora,
-    p_duracao_min: servico.duracao,
+    p_duracao_min: servico.duration,
     p_barbeiro_id: barbeiro.id,
     p_servico_id: servico.id,
-    p_servico_nome: servico.nome,
-    p_preco: servico.preco,
+    p_servico_nome: servico.name,
+    p_preco: servico.price,
     p_cliente_nome: m.nome.slice(0, 100),
     p_cliente_telefone: m.telefone.slice(0, 30),
     p_cliente_email: m.email?.slice(0, 120) ?? null,

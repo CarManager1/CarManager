@@ -37,8 +37,14 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 
 ## Barbearia (site + marcações)
 
-- `/barbearia` — site público com serviços, equipa, horário, contactos e marcação online.
-- `/barbearia/admin` — área da equipa (login Supabase) para ver as marcações do dia e alterar o estado.
+Stack: Next.js (App Router) + React + TypeScript + Tailwind CSS + lucide-react + Supabase.
 
-Configuração: correr `supabase/barbearia.sql` no SQL Editor do Supabase. Serviços, barbeiros,
-preços e horário editam-se em `src/lib/barbearia-data.ts`.
+- `src/app/barbearia/page.tsx` → `/barbearia` (site público: hero, preçário, equipa, marcação, FAQ, contactos)
+- `src/app/barbearia/admin/page.tsx` → `/barbearia/admin` (área da equipa, login Supabase)
+- `src/app/barbearia/actions.ts` → server actions da marcação
+- `src/components/barbearia/` → Navbar, HeroSlideshow, SectionTitle, BookingForm, Footer
+- `src/lib/siteData.ts` → BRAND, LOCATIONS, PRICING_DATA, BARBERS, FAQS, OPENING_HOURS, HERO_SLIDES
+- `public/media/` → imagens (`hero-1.jpg`… são provisórias, substituir por fotos reais)
+- Cores: `sky-900`/`sky-950` + `gold-500` (definido em `globals.css`), títulos em `font-display` (Playfair Display)
+
+Configuração: correr `supabase/barbearia.sql` no SQL Editor do Supabase.

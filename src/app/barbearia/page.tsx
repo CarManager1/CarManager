@@ -1,80 +1,34 @@
-import type { Metadata } from 'next'
-import { Scissors, MapPin, Phone, Mail, Instagram, Clock, Star } from 'lucide-react'
-import { BARBEARIA, SERVICOS, BARBEIROS, HORARIO, DIAS_SEMANA } from '@/lib/barbearia-data'
-import Marcacao from './marcacao'
-
-export const metadata: Metadata = {
-  title: `${BARBEARIA.nome} | Barbearia`,
-  description: `${BARBEARIA.slogan} Marque o seu corte online.`,
-}
+import { Clock, Mail, MapPin, Phone, ChevronDown } from 'lucide-react'
+import { BARBERS, FAQS, LOCATIONS, OPENING_HOURS, PRICING_DATA, WEEKDAYS } from '@/lib/siteData'
+import Navbar from '@/components/barbearia/Navbar'
+import HeroSlideshow from '@/components/barbearia/HeroSlideshow'
+import SectionTitle from '@/components/barbearia/SectionTitle'
+import BookingForm from '@/components/barbearia/BookingForm'
+import Footer from '@/components/barbearia/Footer'
 
 // Segunda primeiro, Domingo no fim
 const ORDEM_DIAS = [1, 2, 3, 4, 5, 6, 0]
 
 export default function BarbeariaPage() {
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-100 font-sans selection:bg-amber-500/30 scroll-smooth">
+    <div className="min-h-screen bg-sky-950 text-white selection:bg-gold-500/30">
+      <Navbar />
+      <HeroSlideshow />
 
-      {/* --- NAVBAR --- */}
-      <nav className="fixed top-0 w-full z-50 bg-zinc-950/80 backdrop-blur-md border-b border-zinc-800">
-        <div className="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
-          <a href="#topo" className="flex items-center gap-2">
-            <div className="bg-amber-500 p-2 rounded-xl text-zinc-950">
-              <Scissors size={22} strokeWidth={2.5} />
-            </div>
-            <span className="text-xl font-black tracking-tight">{BARBEARIA.nome}</span>
-          </a>
-          <div className="hidden md:flex items-center gap-8 text-sm font-bold text-zinc-400">
-            <a href="#servicos" className="hover:text-amber-400 transition-colors">Serviços</a>
-            <a href="#equipa" className="hover:text-amber-400 transition-colors">Equipa</a>
-            <a href="#contactos" className="hover:text-amber-400 transition-colors">Contactos</a>
-          </div>
-          <a href="#marcar" className="bg-amber-500 text-zinc-950 px-5 py-2.5 rounded-full text-sm font-black hover:bg-amber-400 transition-colors">
-            Marcar
-          </a>
-        </div>
-      </nav>
-
-      {/* --- HERO --- */}
-      <section id="topo" className="relative pt-40 pb-28 px-6 overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(245,158,11,0.15),transparent_60%)]" />
-        <div className="relative max-w-4xl mx-auto text-center space-y-8">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-500/10 text-amber-400 text-xs font-bold uppercase tracking-widest border border-amber-500/20">
-            <Star size={14} className="fill-amber-400" /> Desde 2015 em Lisboa
-          </div>
-          <h1 className="text-5xl md:text-7xl font-black tracking-tight leading-[1.05]">
-            {BARBEARIA.slogan.split(',')[0]},<br />
-            <span className="text-amber-400">{BARBEARIA.slogan.split(',')[1]?.trim()}</span>
-          </h1>
-          <p className="text-lg md:text-xl text-zinc-400 max-w-2xl mx-auto leading-relaxed">
-            Cortes, barbas e cuidados à moda antiga, feitos por quem sabe. Escolha o serviço,
-            o barbeiro e a hora — a marcação demora menos de um minuto.
-          </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a href="#marcar" className="w-full sm:w-auto px-8 py-4 bg-amber-500 text-zinc-950 rounded-2xl font-black text-lg hover:bg-amber-400 transition-colors">
-              Marcar agora
-            </a>
-            <a href="#servicos" className="w-full sm:w-auto px-8 py-4 border border-zinc-700 rounded-2xl font-bold text-lg hover:border-zinc-500 transition-colors">
-              Ver serviços
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* --- SERVIÇOS --- */}
-      <section id="servicos" className="py-24 px-6 border-t border-zinc-900">
+      {/* --- SERVIÇOS / PREÇOS --- */}
+      <section id="servicos" className="py-24 px-6 scroll-mt-20">
         <div className="max-w-6xl mx-auto">
-          <SectionTitle kicker="Serviços" title="O que fazemos" />
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {SERVICOS.map(s => (
-              <div key={s.id} className="p-6 rounded-2xl bg-zinc-900 border border-zinc-800 hover:border-amber-500/40 transition-colors">
+          <SectionTitle kicker="Serviços" title="Preçário" subtitle="Preços fixos, sem surpresas. Todos os serviços incluem lavagem e finalização." />
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {PRICING_DATA.map(s => (
+              <div key={s.id} className="p-7 rounded-3xl bg-sky-900/60 border border-white/10 hover:border-gold-500/50 transition-colors">
                 <div className="flex items-start justify-between gap-4">
-                  <h3 className="text-lg font-black">{s.nome}</h3>
-                  <span className="text-amber-400 font-black text-lg whitespace-nowrap">{s.preco} €</span>
+                  <h3 className="font-display text-xl font-bold">{s.name}</h3>
+                  <span className="text-gold-400 font-bold text-xl whitespace-nowrap">{s.price} €</span>
                 </div>
-                <p className="text-zinc-400 text-sm mt-2 leading-relaxed">{s.descricao}</p>
-                <p className="text-zinc-500 text-xs font-bold uppercase tracking-wider mt-4 flex items-center gap-1.5">
-                  <Clock size={12} /> {s.duracao} min
+                <p className="text-sky-100/70 text-sm mt-3 leading-relaxed">{s.description}</p>
+                <p className="text-sky-100/50 text-xs font-bold uppercase tracking-wider mt-5 flex items-center gap-1.5">
+                  <Clock size={12} /> {s.duration} min
                 </p>
               </div>
             ))}
@@ -83,17 +37,17 @@ export default function BarbeariaPage() {
       </section>
 
       {/* --- EQUIPA --- */}
-      <section id="equipa" className="py-24 px-6 bg-zinc-900/40 border-y border-zinc-900">
+      <section id="equipa" className="py-24 px-6 bg-sky-900 scroll-mt-20">
         <div className="max-w-6xl mx-auto">
           <SectionTitle kicker="Equipa" title="Os nossos barbeiros" />
-          <div className="grid sm:grid-cols-3 gap-4">
-            {BARBEIROS.map(b => (
-              <div key={b.id} className="p-8 rounded-2xl bg-zinc-900 border border-zinc-800 text-center">
-                <div className="mx-auto h-20 w-20 rounded-full bg-gradient-to-br from-amber-400 to-amber-700 flex items-center justify-center text-2xl font-black text-zinc-950">
-                  {b.iniciais}
+          <div className="grid sm:grid-cols-3 gap-5">
+            {BARBERS.map(b => (
+              <div key={b.id} className="p-8 rounded-3xl bg-sky-950/60 border border-white/10 text-center">
+                <div className="mx-auto h-24 w-24 rounded-full bg-gradient-to-br from-gold-400 to-gold-700 flex items-center justify-center font-display text-3xl font-bold text-sky-950">
+                  {b.initials}
                 </div>
-                <h3 className="mt-5 text-lg font-black">{b.nome}</h3>
-                <p className="text-zinc-400 text-sm mt-1">{b.especialidade}</p>
+                <h3 className="mt-5 font-display text-xl font-bold">{b.name}</h3>
+                <p className="text-sky-100/70 text-sm mt-1">{b.specialty}</p>
               </div>
             ))}
           </div>
@@ -103,61 +57,74 @@ export default function BarbeariaPage() {
       {/* --- MARCAÇÃO --- */}
       <section id="marcar" className="py-24 px-6 scroll-mt-20">
         <div className="max-w-3xl mx-auto">
-          <SectionTitle kicker="Marcação online" title="Reserve o seu lugar" />
-          <Marcacao />
+          <SectionTitle kicker="Marcação online" title="Reserve o seu lugar" subtitle="Escolha o serviço, o barbeiro e a hora. Confirmação imediata." />
+          <BookingForm />
         </div>
       </section>
 
-      {/* --- CONTACTOS --- */}
-      <section id="contactos" className="py-24 px-6 border-t border-zinc-900">
-        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-6">
-          <div className="p-8 rounded-2xl bg-zinc-900 border border-zinc-800">
-            <h3 className="text-lg font-black mb-6 flex items-center gap-2"><Clock size={18} className="text-amber-400" /> Horário</h3>
-            <ul className="space-y-3 text-sm">
-              {ORDEM_DIAS.map(d => (
-                <li key={d} className="flex justify-between border-b border-zinc-800 pb-3 last:border-0">
-                  <span className="text-zinc-400 font-bold">{DIAS_SEMANA[d]}</span>
-                  <span className={HORARIO[d] ? 'font-bold' : 'text-zinc-600'}>
-                    {HORARIO[d] ? `${HORARIO[d]!.abre} – ${HORARIO[d]!.fecha}` : 'Fechado'}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="p-8 rounded-2xl bg-zinc-900 border border-zinc-800">
-            <h3 className="text-lg font-black mb-6">Contactos</h3>
-            <ul className="space-y-5 text-sm">
-              <ContactItem icon={MapPin} text={BARBEARIA.morada} />
-              <ContactItem icon={Phone} text={BARBEARIA.telefone} href={`tel:${BARBEARIA.telefone.replace(/\s/g, '')}`} />
-              <ContactItem icon={Mail} text={BARBEARIA.email} href={`mailto:${BARBEARIA.email}`} />
-              <ContactItem icon={Instagram} text={BARBEARIA.instagram} />
-            </ul>
+      {/* --- FAQ --- */}
+      <section id="faq" className="py-24 px-6 bg-sky-50 scroll-mt-20">
+        <div className="max-w-3xl mx-auto">
+          <SectionTitle kicker="Dúvidas" title="Perguntas frequentes" light />
+          <div className="space-y-3">
+            {FAQS.map(f => (
+              <details key={f.q} className="group rounded-3xl bg-white border border-sky-900/10 px-7 py-5 open:shadow-sm">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-bold text-sky-950">
+                  {f.q}
+                  <ChevronDown size={18} className="shrink-0 text-gold-600 transition-transform group-open:rotate-180" />
+                </summary>
+                <p className="mt-3 text-sky-900/70 leading-relaxed">{f.a}</p>
+              </details>
+            ))}
           </div>
         </div>
       </section>
 
-      <footer className="py-10 px-6 border-t border-zinc-900 text-center text-xs text-zinc-600 font-bold">
-        © {new Date().getFullYear()} {BARBEARIA.nome}. Todos os direitos reservados.
-      </footer>
+      {/* --- HORÁRIO E CONTACTOS --- */}
+      <section id="contactos" className="py-24 px-6 scroll-mt-20">
+        <div className="max-w-6xl mx-auto">
+          <SectionTitle kicker="Visite-nos" title="Horário e contactos" />
+          <div className="grid md:grid-cols-2 gap-5">
+            <div className="p-8 rounded-3xl bg-sky-900/60 border border-white/10">
+              <h3 className="font-display text-xl font-bold mb-6 flex items-center gap-2"><Clock size={18} className="text-gold-400" /> Horário</h3>
+              <ul className="space-y-3 text-sm">
+                {ORDEM_DIAS.map(d => {
+                  const h = OPENING_HOURS[d]
+                  return (
+                    <li key={d} className="flex justify-between border-b border-white/10 pb-3 last:border-0">
+                      <span className="text-sky-100/70 font-semibold">{WEEKDAYS[d]}</span>
+                      <span className={h ? 'font-bold' : 'text-sky-100/40'}>{h ? `${h.open} – ${h.close}` : 'Fechado'}</span>
+                    </li>
+                  )
+                })}
+              </ul>
+            </div>
+            {LOCATIONS.map(l => (
+              <div key={l.id} className="p-8 rounded-3xl bg-sky-900/60 border border-white/10">
+                <h3 className="font-display text-xl font-bold mb-6">{l.name}</h3>
+                <ul className="space-y-5 text-sm">
+                  <ContactItem icon={MapPin} text={l.address} href={l.mapsUrl} />
+                  <ContactItem icon={Phone} text={l.phone} href={`tel:${l.phone.replace(/\s/g, '')}`} />
+                  <ContactItem icon={Mail} text={l.email} href={`mailto:${l.email}`} />
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <Footer />
     </div>
   )
 }
 
-function SectionTitle({ kicker, title }: { kicker: string; title: string }) {
+function ContactItem({ icon: Icon, text, href }: { icon: React.ElementType; text: string; href: string }) {
   return (
-    <div className="text-center mb-12">
-      <p className="text-amber-400 text-xs font-black uppercase tracking-[0.2em]">{kicker}</p>
-      <h2 className="text-3xl md:text-4xl font-black tracking-tight mt-2">{title}</h2>
-    </div>
+    <li>
+      <a href={href} target={href.startsWith('http') ? '_blank' : undefined} rel="noreferrer" className="flex items-center gap-3 group">
+        <span className="bg-sky-950 p-2.5 rounded-xl text-gold-400"><Icon size={16} /></span>
+        <span className="font-semibold text-sky-100/90 group-hover:text-gold-400 transition-colors">{text}</span>
+      </a>
+    </li>
   )
-}
-
-function ContactItem({ icon: Icon, text, href }: { icon: React.ElementType; text: string; href?: string }) {
-  const content = (
-    <span className="flex items-center gap-3">
-      <span className="bg-zinc-800 p-2.5 rounded-xl text-amber-400"><Icon size={16} /></span>
-      <span className="font-bold text-zinc-300">{text}</span>
-    </span>
-  )
-  return <li>{href ? <a href={href} className="hover:text-amber-400">{content}</a> : content}</li>
 }
