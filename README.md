@@ -34,3 +34,17 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Barbearia (site + marcações)
+
+Stack: Next.js (App Router) + React + TypeScript + Tailwind CSS + lucide-react + Supabase.
+
+- `src/app/barbearia/page.tsx` → `/barbearia` (site público: hero, preçário, equipa, marcação, FAQ, contactos)
+- `src/app/barbearia/admin/page.tsx` → `/barbearia/admin` (área da equipa, login Supabase)
+- `src/app/barbearia/actions.ts` → server actions da marcação
+- `src/components/barbearia/` → Navbar, HeroSlideshow, SectionTitle, BookingForm, Footer
+- `src/lib/siteData.ts` → BRAND, LOCATIONS, PRICING_DATA, BARBERS, FAQS, OPENING_HOURS, HERO_SLIDES
+- `public/media/` → imagens (`hero-1.jpg`… são provisórias, substituir por fotos reais)
+- Cores: `sky-900`/`sky-950` + `gold-500` (definido em `globals.css`), títulos em `font-display` (Playfair Display)
+
+Configuração: correr `supabase/barbearia.sql` no SQL Editor do Supabase.
