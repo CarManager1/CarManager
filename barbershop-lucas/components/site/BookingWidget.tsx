@@ -88,16 +88,16 @@ export default function BookingWidget() {
   }
 
   return (
-    <div id="marcar" className="scroll-mt-28 rounded-3xl border border-gold-500/30 bg-ink-900/90 p-5 shadow-2xl shadow-black/60 backdrop-blur sm:p-7">
+    <div id="marcar" className="scroll-mt-28 rounded-3xl border border-gold-500/30 bg-white/95 p-5 shadow-2xl shadow-zinc-300/60 backdrop-blur sm:p-7">
       <div className="mb-5 flex items-center justify-between gap-4">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-gold-400">Marcação online</p>
-          <h3 className="font-display text-2xl font-bold uppercase text-white">Reserve o seu horário</h3>
+          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-gold-600">Marcação online</p>
+          <h3 className="font-display text-2xl font-bold uppercase text-zinc-900">Reserve o seu horário</h3>
         </div>
         {step > 1 && step < 4 && (
           <button
             onClick={() => setStep((s) => (s - 1) as Step)}
-            className="flex items-center gap-1 rounded-full border border-white/10 px-3 py-1.5 text-xs text-zinc-300 hover:border-gold-400 hover:text-gold-300"
+            className="flex items-center gap-1 rounded-full border border-zinc-200 px-3 py-1.5 text-xs text-zinc-600 hover:border-gold-400 hover:text-gold-700"
           >
             <ChevronLeft size={14} /> Voltar
           </button>
@@ -108,8 +108,8 @@ export default function BookingWidget() {
         <ol className="mb-6 grid grid-cols-3 gap-2">
           {["Serviço", "Dia e hora", "Os seus dados"].map((label, i) => (
             <li key={label} className="space-y-1.5">
-              <div className={cn("h-1 rounded-full", i + 1 <= step ? "bg-gold-gradient" : "bg-white/10")} />
-              <p className={cn("text-[11px] uppercase tracking-wide", i + 1 <= step ? "text-gold-300" : "text-zinc-500")}>{label}</p>
+              <div className={cn("h-1 rounded-full", i + 1 <= step ? "bg-gold-gradient" : "bg-zinc-200")} />
+              <p className={cn("text-[11px] uppercase tracking-wide", i + 1 <= step ? "text-gold-700" : "text-zinc-500")}>{label}</p>
             </li>
           ))}
         </ol>
@@ -127,16 +127,16 @@ export default function BookingWidget() {
               }}
               className={cn(
                 "group flex items-center justify-between rounded-2xl border px-4 py-3 text-left transition",
-                serviceId === s.id ? "border-gold-400 bg-gold-500/10" : "border-white/10 bg-white/[0.03] hover:border-gold-400/60 hover:bg-white/5"
+                serviceId === s.id ? "border-gold-400 bg-gold-500/10" : "border-zinc-200 bg-stone-50 hover:border-gold-400/60 hover:bg-stone-100"
               )}
             >
               <div>
-                <p className="font-semibold text-white">{s.name}</p>
-                <p className="flex items-center gap-1 text-xs text-zinc-400">
+                <p className="font-semibold text-zinc-900">{s.name}</p>
+                <p className="flex items-center gap-1 text-xs text-zinc-500">
                   <Clock size={12} /> {s.duration} min
                 </p>
               </div>
-              <span className="font-display text-lg font-bold text-gold-300">{euro(s.price)}</span>
+              <span className="font-display text-lg font-bold text-gold-700">{euro(s.price)}</span>
             </button>
           ))}
         </div>
@@ -144,8 +144,8 @@ export default function BookingWidget() {
 
       {step === 2 && service && (
         <div>
-          <p className="mb-3 flex items-center gap-2 text-sm text-zinc-300">
-            <Scissors size={14} className="text-gold-400" /> {service.name} · {service.duration} min · {euro(service.price)}
+          <p className="mb-3 flex items-center gap-2 text-sm text-zinc-600">
+            <Scissors size={14} className="text-gold-600" /> {service.name} · {service.duration} min · {euro(service.price)}
           </p>
           <div className="-mx-1 flex gap-2 overflow-x-auto px-1 pb-3">
             {days.map((d) => {
@@ -162,7 +162,7 @@ export default function BookingWidget() {
                   className={cn(
                     "flex min-w-[64px] flex-col items-center rounded-2xl border px-3 py-2.5 transition",
                     closed && "cursor-not-allowed opacity-30",
-                    day === d ? "bg-gold-gradient border-transparent text-ink-950" : "border-white/10 bg-white/[0.03] text-white hover:border-gold-400/60"
+                    day === d ? "bg-gold-gradient border-transparent text-ink-950" : "border-zinc-200 bg-stone-50 text-zinc-900 hover:border-gold-400/60"
                   )}
                 >
                   <span className="text-[11px] uppercase">{date.toLocaleDateString("pt-PT", { weekday: "short" }).replace(".", "")}</span>
@@ -177,11 +177,11 @@ export default function BookingWidget() {
             {!day && <p className="py-8 text-center text-sm text-zinc-500">Escolha um dia para ver os horários livres.</p>}
             {day && !busy && (
               <div className="flex justify-center py-8">
-                <Loader2 className="animate-spin text-gold-400" />
+                <Loader2 className="animate-spin text-gold-600" />
               </div>
             )}
             {day && busy && slots.length === 0 && (
-              <p className="py-8 text-center text-sm text-zinc-400">Sem horários livres neste dia. Experimente outro dia.</p>
+              <p className="py-8 text-center text-sm text-zinc-500">Sem horários livres neste dia. Experimente outro dia.</p>
             )}
             {day && busy && slots.length > 0 && (
               <div className="grid grid-cols-4 gap-2 sm:grid-cols-5">
@@ -194,7 +194,7 @@ export default function BookingWidget() {
                     }}
                     className={cn(
                       "rounded-xl border py-2 text-sm font-semibold transition",
-                      time === t ? "bg-gold-gradient border-transparent text-ink-950" : "border-white/10 bg-white/[0.03] text-zinc-100 hover:border-gold-400"
+                      time === t ? "bg-gold-gradient border-transparent text-ink-950" : "border-zinc-200 bg-stone-50 text-zinc-800 hover:border-gold-400"
                     )}
                   >
                     {t}
@@ -209,8 +209,8 @@ export default function BookingWidget() {
       {step === 3 && service && day && time && (
         <form onSubmit={submit} className="space-y-3">
           <div className="rounded-2xl border border-gold-500/20 bg-gold-500/5 p-4 text-sm">
-            <p className="font-semibold text-white">{service.name}</p>
-            <p className="text-zinc-300">
+            <p className="font-semibold text-zinc-900">{service.name}</p>
+            <p className="text-zinc-600">
               {formatDate(day, { weekday: "long", day: "numeric", month: "long" })} às {time} · {euro(service.price)}
             </p>
           </div>
@@ -218,7 +218,7 @@ export default function BookingWidget() {
           <input className="input" placeholder="Telemóvel *" type="tel" required value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
           <input className="input" placeholder="Email (opcional)" type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
           <textarea className="input min-h-[70px]" placeholder="Observações (opcional)" value={form.notes} onChange={(e) => setForm({ ...form, notes: e.target.value })} />
-          {error && <p className="rounded-lg bg-red-500/10 px-3 py-2 text-sm text-red-300">{error}</p>}
+          {error && <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-600">{error}</p>}
           <button
             disabled={submitting}
             className="bg-gold-gradient flex w-full items-center justify-center gap-2 rounded-full py-3.5 font-bold uppercase tracking-wide text-ink-950 transition hover:brightness-110 disabled:opacity-60"
@@ -234,8 +234,8 @@ export default function BookingWidget() {
           <div className="bg-gold-gradient mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full text-ink-950">
             <Check size={32} strokeWidth={3} />
           </div>
-          <h4 className="font-display text-2xl font-bold uppercase text-white">Marcação confirmada!</h4>
-          <p className="mt-2 text-zinc-300">
+          <h4 className="font-display text-2xl font-bold uppercase text-zinc-900">Marcação confirmada!</h4>
+          <p className="mt-2 text-zinc-600">
             {service.name} — {formatDate(day, { weekday: "long", day: "numeric", month: "long" })} às {time}
           </p>
           <p className="mt-1 text-sm text-zinc-500">Até breve, {form.name.split(" ")[0]}! 💈</p>
@@ -244,11 +244,11 @@ export default function BookingWidget() {
               href={waLink(BRAND.phone, `Olá Lucas! Acabei de marcar ${service.name} para ${formatDate(day)} às ${time}. Nome: ${form.name}`)}
               target="_blank"
               rel="noreferrer"
-              className="rounded-full border border-gold-400/60 px-5 py-2.5 text-sm font-semibold text-gold-300 hover:bg-gold-500/10"
+              className="rounded-full border border-gold-400/60 px-5 py-2.5 text-sm font-semibold text-gold-700 hover:bg-gold-500/10"
             >
               Avisar por WhatsApp
             </a>
-            <button onClick={reset} className="rounded-full px-5 py-2.5 text-sm text-zinc-400 hover:text-white">
+            <button onClick={reset} className="rounded-full px-5 py-2.5 text-sm text-zinc-500 hover:text-zinc-900">
               Fazer outra marcação
             </button>
           </div>

@@ -45,12 +45,12 @@ export default function PlanosPage() {
         {perPlan.map((p) => (
           <Card key={p.id} className={cn(p.highlight && "border-gold-500/40")}>
             <div className="flex items-center justify-between">
-              <p className="flex items-center gap-2 font-display text-xl font-bold uppercase text-white">
-                <Crown size={18} className="text-gold-400" /> {p.name}
+              <p className="flex items-center gap-2 font-display text-xl font-bold uppercase text-zinc-900">
+                <Crown size={18} className="text-gold-600" /> {p.name}
               </p>
-              <span className="text-sm text-zinc-400">{euro(p.price)}/mês</span>
+              <span className="text-sm text-zinc-500">{euro(p.price)}/mês</span>
             </div>
-            <p className="mt-4 font-display text-4xl font-bold text-white">{p.active}</p>
+            <p className="mt-4 font-display text-4xl font-bold text-zinc-900">{p.active}</p>
             <p className="text-xs text-zinc-500">assinantes ativos · {euro(p.revenue)}/mês</p>
           </Card>
         ))}
@@ -63,7 +63,7 @@ export default function PlanosPage() {
             onClick={() => setStatus(s)}
             className={cn(
               "rounded-full border px-3.5 py-1.5 text-xs font-medium capitalize transition",
-              status === s ? "border-gold-400 bg-gold-500/15 text-gold-200" : "border-white/10 text-zinc-400 hover:text-white"
+              status === s ? "border-gold-400 bg-gold-500/15 text-gold-800" : "border-zinc-200 text-zinc-500 hover:text-zinc-900"
             )}
           >
             {s}
@@ -76,14 +76,14 @@ export default function PlanosPage() {
         {list.length === 0 ? (
           <Empty>Sem assinaturas.</Empty>
         ) : (
-          <ul className="divide-y divide-white/5">
+          <ul className="divide-y divide-zinc-100">
             {list.map((s) => {
               const client = clientById.get(s.client_id);
               return (
                 <li key={s.id} className="flex flex-col gap-3 p-4 sm:flex-row sm:items-center">
                   <div className="min-w-0 flex-1">
-                    <p className="font-semibold text-white">{client?.name ?? "Cliente removido"}</p>
-                    <p className="text-sm text-zinc-400">
+                    <p className="font-semibold text-zinc-900">{client?.name ?? "Cliente removido"}</p>
+                    <p className="text-sm text-zinc-500">
                       Plano {planName(s.plan_id)} · {euro(planPrice(s.plan_id))}/mês
                       {s.start_date && ` · desde ${formatDate(s.start_date, { day: "numeric", month: "short", year: "numeric" })}`}
                     </p>

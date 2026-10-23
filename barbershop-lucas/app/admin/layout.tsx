@@ -40,25 +40,25 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   if (!ready) {
     return (
       <div className="flex h-screen items-center justify-center">
-        <Loader2 className="animate-spin text-gold-400" size={32} />
+        <Loader2 className="animate-spin text-gold-600" size={32} />
       </div>
     );
   }
 
   return (
     <AdminDataProvider>
-      <div className="flex min-h-screen bg-ink-950">
+      <div className="flex min-h-screen bg-stone-50">
         <aside
           className={cn(
-            "fixed inset-y-0 left-0 z-40 flex w-64 flex-col border-r border-white/10 bg-ink-900 transition-transform lg:translate-x-0",
+            "fixed inset-y-0 left-0 z-40 flex w-64 flex-col border-r border-zinc-200 bg-white transition-transform lg:translate-x-0",
             menuOpen ? "translate-x-0" : "-translate-x-full"
           )}
         >
           <div className="flex items-center gap-3 p-6">
             <Image src="/media/logo.png" alt="Barber Shop Lucas" width={48} height={46} />
             <div className="leading-tight">
-              <p className="font-display text-lg font-bold uppercase text-white">Barber Shop</p>
-              <p className="text-xs font-semibold uppercase tracking-[0.3em] text-gold-400">Gestão</p>
+              <p className="font-display text-lg font-bold uppercase text-zinc-900">Barber Shop</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.3em] text-gold-600">Gestão</p>
             </div>
             <button className="ml-auto text-zinc-500 lg:hidden" onClick={() => setMenuOpen(false)} aria-label="Fechar menu">
               <X />
@@ -74,41 +74,41 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                   onClick={() => setMenuOpen(false)}
                   className={cn(
                     "flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition",
-                    active ? "bg-gold-500/15 text-gold-200" : "text-zinc-400 hover:bg-white/5 hover:text-white"
+                    active ? "bg-gold-500/15 text-gold-800" : "text-zinc-500 hover:bg-stone-100 hover:text-zinc-900"
                   )}
                 >
-                  <Icon size={18} className={active ? "text-gold-400" : ""} />
+                  <Icon size={18} className={active ? "text-gold-600" : ""} />
                   {label}
                 </Link>
               );
             })}
           </nav>
-          <div className="space-y-1 border-t border-white/10 p-3">
-            <Link href="/" target="_blank" className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm text-zinc-400 hover:bg-white/5 hover:text-white">
+          <div className="space-y-1 border-t border-zinc-200 p-3">
+            <Link href="/" target="_blank" className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm text-zinc-500 hover:bg-stone-100 hover:text-zinc-900">
               <ExternalLink size={18} /> Ver site
             </Link>
             {!isDemoMode && (
-              <button onClick={logout} className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm text-zinc-400 hover:bg-white/5 hover:text-white">
+              <button onClick={logout} className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm text-zinc-500 hover:bg-stone-100 hover:text-zinc-900">
                 <LogOut size={18} /> Sair
               </button>
             )}
           </div>
         </aside>
 
-        {menuOpen && <div className="fixed inset-0 z-30 bg-black/60 lg:hidden" onClick={() => setMenuOpen(false)} />}
+        {menuOpen && <div className="fixed inset-0 z-30 bg-zinc-900/40 lg:hidden" onClick={() => setMenuOpen(false)} />}
 
         <div className="flex min-w-0 flex-1 flex-col lg:pl-64">
-          <header className="flex items-center gap-3 border-b border-white/10 px-4 py-3 lg:hidden">
-            <button onClick={() => setMenuOpen(true)} className="text-white" aria-label="Abrir menu">
+          <header className="flex items-center gap-3 border-b border-zinc-200 px-4 py-3 lg:hidden">
+            <button onClick={() => setMenuOpen(true)} className="text-zinc-900" aria-label="Abrir menu">
               <Menu />
             </button>
-            <span className="font-display font-bold uppercase text-white">Barber Shop Lucas</span>
+            <span className="font-display font-bold uppercase text-zinc-900">Barber Shop Lucas</span>
           </header>
           {isDemoMode && (
-            <div className="flex flex-wrap items-center justify-between gap-2 border-b border-gold-500/20 bg-gold-500/10 px-4 py-2 text-xs text-gold-200 sm:px-8">
+            <div className="flex flex-wrap items-center justify-between gap-2 border-b border-gold-500/20 bg-gold-500/10 px-4 py-2 text-xs text-gold-800 sm:px-8">
               <span>Modo demo: os dados ficam guardados neste browser. Liga o Supabase para dados reais (ver README).</span>
               <button
-                className="underline underline-offset-2 hover:text-white"
+                className="underline underline-offset-2 hover:text-zinc-900"
                 onClick={() => {
                   resetDemoData();
                   window.location.reload();

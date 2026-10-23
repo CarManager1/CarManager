@@ -90,23 +90,23 @@ export default function MensagensPage() {
             Voltar
           </button>
         </PageHeader>
-        <div className="mb-4 h-2 overflow-hidden rounded-full bg-white/10">
+        <div className="mb-4 h-2 overflow-hidden rounded-full bg-zinc-200">
           <div className="bg-gold-gradient h-full transition-all" style={{ width: `${queue.length ? (sent.size / queue.length) * 100 : 0}%` }} />
         </div>
-        <p className="mb-4 text-sm text-zinc-400">
+        <p className="mb-4 text-sm text-zinc-500">
           Clique em cada cliente para abrir o {channel === "whatsapp" ? "WhatsApp" : "SMS"} com a mensagem já escrita — só tem de carregar em enviar.
         </p>
         <Card className="p-0">
-          <ul className="divide-y divide-white/5">
+          <ul className="divide-y divide-zinc-100">
             {queue.map(({ client, text: msg }) => {
               const done = sent.has(client.id);
               return (
                 <li key={client.id} className={cn("flex flex-col gap-3 p-4 sm:flex-row sm:items-center", done && "opacity-50")}>
                   <div className="min-w-0 flex-1">
-                    <p className="font-semibold text-white">
+                    <p className="font-semibold text-zinc-900">
                       {client.name} <span className="text-sm font-normal text-zinc-500">· {client.phone}</span>
                     </p>
-                    <p className="mt-1 text-sm whitespace-pre-line text-zinc-400">{msg}</p>
+                    <p className="mt-1 text-sm whitespace-pre-line text-zinc-500">{msg}</p>
                   </div>
                   <div className="flex gap-1.5">
                     <button className={btn.small} onClick={() => navigator.clipboard.writeText(msg)} title="Copiar texto">
@@ -138,8 +138,8 @@ export default function MensagensPage() {
       <div className="grid gap-6 xl:grid-cols-[1fr_1.1fr]">
         {/* 1. DESTINATÁRIOS */}
         <Card>
-          <h2 className="mb-1 flex items-center gap-2 font-display text-xl font-bold uppercase text-white">
-            <Users size={18} className="text-gold-400" /> 1. Destinatários
+          <h2 className="mb-1 flex items-center gap-2 font-display text-xl font-bold uppercase text-zinc-900">
+            <Users size={18} className="text-gold-600" /> 1. Destinatários
           </h2>
           <p className="mb-4 text-xs text-zinc-500">{SEGMENTS.find((s) => s.id === segment)?.hint}</p>
           <div className="mb-4 flex flex-wrap gap-1.5">
@@ -149,7 +149,7 @@ export default function MensagensPage() {
                 onClick={() => changeSegment(s.id)}
                 className={cn(
                   "rounded-full border px-3 py-1.5 text-xs font-medium transition",
-                  segment === s.id ? "border-gold-400 bg-gold-500/15 text-gold-200" : "border-white/10 text-zinc-400 hover:text-white"
+                  segment === s.id ? "border-gold-400 bg-gold-500/15 text-gold-800" : "border-zinc-200 text-zinc-500 hover:text-zinc-900"
                 )}
               >
                 {s.label}
@@ -158,7 +158,7 @@ export default function MensagensPage() {
           </div>
 
           {segment === "inativos" && (
-            <label className="mb-4 flex items-center gap-2 text-sm text-zinc-300">
+            <label className="mb-4 flex items-center gap-2 text-sm text-zinc-600">
               Sem visita há pelo menos
               <input type="number" min={1} className="input w-20 py-1.5" value={inactiveDays} onChange={(e) => setInactiveDays(Number(e.target.value) || 1)} />
               dias
@@ -195,10 +195,10 @@ export default function MensagensPage() {
                   <li key={c.id}>
                     <button
                       onClick={() => toggle(c.id)}
-                      className={cn("flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left transition", on ? "bg-gold-500/10" : "hover:bg-white/5")}
+                      className={cn("flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left transition", on ? "bg-gold-500/10" : "hover:bg-stone-100")}
                     >
-                      {on ? <CheckSquare size={18} className="shrink-0 text-gold-400" /> : <Square size={18} className="shrink-0 text-zinc-600" />}
-                      <span className="flex-1 truncate text-sm text-white">{c.name}</span>
+                      {on ? <CheckSquare size={18} className="shrink-0 text-gold-600" /> : <Square size={18} className="shrink-0 text-zinc-400" />}
+                      <span className="flex-1 truncate text-sm text-zinc-900">{c.name}</span>
                       <span className="text-xs text-zinc-500">{c.phone}</span>
                     </button>
                   </li>
@@ -206,14 +206,14 @@ export default function MensagensPage() {
               })}
             </ul>
           )}
-          <p className="mt-3 text-sm font-semibold text-gold-300">{selected.length} cliente(s) selecionado(s)</p>
+          <p className="mt-3 text-sm font-semibold text-gold-700">{selected.length} cliente(s) selecionado(s)</p>
         </Card>
 
         {/* 2. MENSAGEM */}
         <div className="space-y-6">
           <Card>
-            <h2 className="mb-4 flex items-center gap-2 font-display text-xl font-bold uppercase text-white">
-              <MessageCircle size={18} className="text-gold-400" /> 2. Mensagem
+            <h2 className="mb-4 flex items-center gap-2 font-display text-xl font-bold uppercase text-zinc-900">
+              <MessageCircle size={18} className="text-gold-600" /> 2. Mensagem
             </h2>
             <div className="mb-3 flex flex-wrap gap-1.5">
               {MESSAGE_TEMPLATES.map((t) => (
@@ -222,7 +222,7 @@ export default function MensagensPage() {
                   onClick={() => setText(t.text)}
                   className={cn(
                     "rounded-full border px-3 py-1.5 text-xs transition",
-                    text === t.text ? "border-gold-400 bg-gold-500/15 text-gold-200" : "border-white/10 text-zinc-400 hover:text-white"
+                    text === t.text ? "border-gold-400 bg-gold-500/15 text-gold-800" : "border-zinc-200 text-zinc-500 hover:text-zinc-900"
                   )}
                 >
                   {t.label}
@@ -240,12 +240,12 @@ export default function MensagensPage() {
             </div>
 
             <div className="mt-5">
-              <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-zinc-400">
+              <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-zinc-500">
                 Pré-visualização {selected[0] && <span className="normal-case text-zinc-500">({selected[0].name})</span>}
               </p>
               <div className="max-w-md rounded-2xl rounded-tl-sm bg-[#005c4b] px-4 py-3 text-sm whitespace-pre-line text-white shadow">{preview}</div>
               {withoutAppt > 0 && (
-                <p className="mt-3 text-xs text-amber-300">
+                <p className="mt-3 text-xs text-amber-700">
                   Atenção: {withoutAppt} cliente(s) selecionado(s) não têm marcação, por isso {"{data}"} e {"{hora}"} ficam vazios. Use o grupo “Marcação amanhã”.
                 </p>
               )}
@@ -253,8 +253,8 @@ export default function MensagensPage() {
           </Card>
 
           <Card>
-            <h2 className="mb-4 flex items-center gap-2 font-display text-xl font-bold uppercase text-white">
-              <Send size={18} className="text-gold-400" /> 3. Enviar
+            <h2 className="mb-4 flex items-center gap-2 font-display text-xl font-bold uppercase text-zinc-900">
+              <Send size={18} className="text-gold-600" /> 3. Enviar
             </h2>
             <div className="mb-4 grid grid-cols-2 gap-2">
               {(
@@ -268,7 +268,7 @@ export default function MensagensPage() {
                   onClick={() => setChannel(id)}
                   className={cn(
                     "flex items-center justify-center gap-2 rounded-xl border py-3 text-sm font-semibold transition",
-                    channel === id ? "border-gold-400 bg-gold-500/15 text-gold-200" : "border-white/10 text-zinc-400"
+                    channel === id ? "border-gold-400 bg-gold-500/15 text-gold-800" : "border-zinc-200 text-zinc-500"
                   )}
                 >
                   <Icon size={16} /> {label}
@@ -283,18 +283,18 @@ export default function MensagensPage() {
       </div>
 
       <Card className="mt-6">
-        <h2 className="mb-4 font-display text-xl font-bold uppercase text-white">Histórico</h2>
+        <h2 className="mb-4 font-display text-xl font-bold uppercase text-zinc-900">Histórico</h2>
         {messages.length === 0 ? (
           <Empty>Ainda não enviou mensagens.</Empty>
         ) : (
-          <ul className="divide-y divide-white/5">
+          <ul className="divide-y divide-zinc-100">
             {messages.map((m) => (
               <li key={m.id} className="flex flex-col gap-1 py-3 sm:flex-row sm:items-center sm:gap-4">
                 <span className="w-36 shrink-0 text-xs text-zinc-500">
                   {new Date(m.created_at).toLocaleString("pt-PT", { day: "2-digit", month: "short", hour: "2-digit", minute: "2-digit" })}
                 </span>
-                <span className="flex-1 truncate text-sm text-zinc-300">{m.text}</span>
-                <span className="text-xs text-gold-300">
+                <span className="flex-1 truncate text-sm text-zinc-600">{m.text}</span>
+                <span className="text-xs text-gold-700">
                   {m.recipients} · {m.channel === "whatsapp" ? "WhatsApp" : "SMS"}
                 </span>
               </li>

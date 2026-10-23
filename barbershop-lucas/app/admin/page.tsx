@@ -36,7 +36,7 @@ export default function DashboardPage() {
     return { todays, week, active, pending, monthRevenue, mrr, inactive };
   }, [appointments, subscriptions, clients, insights, today, weekEnd, monthStart]);
 
-  if (loading) return <Loader2 className="mx-auto mt-20 animate-spin text-gold-400" />;
+  if (loading) return <Loader2 className="mx-auto mt-20 animate-spin text-gold-600" />;
 
   return (
     <>
@@ -46,7 +46,7 @@ export default function DashboardPage() {
         </Link>
       </PageHeader>
 
-      {error && <p className="mb-6 rounded-xl bg-red-500/10 p-4 text-sm text-red-300">{error}</p>}
+      {error && <p className="mb-6 rounded-xl bg-red-50 p-4 text-sm text-red-600">{error}</p>}
 
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
         <StatCard label="Hoje" value={stats.todays.length} hint={`${stats.week.length} marcações nos próximos 7 dias`} icon={CalendarDays} />
@@ -57,18 +57,18 @@ export default function DashboardPage() {
 
       <div className="mt-6 grid gap-6 lg:grid-cols-[1.4fr_1fr]">
         <Card>
-          <h2 className="mb-4 font-display text-xl font-bold uppercase text-white">Agenda de hoje</h2>
+          <h2 className="mb-4 font-display text-xl font-bold uppercase text-zinc-900">Agenda de hoje</h2>
           {stats.todays.length === 0 ? (
             <Empty>Sem marcações para hoje.</Empty>
           ) : (
-            <ul className="divide-y divide-white/5">
+            <ul className="divide-y divide-zinc-100">
               {stats.todays.map((a) => {
                 const client = clientById.get(a.client_id);
                 return (
                   <li key={a.id} className="flex flex-wrap items-center gap-3 py-3">
-                    <span className="w-14 font-display text-lg font-bold text-gold-300">{a.start_time}</span>
+                    <span className="w-14 font-display text-lg font-bold text-gold-700">{a.start_time}</span>
                     <div className="min-w-0 flex-1">
-                      <p className="truncate font-medium text-white">{client?.name ?? "Cliente"}</p>
+                      <p className="truncate font-medium text-zinc-900">{client?.name ?? "Cliente"}</p>
                       <p className="text-xs text-zinc-500">{getService(a.service_id)?.name}</p>
                     </div>
                     <StatusBadge status={a.status} />
@@ -92,7 +92,7 @@ export default function DashboardPage() {
 
         <div className="space-y-6">
           <Card>
-            <h2 className="mb-4 font-display text-xl font-bold uppercase text-white">Pedidos de plano</h2>
+            <h2 className="mb-4 font-display text-xl font-bold uppercase text-zinc-900">Pedidos de plano</h2>
             {stats.pending.length === 0 ? (
               <Empty>Sem pedidos pendentes.</Empty>
             ) : (
@@ -100,7 +100,7 @@ export default function DashboardPage() {
                 {stats.pending.map((s) => (
                   <li key={s.id} className="flex items-center justify-between gap-3">
                     <div>
-                      <p className="font-medium text-white">{clientById.get(s.client_id)?.name}</p>
+                      <p className="font-medium text-zinc-900">{clientById.get(s.client_id)?.name}</p>
                       <p className="text-xs text-zinc-500">
                         Plano {planName(s.plan_id)} · {euro(planPrice(s.plan_id))}/mês
                       </p>
@@ -122,8 +122,8 @@ export default function DashboardPage() {
 
           <Card>
             <div className="mb-4 flex items-center justify-between">
-              <h2 className="font-display text-xl font-bold uppercase text-white">Recuperar clientes</h2>
-              <Link href="/admin/mensagens" className="text-xs text-gold-400 hover:underline">
+              <h2 className="font-display text-xl font-bold uppercase text-zinc-900">Recuperar clientes</h2>
+              <Link href="/admin/mensagens" className="text-xs text-gold-600 hover:underline">
                 Mensagem em massa
               </Link>
             </div>
@@ -134,7 +134,7 @@ export default function DashboardPage() {
                 {stats.inactive.map((c) => (
                   <li key={c.id} className="flex items-center justify-between gap-3">
                     <div>
-                      <p className="font-medium text-white">{c.name}</p>
+                      <p className="font-medium text-zinc-900">{c.name}</p>
                       <p className="text-xs text-zinc-500">Última visita há {daysSince(insights.get(c.id)?.lastVisit ?? null)} dias</p>
                     </div>
                     <a

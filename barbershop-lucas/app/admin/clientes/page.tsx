@@ -53,7 +53,7 @@ export default function ClientesPage() {
               onClick={() => setFilter(f.id)}
               className={cn(
                 "rounded-full border px-3.5 py-1.5 text-xs font-medium transition",
-                filter === f.id ? "border-gold-400 bg-gold-500/15 text-gold-200" : "border-white/10 text-zinc-400 hover:text-white"
+                filter === f.id ? "border-gold-400 bg-gold-500/15 text-gold-800" : "border-zinc-200 text-zinc-500 hover:text-zinc-900"
               )}
             >
               {f.label}
@@ -64,13 +64,13 @@ export default function ClientesPage() {
 
       <Card className="overflow-x-auto p-0">
         {loading ? (
-          <Loader2 className="mx-auto my-10 animate-spin text-gold-400" />
+          <Loader2 className="mx-auto my-10 animate-spin text-gold-600" />
         ) : list.length === 0 ? (
           <Empty>Nenhum cliente encontrado.</Empty>
         ) : (
           <table className="w-full min-w-[720px] text-sm">
             <thead>
-              <tr className="border-b border-white/10 text-left text-xs uppercase tracking-wide text-zinc-500">
+              <tr className="border-b border-zinc-200 text-left text-xs uppercase tracking-wide text-zinc-500">
                 <th className="px-5 py-3 font-semibold">Cliente</th>
                 <th className="px-5 py-3 font-semibold">Telemóvel</th>
                 <th className="px-5 py-3 font-semibold">Última visita</th>
@@ -79,33 +79,33 @@ export default function ClientesPage() {
                 <th className="px-5 py-3" />
               </tr>
             </thead>
-            <tbody className="divide-y divide-white/5">
+            <tbody className="divide-y divide-zinc-100">
               {list.map((c) => {
                 const info = insights.get(c.id);
                 const since = daysSince(info?.lastVisit ?? null);
                 return (
-                  <tr key={c.id} className="cursor-pointer transition hover:bg-white/[0.03]" onClick={() => setSelected(c)}>
+                  <tr key={c.id} className="cursor-pointer transition hover:bg-stone-50" onClick={() => setSelected(c)}>
                     <td className="px-5 py-3">
-                      <p className="font-medium text-white">{c.name}</p>
+                      <p className="font-medium text-zinc-900">{c.name}</p>
                       {info?.nextAppointment && (
-                        <p className="text-xs text-gold-400">
+                        <p className="text-xs text-gold-600">
                           Próxima: {formatDate(info.nextAppointment.day)} {info.nextAppointment.start_time}
                         </p>
                       )}
                     </td>
-                    <td className="px-5 py-3 text-zinc-300">{c.phone}</td>
-                    <td className={cn("px-5 py-3", since !== null && since >= 30 ? "text-amber-300" : "text-zinc-300")}>
+                    <td className="px-5 py-3 text-zinc-600">{c.phone}</td>
+                    <td className={cn("px-5 py-3", since !== null && since >= 30 ? "text-amber-700" : "text-zinc-600")}>
                       {since === null ? "—" : since === 0 ? "Hoje" : `Há ${since} dias`}
                     </td>
-                    <td className="px-5 py-3 text-zinc-300">{info?.visits ?? 0}</td>
+                    <td className="px-5 py-3 text-zinc-600">{info?.visits ?? 0}</td>
                     <td className="px-5 py-3">
                       {info?.subscription ? (
-                        <span className="flex items-center gap-1.5 text-gold-300">
+                        <span className="flex items-center gap-1.5 text-gold-700">
                           <Crown size={14} /> {planName(info.subscription.plan_id)}
-                          {info.subscription.status === "pendente" && <span className="text-xs text-amber-300">(pendente)</span>}
+                          {info.subscription.status === "pendente" && <span className="text-xs text-amber-700">(pendente)</span>}
                         </span>
                       ) : (
-                        <span className="text-zinc-600">—</span>
+                        <span className="text-zinc-400">—</span>
                       )}
                     </td>
                     <td className="px-5 py-3 text-right" onClick={(e) => e.stopPropagation()}>
@@ -196,13 +196,13 @@ function ClientModal({ client, onClose }: { client: Client | null; onClose: () =
           <Field label="Notas (preferências, alergias…)">
             <textarea className="input min-h-[80px]" value={form.notes} onChange={(e) => setForm({ ...form, notes: e.target.value })} />
           </Field>
-          {error && <p className="text-sm text-red-300">{error}</p>}
+          {error && <p className="text-sm text-red-600">{error}</p>}
           <div className="flex flex-wrap gap-2 pt-2">
             <button className={btn.primary} disabled={saving}>
               {saving && <Loader2 size={16} className="animate-spin" />} Guardar
             </button>
             {client && (
-              <button type="button" className={cn(btn.ghost, "hover:border-red-400/60 hover:text-red-300")} onClick={remove}>
+              <button type="button" className={cn(btn.ghost, "hover:border-red-400/60 hover:text-red-600")} onClick={remove}>
                 <Trash2 size={16} /> Apagar
               </button>
             )}
@@ -217,15 +217,15 @@ function ClientModal({ client, onClose }: { client: Client | null; onClose: () =
                 ["Faltas", info?.noShows ?? 0],
                 ["Gasto", euro(info?.totalSpent ?? 0)],
               ].map(([label, value]) => (
-                <div key={label} className="rounded-xl bg-white/5 p-3">
-                  <p className="font-display text-xl font-bold text-white">{value}</p>
+                <div key={label} className="rounded-xl bg-stone-100 p-3">
+                  <p className="font-display text-xl font-bold text-zinc-900">{value}</p>
                   <p className="text-[11px] uppercase text-zinc-500">{label}</p>
                 </div>
               ))}
             </div>
             {info?.subscription && (
               <div className="flex items-center justify-between rounded-xl border border-gold-500/30 bg-gold-500/10 p-3 text-sm">
-                <span className="flex items-center gap-2 text-gold-200">
+                <span className="flex items-center gap-2 text-gold-800">
                   <Crown size={16} /> Plano {planName(info.subscription.plan_id)}
                 </span>
                 <StatusBadge status={info.subscription.status} />
@@ -240,14 +240,14 @@ function ClientModal({ client, onClose }: { client: Client | null; onClose: () =
               </a>
             </div>
             <div>
-              <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-zinc-400">Histórico</p>
+              <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-zinc-500">Histórico</p>
               {history.length === 0 ? (
                 <p className="text-sm text-zinc-500">Sem marcações.</p>
               ) : (
                 <ul className="max-h-64 space-y-1.5 overflow-y-auto pr-1">
                   {history.map((a) => (
-                    <li key={a.id} className="flex items-center justify-between rounded-lg bg-white/[0.03] px-3 py-2 text-sm">
-                      <span className="text-zinc-300">
+                    <li key={a.id} className="flex items-center justify-between rounded-lg bg-stone-50 px-3 py-2 text-sm">
+                      <span className="text-zinc-600">
                         {formatDate(a.day, { day: "2-digit", month: "short", year: "2-digit" })} · {a.start_time} · {getService(a.service_id)?.name}
                       </span>
                       <StatusBadge status={a.status} />

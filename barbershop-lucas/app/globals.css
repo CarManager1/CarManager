@@ -7,6 +7,7 @@
   --color-gold-500: #d4a12f;
   --color-gold-600: #b08223;
   --color-gold-700: #86621c;
+  --color-gold-800: #5f4513;
   --color-ink-950: #070707;
   --color-ink-900: #0e0e0f;
   --color-ink-800: #18181a;
@@ -20,12 +21,12 @@ html {
 }
 
 body {
-  background: var(--color-ink-950);
-  color: #f4f4f5;
+  background: #faf8f4;
+  color: #18181b;
 }
 
 .text-gold-gradient {
-  background: linear-gradient(180deg, var(--color-gold-200) 0%, var(--color-gold-400) 45%, var(--color-gold-600) 100%);
+  background: linear-gradient(180deg, var(--color-gold-500) 0%, var(--color-gold-600) 50%, var(--color-gold-700) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -36,9 +37,5 @@ body {
 }
 
 .input {
-  @apply w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-zinc-500 outline-none transition focus:border-gold-400 focus:ring-2 focus:ring-gold-400/30;
-}
-
-.input-light {
-  @apply w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 placeholder:text-zinc-400 outline-none transition focus:border-gold-500 focus:ring-2 focus:ring-gold-500/30;
+  @apply w-full rounded-xl border border-zinc-300 bg-white px-4 py-3 text-sm text-zinc-900 placeholder:text-zinc-400 outline-none transition focus:border-gold-500 focus:ring-2 focus:ring-gold-400/30;
 }

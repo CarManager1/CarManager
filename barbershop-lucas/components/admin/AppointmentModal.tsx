@@ -111,7 +111,7 @@ export default function AppointmentModal({ appointment, defaultDay, defaultClien
                 onClick={() => setTime(t)}
                 className={cn(
                   "rounded-lg border px-2.5 py-1 text-xs",
-                  t === time ? "border-gold-400 bg-gold-500/20 text-gold-200" : "border-white/10 text-zinc-400 hover:border-gold-400/50"
+                  t === time ? "border-gold-400 bg-gold-500/20 text-gold-800" : "border-zinc-200 text-zinc-500 hover:border-gold-400/50"
                 )}
               >
                 {t}
@@ -124,7 +124,7 @@ export default function AppointmentModal({ appointment, defaultDay, defaultClien
         <Field label="Notas">
           <textarea className="input min-h-[70px]" value={notes} onChange={(e) => setNotes(e.target.value)} />
         </Field>
-        {error && <p className="text-sm text-red-300">{error}</p>}
+        {error && <p className="text-sm text-red-600">{error}</p>}
         <div className="flex justify-end gap-2 pt-2">
           <button type="button" className={btn.ghost} onClick={onClose}>
             Cancelar

@@ -28,20 +28,20 @@ export default function Navbar() {
     <header
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-all",
-        scrolled || open ? "border-b border-white/10 bg-ink-950/90 backdrop-blur" : "bg-transparent"
+        scrolled || open ? "border-b border-zinc-200 bg-white/90 backdrop-blur" : "bg-transparent"
       )}
     >
       <nav className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6">
         <Link href="/" className="flex items-center gap-3">
           <Image src="/media/logo.png" alt="Barber Shop Lucas" width={52} height={50} priority />
-          <span className="hidden font-display text-lg font-bold uppercase tracking-wider text-white sm:block">
-            Barber Shop <span className="text-gold-400">Lucas</span>
+          <span className="hidden font-display text-lg font-bold uppercase tracking-wider text-zinc-900 sm:block">
+            Barber Shop <span className="text-gold-600">Lucas</span>
           </span>
         </Link>
 
         <div className="hidden items-center gap-8 md:flex">
           {LINKS.map((l) => (
-            <a key={l.href} href={l.href} className="text-sm font-medium text-zinc-300 transition hover:text-gold-300">
+            <a key={l.href} href={l.href} className="text-sm font-medium text-zinc-600 transition hover:text-gold-700">
               {l.label}
             </a>
           ))}
@@ -50,7 +50,7 @@ export default function Navbar() {
           </a>
         </div>
 
-        <button className="text-white md:hidden" onClick={() => setOpen(!open)} aria-label="Menu">
+        <button className="text-zinc-900 md:hidden" onClick={() => setOpen(!open)} aria-label="Menu">
           {open ? <X size={28} /> : <Menu size={28} />}
         </button>
       </nav>
@@ -58,7 +58,7 @@ export default function Navbar() {
       {open && (
         <div className="space-y-1 px-4 pb-6 md:hidden">
           {LINKS.map((l) => (
-            <a key={l.href} href={l.href} onClick={() => setOpen(false)} className="block rounded-lg px-3 py-3 text-zinc-200 hover:bg-white/5">
+            <a key={l.href} href={l.href} onClick={() => setOpen(false)} className="block rounded-lg px-3 py-3 text-zinc-700 hover:bg-stone-100">
               {l.label}
             </a>
           ))}

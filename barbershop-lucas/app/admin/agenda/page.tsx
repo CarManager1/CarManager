@@ -53,7 +53,7 @@ export default function AgendaPage() {
 
       <Card className="mb-6 p-3">
         <div className="flex items-center gap-2">
-          <button className="rounded-lg p-2 text-zinc-400 hover:bg-white/5 hover:text-white" onClick={() => setDay(toISODate(addDays(fromISODate(day), -7)))} aria-label="Semana anterior">
+          <button className="rounded-lg p-2 text-zinc-500 hover:bg-stone-100 hover:text-zinc-900" onClick={() => setDay(toISODate(addDays(fromISODate(day), -7)))} aria-label="Semana anterior">
             <ChevronLeft />
           </button>
           <div className="grid flex-1 grid-cols-7 gap-1.5">
@@ -65,28 +65,28 @@ export default function AgendaPage() {
                   onClick={() => setDay(iso)}
                   className={cn(
                     "rounded-xl py-2 text-center transition",
-                    iso === day ? "bg-gold-gradient text-ink-950" : "hover:bg-white/5",
+                    iso === day ? "bg-gold-gradient text-ink-950" : "hover:bg-stone-100",
                     iso === today && iso !== day && "ring-1 ring-gold-400/60"
                   )}
                 >
                   <p className={cn("text-[10px] uppercase", iso === day ? "text-ink-950" : "text-zinc-500")}>
                     {d.toLocaleDateString("pt-PT", { weekday: "short" }).replace(".", "")}
                   </p>
-                  <p className={cn("font-display text-lg font-bold", iso === day ? "" : "text-white")}>{d.getDate()}</p>
-                  <p className={cn("text-[10px]", iso === day ? "text-ink-950/80" : count ? "text-gold-400" : "text-zinc-600")}>
+                  <p className={cn("font-display text-lg font-bold", iso === day ? "" : "text-zinc-900")}>{d.getDate()}</p>
+                  <p className={cn("text-[10px]", iso === day ? "text-ink-950/80" : count ? "text-gold-600" : "text-zinc-400")}>
                     {count ? `${count} marc.` : "—"}
                   </p>
                 </button>
               );
             })}
           </div>
-          <button className="rounded-lg p-2 text-zinc-400 hover:bg-white/5 hover:text-white" onClick={() => setDay(toISODate(addDays(fromISODate(day), 7)))} aria-label="Semana seguinte">
+          <button className="rounded-lg p-2 text-zinc-500 hover:bg-stone-100 hover:text-zinc-900" onClick={() => setDay(toISODate(addDays(fromISODate(day), 7)))} aria-label="Semana seguinte">
             <ChevronRight />
           </button>
         </div>
       </Card>
 
-      <div className="mb-4 flex flex-wrap gap-x-6 gap-y-1 text-sm text-zinc-400">
+      <div className="mb-4 flex flex-wrap gap-x-6 gap-y-1 text-sm text-zinc-500">
         <span>{hours ? `Aberto das ${hours.open} às ${hours.close}` : "Fechado neste dia"}</span>
         <span>{dayAppts.filter((a) => a.status !== "cancelada").length} marcações</span>
         <span>Previsto: {euro(expected)}</span>
@@ -96,7 +96,7 @@ export default function AgendaPage() {
         {dayAppts.length === 0 ? (
           <Empty>Sem marcações neste dia.</Empty>
         ) : (
-          <ul className="divide-y divide-white/5">
+          <ul className="divide-y divide-zinc-100">
             {dayAppts.map((a) => {
               const client = clientById.get(a.client_id);
               const service = getService(a.service_id);
@@ -110,16 +110,16 @@ export default function AgendaPage() {
                 <li key={a.id} className={cn("flex flex-col gap-3 p-4 sm:flex-row sm:items-center", a.status === "cancelada" && "opacity-50")}>
                   <div className="flex items-center gap-4 sm:w-40">
                     <div>
-                      <p className="font-display text-2xl font-bold text-gold-300">{a.start_time}</p>
+                      <p className="font-display text-2xl font-bold text-gold-700">{a.start_time}</p>
                       <p className="text-xs text-zinc-500">até {fromMinutes(toMinutes(a.start_time) + a.duration)}</p>
                     </div>
                   </div>
                   <div className="min-w-0 flex-1">
-                    <p className="flex items-center gap-2 font-semibold text-white">
+                    <p className="flex items-center gap-2 font-semibold text-zinc-900">
                       {client?.name ?? "Cliente removido"}
-                      {isMember && <Crown size={14} className="text-gold-400" aria-label="Assinante" />}
+                      {isMember && <Crown size={14} className="text-gold-600" aria-label="Assinante" />}
                     </p>
-                    <p className="text-sm text-zinc-400">
+                    <p className="text-sm text-zinc-500">
                       {service?.name} · {euro(service?.price ?? 0)} {client && <>· {client.phone}</>}
                     </p>
                     {a.notes && <p className="mt-1 text-xs italic text-zinc-500">“{a.notes}”</p>}
